@@ -6,7 +6,7 @@ const TrackPreview = ({ track }) => {
 
     const handleMouseEnter = () => {
         if (track.preview_url) {
-            audioRef.current.src = track.preview_url;
+            audioRef.current.src = track?.preview_url;
             audioRef.current.play();
             setIsPlaying(true);
         }
@@ -21,7 +21,7 @@ const TrackPreview = ({ track }) => {
 
     return (
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <Image priority={true} className="w-full" src={track.album.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
+            <Image priority={true} className="w-full" src={track?.album?.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
             <audio ref={audioRef}></audio>
         </div>
     );
