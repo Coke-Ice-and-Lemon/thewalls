@@ -2,7 +2,7 @@ import React from 'react'
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import TrackPreview from './TrackPreview';
 
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
@@ -35,8 +35,9 @@ const Tracks = ({ data }) => {
             <div className='flex flex-row flex-wrap h-full w-full justify-start'>
                 {tracks && tracks.map((track) => (
                     (track.album.images && (
-                        <div class="max-w-sm rounded overflow-hidden shadow-lg mb-5 mx-1" key={track?.id}>
-                            <Image priority={true} class="w-full" src={track.album.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
+                        <div className="max-w-sm rounded overflow-hidden shadow-lg mb-5 mx-1 hover:scale-105 
+                        transition duration-150 ease-out hover:ease-in" key={track?.id}>
+                            <TrackPreview key={track.id} track={track} />
                         </div>
                     ))
                 ))}
