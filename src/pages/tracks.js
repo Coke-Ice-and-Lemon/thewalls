@@ -39,7 +39,7 @@ const Tracks = ({ data }) => {
     return (
         <div className='px-5 p-10 flex flex-col items-center justify-center'>
             {/* {JSON.stringify(tracks)} */}
-            <h3 className='text-xl font-bold'>WHAT'S PLAYING</h3>
+            <h3 className='text-xl font-bold'>WHAT&#39;S PLAYING</h3>
             <ul className="flex flex-wrap text-xs sm:font-medium text-center text-gray-500 dark:text-gray-400 mb-10 justify-center mt-5">
                 <li className="mr-2">
                     <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
