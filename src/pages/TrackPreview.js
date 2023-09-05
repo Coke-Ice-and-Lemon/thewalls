@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image"
 const TrackPreview = ({ track }) => {
 
@@ -23,12 +23,16 @@ const TrackPreview = ({ track }) => {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = React.createRef();
+    const [isTouching, setIsTouching] = useState(false);
 
     const Playpreview = () => {
-        if (track.preview_url) {
-            audioRef.current.src = track?.preview_url;
-            audioRef.current.play();
-            setIsPlaying(true);
+        if (!isTouching) {
+            console.log('playing');
+            if (track.preview_url) {
+                audioRef.current.src = track.preview_url;
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
         }
     };
 
@@ -39,9 +43,35 @@ const TrackPreview = ({ track }) => {
         }
     };
 
+    const PlayTouchPreview = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // Check if audio is not already playing
+        if (!isPlaying && !isTouching) {
+            setIsTouching(true);
+
+            if (track.preview_url) {
+                audioRef.current.src = track.preview_url;
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
+        }
+    };
+    const StopTouchPreview = () => {
+        if (isTouching) {
+          setIsTouching(false);
+      
+          if (isPlaying) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+          }
+        }
+      };
+
     return (
-        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={Playpreview}
-            onTouchEnd={Stoppreview}>
+        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
+            onTouchEnd={StopTouchPreview}>
             <Image priority={true} className="w-full" src={track?.album?.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
             <audio ref={audioRef}></audio>
         </div>

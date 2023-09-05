@@ -35,9 +35,10 @@ const Tracks = ({ data }) => {
             <div className='flex flex-row flex-wrap h-full w-full justify-start'>
                 {tracks && tracks.map((track) => (
                     (track.album.images && (
-                        <div className="max-w-sm rounded overflow-hidden shadow-lg mb-5 mx-1 hover:scale-105 
-                        transition duration-150 ease-out hover:ease-in" key={track?.id}>
+                        <div className="max-w-sm rounded overflow-hidden mb-5 mx-4 hover:scale-105 
+                        transition duration-150 bg-zinc-900 ease-out hover:ease-in" key={track?.id}>
                             <TrackPreview track={track} />
+                            <div class="font-bold text-xl mb-2 mt-2 text-center">{track?.name}</div>
                         </div>
                     ))
                 ))}
