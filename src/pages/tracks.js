@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import TrackPreview from './TrackPreview';
 import Image from 'next/image';
+import Link from "next/link";
 
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
@@ -20,7 +21,7 @@ const Tracks = ({ data }) => {
             }
         })
         const data = await response.json()
-        console.log(session)
+        console.log(data)
         return data.items
     }
     async function getuserprofile() {
@@ -30,7 +31,6 @@ const Tracks = ({ data }) => {
             }
         })
         const data = await response.json()
-        console.log(data)
         return data
     }
 
@@ -86,10 +86,9 @@ const Tracks = ({ data }) => {
             <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
                 {tracks && tracks.map((track) => (
                     (track.album.images && (
-                        <div className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 
-                        transition duration-150 ease-out hover:ease-in" key={track?.id}>
-                            <TrackPreview track={track} />
-                        </div>
+                        <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+                                <TrackPreview track={track} />
+                        </Link>
                     ))
                 ))}
             </div>
