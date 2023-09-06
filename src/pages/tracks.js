@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import TrackPreview from './TrackPreview';
 import Image from 'next/image';
 import Link from "next/link";
+import Head from 'next/head'
+
 
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
@@ -55,47 +57,55 @@ const Tracks = ({ data }) => {
 
 
     return (
-        <div className='py-10 flex flex-col items-center justify-center'>
-            {/* {JSON.stringify(users)} */}
-            <ul className="flex flex-wrap text-xs sm:font-medium text-center text-gray-500 dark:text-gray-400 mb-5 justify-center mt-5">
-                <li className="mr-2">
-                    <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
-                        router.push('/tracks?time_range=short_term')
-                    }}>Last Month</div>
-                </li>
-                <li className="mr-2">
-                    <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "medium_term" && "text-white bg-blue-600"}`} onClick={() => {
-                        router.push('/tracks?time_range=medium_term')
-                    }}>Last 6 Months</div>
-                </li>
-                <li className="mr-2">
-                    <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "long_term" && "text-white bg-blue-600"}`} onClick={() => {
-                        router.push('/tracks?time_range=long_term')
-                    }}>All Time</div>
-                </li>
-            </ul>
-            {/* <h3 className='text-xl font-bold mb-2'>What&#39;s  Playing</h3> */}
-            <div className='flex flex-row items-center justify-center h-fit py-5'>
-                {users && users.images && users.images.length > 0 && (
-                    <div className='w-10 h-35 mr-3 md:w-20'>
-                        <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                    </div>
-                )}
-                <p className='text-lg font-bold md:text-2xl'>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
-            </div>
-            <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
-                {tracks && tracks.map((track) => (
-                    (track.album.images && (
-                        <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+        <>
+            <Head>
+                <title>{users ? capitalizeFirstLetter(users.display_name) : 'Gaslight'}</title>
+                <meta name="description" content="Get your most played tracks from Spotify." />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <div className='py-10 flex flex-col items-center justify-center'>
+                {/* {JSON.stringify(users)} */}
+                <ul className="flex flex-wrap text-xs sm:font-medium text-center text-gray-500 dark:text-gray-400 mb-5 justify-center mt-5">
+                    <li className="mr-2">
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
+                            router.push('/tracks?time_range=short_term')
+                        }}>Last Month</div>
+                    </li>
+                    <li className="mr-2">
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "medium_term" && "text-white bg-blue-600"}`} onClick={() => {
+                            router.push('/tracks?time_range=medium_term')
+                        }}>Last 6 Months</div>
+                    </li>
+                    <li className="mr-2">
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "long_term" && "text-white bg-blue-600"}`} onClick={() => {
+                            router.push('/tracks?time_range=long_term')
+                        }}>All Time</div>
+                    </li>
+                </ul>
+                {/* <h3 className='text-xl font-bold mb-2'>What&#39;s  Playing</h3> */}
+                <div className='flex flex-row items-center justify-center h-fit py-5'>
+                    {users && users.images && users.images.length > 0 && (
+                        <div className='w-10 h-35 mr-3 md:w-20'>
+                            <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                        </div>
+                    )}
+                    <p className='text-lg font-bold md:text-2xl'>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
+                </div>
+                <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
+                    {tracks && tracks.map((track) => (
+                        (track.album.images && (
+                            <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
                                 <TrackPreview track={track} />
-                        </Link>
-                    ))
-                ))}
+                            </Link>
+                        ))
+                    ))}
+                </div>
+                <div className="my-5 w-20 h-5 md:w-40">
+                    <Image src="/spotify_logo.png" width={200} height={10} />
+                </div>
             </div>
-            <div className="my-5 w-20 h-5 md:w-40">
-                <Image src="/spotify_logo.png" width={200} height={10} />
-            </div>
-        </div>
+        </>
     )
 }
 
