@@ -84,9 +84,17 @@ const TrackPreview = ({ track }) => {
 
     return (
         <div onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
-            onTouchEnd={StopTouchPreview} >
-            <Image priority={true} className="w-full" src={track?.album?.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
-            <audio ref={audioRef}></audio>
+            onTouchEnd={StopTouchPreview}>
+            <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} height={640} width={640} alt="Sunset in the mountains"  position="relative" zIndex="1"/>
+            {/* <audio ref={audioRef}></audio> */}
+            {/* <Image priority={true} className="w-full" src={"/vinyl.png"} height={620} width={620} style={{
+                position: "absolute",
+                top: "0.5rem",
+                left: "4.5rem",
+                width: "9rem",
+                height: "9rem",
+                zIndex: 10
+            }} /> */}
         </div>
         
     );

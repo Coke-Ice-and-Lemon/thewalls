@@ -14,7 +14,7 @@ const Tracks = ({ data }) => {
     const [timeRange, setTimeRange] = useState(time_range);
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=50`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }
@@ -55,12 +55,11 @@ const Tracks = ({ data }) => {
 
 
     return (
-        <div className='px-5 p-10 flex flex-col items-center justify-center'>
+        <div className='py-10 flex flex-col items-center justify-center'>
             {/* {JSON.stringify(users)} */}
-
             <div className="flex flex-col justify-center items-center max-w-s px-6 py-4 shadow-md rounded-xl sm:px-12 bg-[#181818] hover:bg-[#282828] dark:text-gray-100">
                 <h3 className='text-xl font-bold mb-2'>What&#39;s  {users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  Playing</h3>
-                {users && users.images && users.images.length >= 0 && (
+                {users && users.images && users.images.length > 0 && (
                     <div className='w-20 h-20'>
                         <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                     </div>
@@ -90,13 +89,12 @@ const Tracks = ({ data }) => {
                     }}>All Time</div>
                 </li>
             </ul>
-            <div className='flex flex-row flex-wrap h-full w-full justify-center'>
+            <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
                 {tracks && tracks.map((track) => (
                     (track.album.images && (
-                        <div className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[12%] 2xl-[10%]  rounded overflow-hidden mb-3 mx-2 hover:scale-105 
+                        <div className="w-[20%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden mb-0.5 mx-0.5 hover:scale-105 
                         transition duration-150 ease-out hover:ease-in" key={track?.id}>
                             <TrackPreview track={track} />
-                            {/* <div className="font-bold text-[0.5rem] mb-2 mt-2 px-2 text-center">{track?.name}</div> */}
                         </div>
                     ))
                 ))}
