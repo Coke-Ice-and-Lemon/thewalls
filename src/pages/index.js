@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full flex flex-col items-center mt-20">
-        <h1 className='mb-5 text-3xl font-bold'>Spotlight</h1>
+        <h1 className='mb-5 text-3xl font-bold'>Gaslight</h1>
         <button className="text-white px-8 py-2 rounded-full bg-green-500 font-bold text-lg" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>Login with spotify</button>
       </div>
     </>
