@@ -25,16 +25,29 @@ const TrackPreview = ({ track }) => {
     const audioRef = React.createRef();
     const [isTouching, setIsTouching] = useState(false);
 
-    const Playpreview = () => {
-        if (!isTouching) {
-            console.log('playing');
-            if (track.preview_url) {
-                audioRef.current.src = track.preview_url;
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
-        }
-    };
+    // const Playpreview = () => {
+    //     if (!isTouching) {
+    //         console.log('playing');
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //         }
+    //     }
+    // };
+
+    // const TogglePreview = () => {
+    //     if (isPlaying) {
+    //       audioRef.current.pause();
+    //       setIsPlaying(false);
+    //     } else {
+    //       if (track.preview_url) {
+    //         audioRef.current.src = track.preview_url;
+    //         audioRef.current.play();
+    //         setIsPlaying(true);
+    //       }
+    //     }
+    //   };
 
     const Stoppreview = () => {
         if (isPlaying) {
@@ -60,21 +73,22 @@ const TrackPreview = ({ track }) => {
     };
     const StopTouchPreview = () => {
         if (isTouching) {
-          setIsTouching(false);
-      
-          if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-          }
+            setIsTouching(false);
+
+            if (isPlaying) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            }
         }
-      };
+    };
 
     return (
-        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
-            onTouchEnd={StopTouchPreview}>
+        <div onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
+            onTouchEnd={StopTouchPreview} >
             <Image priority={true} className="w-full" src={track?.album?.images[0].url} height={640} width={640} alt="Sunset in the mountains" />
             <audio ref={audioRef}></audio>
         </div>
+        
     );
 };
 
