@@ -61,6 +61,10 @@ const Tracks = ({ data }) => {
 
     const backgrounds = [
         {
+            path: '/default_bg.svg',
+            theme: "dark"
+        },
+        {
             backgroundImage: `url("/bermuda-diamond.svg")`,
             path: '/bermuda-diamond.svg',
             theme: "dark"
