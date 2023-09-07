@@ -1,0 +1,12 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2558.18 1102.87">
+  <defs>
+    <linearGradient id="linear-gradient" x1="107.89" y1="-485.2" x2="1491.33" y2="1910.99" gradientTransform="translate(479.92 -158.87)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#010101"/>
+      <stop offset="0.32" stop-color="#131313"/>
+      <stop offset="0.97" stop-color="#424242"/>
+      <stop offset="1" stop-color="#444"/>
+    </linearGradient>
+  </defs>
+  <title>bg 1 - desktop view black</title>
+  <rect x="728.1" y="-725.07" width="1102.87" height="2558.18" transform="translate(725.07 1830.96) rotate(-90)" fill="url(#linear-gradient)"/>
+</svg>

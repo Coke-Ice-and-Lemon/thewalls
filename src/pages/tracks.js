@@ -12,6 +12,10 @@ const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
     const { data: session } = useSession()
+    const [selectedBackground, setSelectedBackground] = useState({
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg"
+    })
     const router = useRouter()
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
@@ -55,33 +59,72 @@ const Tracks = ({ data }) => {
         }
     }, [time_range])
 
+    const backgrounds = [
+        {
+            backgroundImage: `url("/bermuda-diamond.svg")`,
+            path: '/bermuda-diamond.svg',
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/hollowed-boxes.svg")`,
+            path: '/hollowed-boxes.svg',
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/tortoise-shell.svg")`,
+            path: "/tortoise-shell.svg",
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/ffflux.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/ffflux.svg",
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/hhholographic.webp")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/hhholographic.webp",
+            theme: "light"
+        },
+    ]
 
     return (
         <>
             <Head>
-                <title>{users ? capitalizeFirstLetter(users.display_name) : 'Gaslight'}</title>
+                <title>{users ? capitalizeFirstLetter(users.display_name) : 'Gramophone'}</title>
                 <meta name="description" content="Get your most played tracks from Spotify." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className='py-10 flex flex-col items-center justify-center'>
-                {/* {JSON.stringify(users)} */}
-                <ul className="flex flex-wrap text-xs sm:font-medium text-center text-gray-500 dark:text-gray-400 mb-5 justify-center mt-5">
+            <div style={selectedBackground} className="py-10 flex flex-col items-center justify-center w-full">
+                <ul className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
                             router.push('/tracks?time_range=short_term')
                         }}>Last Month</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "medium_term" && "text-white bg-blue-600"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-blue-600"}`} onClick={() => {
                             router.push('/tracks?time_range=medium_term')
                         }}>Last 6 Months</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${timeRange == "long_term" && "text-white bg-blue-600"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-blue-600"}`} onClick={() => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>
+                </ul>
+                <ul className="w-full px-10 m-2 flex justify-center items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
+                    {backgrounds.map((bg, index) => (
+                        <li className="mr-2 flex-shrink-0" key={index}>
+                                <Image className={`p-0.5 rounded-full bg-white cursor-pointer`}  src={bg.path} width={50} height={50} onClick={() => {
+                                setSelectedBackground(bg)
+                            }} />
+                        </li>
+                    ))}
                 </ul>
                 {/* <h3 className='text-xl font-bold mb-2'>What&#39;s  Playing</h3> */}
                 <div className='flex flex-row items-center justify-center h-fit py-5'>
@@ -90,7 +133,7 @@ const Tracks = ({ data }) => {
                             <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                         </div>
                     )}
-                    <p className='text-lg font-bold md:text-2xl'>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
+                    <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
                 </div>
                 <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
                     {tracks && tracks.map((track) => (
@@ -102,7 +145,7 @@ const Tracks = ({ data }) => {
                     ))}
                 </div>
                 <div className="my-5 w-20 h-5 md:w-40">
-                    <Image src="/spotify_logo.png" width={200} height={10} />
+                    <Image src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={200} height={10} />
                 </div>
             </div>
         </>
