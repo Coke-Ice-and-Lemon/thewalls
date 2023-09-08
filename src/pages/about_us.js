@@ -13,14 +13,14 @@ const AboutUs = () => {
           <Image width={300} height={300} src={"/harsh.png"} alt="Harsh Mathur" className="w-32 h-32 rounded-full mx-auto" />
           <h2 className="text-lg font-semibold mt-4">Harsh Mathur</h2>
           <p className="text-grey-300 text-xs italic">nocturnal developer</p>
-          <p className="text-grey-300 text-sm mt-2">find me jamming to the beatles and arctic monkeys in my room at 3 am; my alternate personality will be dancing on the bar to honey singh at your father's wedding</p>
+          <p className="text-grey-300 text-sm mt-2">find me jamming to the beatles and arctic monkeys in my room at 3 am; my alternate personality will be dancing on the bar to honey singh at your father&#39;s wedding</p>
         </div>
 
         <div className="p-4 md:w-[25%] mb-5 mx-10 rounded-lg">
           <Image width={300} height={300} src={"/pooji.jpg"} alt="Poojan Patel" className="w-32 h-32 rounded-full mx-auto" />
           <h2 className="text-lg font-semibold mt-4">Poojan Patel</h2>
           <p className="text-grey-300 text-xs italic">{`developer (rage-quit mode)`}</p>
-          <p className="text-grey-300 text-sm mt-2">In a parallel universe, I am immersed in Valorant battles with Pritam's music setting the electrifying mood. On gloomy days,I escape the world with METROOOOOOOO.</p>
+          <p className="text-grey-300 text-sm mt-2">In a parallel universe, I am immersed in Valorant battles with Pritam&#39;s music setting the electrifying mood. On gloomy days,I escape the world with METROOOOOOOO.</p>
         </div>
 
         <div className="p-4 md:w-[25%] mb-5 mx-10 rounded-lg">
