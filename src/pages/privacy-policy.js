@@ -5,7 +5,7 @@ const Privacypolicy = () => {
   return (
     <>
     <Navbar/>
-    <div className="container about text-lg text-center px-4 mt-2">
+    <div className="container about text-lg text-center px-20 mt-2">
       <h1 className="m-2 text-5xl">Privacy Policy</h1>
       {/* <div id="fuse-injected-22842688372-1" data-fuse="22842688372" data-fuse-injected-at="1694177286524" className="fuse-slot-dynamic" data-fuse-code="fuse-slot-22842688372-3" data-fuse-zone-instance="zone-instance-22842688372-3" data-fuse-slot="fuse-slot-22842688372-3" data-gpid="71161633/PL_plshowroom/video#single-3" data-fuse-processed-at="16177"><div id="fuse-slot-22842688372-1" className="fuse-slot"></div><div id="fuse-slot-22842688372-2" className="fuse-slot"></div><div id="fuse-slot-22842688372-3" className="fuse-slot"></div></div> */}
       <br/>
@@ -21,7 +21,7 @@ const Privacypolicy = () => {
       <p>
         None of the data used by Gramhophone is stored or collected anywhere, and
         it is NOT shared with any third parties. All information is used solely
-        for displaying your Receipt.
+        for displaying your Top Tracks .
       </p>
       <br/>
       <p>
@@ -29,8 +29,8 @@ const Privacypolicy = () => {
         maliciously, if you would like to revoke Gramhophone&#39;s permissions, you
         can visit
         <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427">your apps page</a>
-        and click &#39;REMOVE ACCESS&#39; on Receiptify.
-        <a href="https://support.spotify.com/us/article/spotify-on-other-apps/">Here</a>
+        and click &#39;REMOVE ACCESS&#39; on Gramhophone.
+        <a href="https://support.spotify.com/us/article/spotify-on-other-apps/"> Here </a>
         is a more detailed guide for doing so.
       </p>
     </div>

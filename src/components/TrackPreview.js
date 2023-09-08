@@ -36,19 +36,6 @@ const TrackPreview = ({ track }) => {
         }
     };
 
-    // const TogglePreview = () => {
-    //     if (isPlaying) {
-    //       audioRef.current.pause();
-    //       setIsPlaying(false);
-    //     } else {
-    //       if (track.preview_url) {
-    //         audioRef.current.src = track.preview_url;
-    //         audioRef.current.play();
-    //         setIsPlaying(true);
-    //       }
-    //     }
-    //   };
-
     const Stoppreview = () => {
         if (isPlaying) {
             audioRef.current.pause();

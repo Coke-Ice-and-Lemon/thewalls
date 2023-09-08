@@ -66,11 +66,6 @@ const Tracks = ({ data }) => {
             theme: "dark"
         },
         {
-            backgroundImage: `url("/bermuda-diamond.svg")`,
-            path: '/bermuda-diamond.svg',
-            theme: "dark"
-        },
-        {
             backgroundImage: `url("/hollowed-boxes.svg")`,
             path: '/hollowed-boxes.svg',
             theme: "dark"
@@ -94,7 +89,7 @@ const Tracks = ({ data }) => {
             path: "/hhholographic.webp",
             theme: "light"
         },
-        {   
+        {
             backgroundColor: "white",
             backgroundImage: `url("/ttten.svg")`,
             backgroundRepeat: "no-repeat",
@@ -138,29 +133,29 @@ const Tracks = ({ data }) => {
             theme: "dark"
         },
         {
-            path: '/default_bg.svg',
+            path: '/solid_bluelight.png',
             theme: "dark",
-            backgroundColor:'#83adb5'
+            backgroundColor: '#83adb5'
         },
         {
-            path: '/default_bg.svg',
+            path: '/solid_bluedark.png',
             theme: "dark",
-            backgroundColor:'#2e4045'
+            backgroundColor: '#2e4045'
         },
         {
-            path: '/default_bg.svg',
+            path: '/solid_pinklight.png',
             theme: "light",
-            backgroundColor:'#c7bbc9'
+            backgroundColor: '#c7bbc9'
         },
         {
-            path: '/default_bg.svg',
+            path: '/solid_pinkdark.png',
             theme: "dark",
-            backgroundColor:'#5e3c58'
+            backgroundColor: '#5e3c58'
         },
         {
-            path: '/default_bg.svg',
+            path: '/solid_beigedark.png',
             theme: "light",
-            backgroundColor:'#bfb5b2'
+            backgroundColor: '#bfb5b2'
         },
     ]
 
@@ -172,8 +167,7 @@ const Tracks = ({ data }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar/>
-            
+            <Navbar />
             <div style={selectedBackground} className="py-10 flex flex-col items-center justify-center w-full">
                 <ul className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
@@ -218,8 +212,9 @@ const Tracks = ({ data }) => {
                         ))
                     ))}
                 </div>
-                <div className="my-5 w-20 h-5 md:w-40">
-                    <Image src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={200} height={10} />
+                <div className="w-full flex flex-col justify-center items-center my-5">
+                    <p className={`mb-4 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`}>gaslight-web.vercel.app</p>
+                    <Image src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                 </div>
             </div>
         </>
