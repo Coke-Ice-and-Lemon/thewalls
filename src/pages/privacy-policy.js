@@ -26,10 +26,10 @@ const Privacypolicy = () => {
       <br/>
       <p>
         Although you can rest assured that your data is not being stored or used
-        maliciously, if you would like to revoke Gramhophone's permissions, you
+        maliciously, if you would like to revoke Gramhophone&#39s permissions, you
         can visit
         <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427">your apps page</a>
-        and click "REMOVE ACCESS" on Receiptify.
+        and click &#39REMOVE ACCESS&#39 on Receiptify.
         <a href="https://support.spotify.com/us/article/spotify-on-other-apps/">Here</a>
         is a more detailed guide for doing so.
       </p>
