@@ -1,12 +1,14 @@
 import { Inter } from '@next/font/google'
 import { signIn } from 'next-auth/react'
 import Head from 'next/head'
+import Navbar from '../components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
     <>
+    <Navbar/>
       <Head>
         <title>Gramophone</title>
         <meta name="description" content="Get your most played tracks from Spotify." />

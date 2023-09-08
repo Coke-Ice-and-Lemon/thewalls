@@ -1,11 +1,12 @@
 import React from 'react'
-import { useSession } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import TrackPreview from './TrackPreview';
+import TrackPreview from '../components/TrackPreview';
 import Image from 'next/image';
 import Link from "next/link";
 import Head from 'next/head'
+import Navbar from '@/components/Navbar';
 
 
 const Tracks = ({ data }) => {
@@ -93,6 +94,74 @@ const Tracks = ({ data }) => {
             path: "/hhholographic.webp",
             theme: "light"
         },
+        {   
+            backgroundColor: "white",
+            backgroundImage: `url("/ttten.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/ttten.svg",
+            theme: "light"
+        },
+        {
+            backgroundImage: `url("/sun-tornado.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/sun-tornado.svg",
+            theme: "light"
+        },
+        {
+            backgroundImage: `url("/grain.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/grain.svg",
+            theme: "light"
+        },
+        {
+            backgroundImage: `url("/rainbow-vortex.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/rainbow-vortex.svg",
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/endless-constellation.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/endless-constellation.svg",
+            theme: "dark"
+        },
+        {
+            backgroundImage: `url("/sun-tornado_2.svg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            path: "/sun-tornado_2.svg",
+            theme: "dark"
+        },
+        {
+            path: '/default_bg.svg',
+            theme: "dark",
+            backgroundColor:'#83adb5'
+        },
+        {
+            path: '/default_bg.svg',
+            theme: "dark",
+            backgroundColor:'#2e4045'
+        },
+        {
+            path: '/default_bg.svg',
+            theme: "light",
+            backgroundColor:'#c7bbc9'
+        },
+        {
+            path: '/default_bg.svg',
+            theme: "dark",
+            backgroundColor:'#5e3c58'
+        },
+        {
+            path: '/default_bg.svg',
+            theme: "light",
+            backgroundColor:'#bfb5b2'
+        },
     ]
 
     return (
@@ -103,34 +172,35 @@ const Tracks = ({ data }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <Navbar/>
+            
             <div style={selectedBackground} className="py-10 flex flex-col items-center justify-center w-full">
                 <ul className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-blue-600"}`} aria-current="page" onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-[#181818]"}`} aria-current="page" onClick={() => {
                             router.push('/tracks?time_range=short_term')
                         }}>Last Month</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-blue-600"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-[#181818]"}`} onClick={() => {
                             router.push('/tracks?time_range=medium_term')
                         }}>Last 6 Months</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-blue-600"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-[#181818]"}`} onClick={() => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>
                 </ul>
-                <ul className="w-full px-10 m-2 flex justify-center items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
+                <ul className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
                     {backgrounds.map((bg, index) => (
                         <li className="mr-2 flex-shrink-0" key={index}>
-                                <Image className={`p-0.5 rounded-full bg-white cursor-pointer`}  src={bg.path} width={50} height={50} onClick={() => {
+                            <Image className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => {
                                 setSelectedBackground(bg)
                             }} />
                         </li>
                     ))}
                 </ul>
-                {/* <h3 className='text-xl font-bold mb-2'>What&#39;s  Playing</h3> */}
                 <div className='flex flex-row items-center justify-center h-fit py-5'>
                     {users && users.images && users.images.length > 0 && (
                         <div className='w-10 h-35 mr-3 md:w-20'>

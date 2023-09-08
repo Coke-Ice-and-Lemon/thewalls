@@ -11,7 +11,7 @@ export async function middleware(req) {
         return NextResponse.next()
     }
 
-    if (!token && pathname != "/") {
+    if (!token && (pathname !== "/" && pathname !== "/about_us" && pathname !== '/privacy-policy')) {
         return NextResponse.redirect(new URL('/', req.url))
     }
 

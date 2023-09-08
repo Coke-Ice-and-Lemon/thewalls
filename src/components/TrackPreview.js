@@ -25,16 +25,16 @@ const TrackPreview = ({ track }) => {
     const audioRef = React.createRef();
     const [isTouching, setIsTouching] = useState(false);
 
-    // const Playpreview = () => {
-    //     if (!isTouching) {
-    //         console.log('playing');
-    //         if (track.preview_url) {
-    //             audioRef.current.src = track.preview_url;
-    //             audioRef.current.play();
-    //             setIsPlaying(true);
-    //         }
-    //     }
-    // };
+    const Playpreview = () => {
+        if (!isTouching) {
+            console.log('playing');
+            if (track.preview_url) {
+                audioRef.current.src = track.preview_url;
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
+        }
+    };
 
     // const TogglePreview = () => {
     //     if (isPlaying) {
@@ -83,10 +83,10 @@ const TrackPreview = ({ track }) => {
     };
 
     return (
-        <div onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
-            onTouchEnd={StopTouchPreview}>
-            <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} height={640} width={640} alt="Sunset in the mountains"  position="relative" zIndex="1"/>
-            {/* <audio ref={audioRef}></audio> */}
+        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
+            onTouchEnd={StopTouchPreview} >
+            <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} height={640} width={640} alt="Sunset in the mountains" position="relative" zIndex="1" />
+            <audio ref={audioRef}></audio>
             {/* <Image priority={true} className="w-full" src={"/vinyl.png"} height={620} width={620} style={{
                 position: "absolute",
                 top: "0.5rem",
@@ -96,7 +96,7 @@ const TrackPreview = ({ track }) => {
                 zIndex: 10
             }} /> */}
         </div>
-        
+
     );
 };
 

@@ -1,10 +1,14 @@
-import { useSession } from "next-auth/react"
+import Navbar from "@/components/Navbar";
+import { useSession,signOut } from "next-auth/react"
 import Link from "next/link";
 const Explore = () => {
     const { data: session } = useSession()
 
     return (
+    <>
+    <Navbar/>
         <div className="w-full flex flex-col justify-center items-center mt-20">
+            
             <h1 className='mb-5 text-3xl font-bold'>Gramophone</h1>
             <h2 className=" md:text-xl lg:text-2xl font-bold">Select the time period</h2>
             <div className="flex flex-col md:flex-row w-11/12 justify-center items-center mt-5">
@@ -22,6 +26,7 @@ const Explore = () => {
                 </button></Link>
             </div>
         </div>
+        </>
     )
 }
 export default Explore
