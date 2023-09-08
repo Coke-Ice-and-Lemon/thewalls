@@ -7,8 +7,6 @@ import Image from 'next/image';
 import Link from "next/link";
 import Head from 'next/head'
 import Navbar from '@/components/Navbar';
-import html2canvas from "html2canvas";
-import { saveAs } from "file-saver";
 
 
 const Tracks = ({ data }) => {
@@ -62,16 +60,6 @@ const Tracks = ({ data }) => {
         }
     }, [time_range])
 
-    const handleDownload = () => {
-        const container = document.getElementById("my-container");
-
-        html2canvas(container, {
-            scale: 15, // Set scale to 25x for full HD resolution (1920x1080)
-        }).then(canvas => {
-            canvas.toBlob(blob => saveAs(blob, "download.png"));
-        });
-    };
-
     const backgrounds = [
         {
             path: '/default_bg.svg',
@@ -106,7 +94,7 @@ const Tracks = ({ data }) => {
             path: "/hhholographic.webp",
             theme: "light"
         },
-        {
+        {   
             backgroundColor: "white",
             backgroundImage: `url("/ttten.svg")`,
             backgroundRepeat: "no-repeat",
@@ -152,27 +140,27 @@ const Tracks = ({ data }) => {
         {
             path: '/default_bg.svg',
             theme: "dark",
-            backgroundColor: '#83adb5'
+            backgroundColor:'#83adb5'
         },
         {
             path: '/default_bg.svg',
             theme: "dark",
-            backgroundColor: '#2e4045'
+            backgroundColor:'#2e4045'
         },
         {
             path: '/default_bg.svg',
             theme: "light",
-            backgroundColor: '#c7bbc9'
+            backgroundColor:'#c7bbc9'
         },
         {
             path: '/default_bg.svg',
             theme: "dark",
-            backgroundColor: '#5e3c58'
+            backgroundColor:'#5e3c58'
         },
         {
             path: '/default_bg.svg',
             theme: "light",
-            backgroundColor: '#bfb5b2'
+            backgroundColor:'#bfb5b2'
         },
     ]
 
@@ -184,8 +172,8 @@ const Tracks = ({ data }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar />
-
+            <Navbar/>
+            
             <div style={selectedBackground} className="py-10 flex flex-col items-center justify-center w-full">
                 <ul className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
@@ -213,34 +201,26 @@ const Tracks = ({ data }) => {
                         </li>
                     ))}
                 </ul>
-                <div id='my-container' style={selectedBackground}>
-                    <div className='flex flex-row items-center justify-center h-fit py-5'>
-                        {users && users.images && users.images.length > 0 && (
-                            <div className='w-10 h-35 mr-3 md:w-20'>
-                                <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                            </div>
-                        )}
-                        <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
-                    </div>
-                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
-                        {tracks && tracks.map((track) => (
-                            (track.album.images && (
-                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
-                                    <TrackPreview track={track} />
-                                </Link>
-                            ))
-                        ))}
-                    </div>
+                <div className='flex flex-row items-center justify-center h-fit py-5'>
+                    {users && users.images && users.images.length > 0 && (
+                        <div className='w-10 h-35 mr-3 md:w-20'>
+                            <Image priority={true} height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                        </div>
+                    )}
+                    <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? capitalizeFirstLetter(users.display_name) : 'Loading...'}  </p>
                 </div>
-                <div className="flex justify-center items-center w-full my-5  h-5">
-                    <Image src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
+                <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
+                    {tracks && tracks.map((track) => (
+                        (track.album.images && (
+                            <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+                                <TrackPreview track={track} />
+                            </Link>
+                        ))
+                    ))}
                 </div>
-                <button onClick={() => handleDownload()}
-                    type="button"
-                    class="px-4 py-3 bg-blue-600 rounded-md text-white outline-none focus:ring-4 shadow-lg"
-                >
-                    <span cl>Download</span>
-                </button>
+                <div className="my-5 w-20 h-5 md:w-40">
+                    <Image src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={200} height={10} />
+                </div>
             </div>
         </>
     )

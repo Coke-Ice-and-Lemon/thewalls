@@ -26,14 +26,14 @@ const TrackPreview = ({ track }) => {
     const [isTouching, setIsTouching] = useState(false);
 
     const Playpreview = () => {
-        // if (!isTouching) {
-        //     console.log('playing');
-        //     if (track.preview_url) {
-        //         audioRef.current.src = track.preview_url;
-        //         audioRef.current.play();
-        //         setIsPlaying(true);
-        //     }
-        // }
+        if (!isTouching) {
+            console.log('playing');
+            if (track.preview_url) {
+                audioRef.current.src = track.preview_url;
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
+        }
     };
 
     // const TogglePreview = () => {
