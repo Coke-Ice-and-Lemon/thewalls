@@ -27,7 +27,7 @@ const AboutUs = () => {
           <Image width={200} height={200} src="https://avatars.githubusercontent.com/u/58567211" alt="Satish Panchal" className="w-32 h-32 rounded-full mx-auto" />
           <h2 className="text-lg font-semibold mt-4">Satish Panchal</h2>
           <p className="text-grey-300 text-xs italic">nocturnal developer</p>
-          <p className="text-grey-300 text-sm mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum repellendus dolorem dolore excepturi voluptatibus, porro nisi ad molestiae nihil iusto.</p>
+          <p className="text-grey-300 text-sm mt-2">In an alternate universe, you and me by the beach, the sun gently descending, you capturing the moment, and me, you. With Taylor Swift's songs playing in the background, talking about random stuff just like "two headlights shine through the sleepless night.</p>
         </div>
 
         <div className="p-4 md:w-[25%] mb-5 mx-10 rounded-lg">
