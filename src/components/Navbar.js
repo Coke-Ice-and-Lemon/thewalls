@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { useState } from "react";
-// import Search from "./SearchBar";
 import { useSession, signOut } from "next-auth/react"
 
 
@@ -71,7 +70,7 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <Link
                                         className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                                        onClick={() => {
+                                        href='/' onClick={() => {
                                             signOut()
                                             setNavbarOpen(false)
                                         }
