@@ -37,7 +37,7 @@ const Navbar = () => {
                         <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                             <li className="nav-item">
                                 <Link
-                                    className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                    className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                     href="/about_us" onClick={() => setNavbarOpen(false)}
                                 >
                                     <span className="ml-2">About Us</span>
@@ -45,7 +45,7 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <Link
-                                    className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                    className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                     href="/privacy-policy" onClick={() => setNavbarOpen(false)}
                                 >
                                     <span className="ml-2">Privacy Policy</span>
@@ -54,7 +54,7 @@ const Navbar = () => {
                             {session ? (<>
                                 <li className="nav-item">
                                     <Link
-                                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                         href="/explore" onClick={() => setNavbarOpen(false)}
                                     >
                                         <span className="ml-2">Explore</span>
@@ -62,7 +62,7 @@ const Navbar = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                        className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                         href='/' onClick={() => {
                                             signOut()
                                             setNavbarOpen(false)
@@ -75,7 +75,7 @@ const Navbar = () => {
                             </>
                             ) : (<li className="nav-item">
                                 <Link
-                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                     href="/" onClick={() => setNavbarOpen(false)}
                                 >
                                     <span className="ml-2">Login</span>

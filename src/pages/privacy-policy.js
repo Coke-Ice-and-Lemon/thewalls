@@ -6,10 +6,8 @@ const Privacypolicy = () => {
     <>
       <Navbar />
       <div className="text-lg text-center px-28 mt-28">
-        <h1 className="m-2 text-5xl">Privacy Policy</h1>
-        {/* <div id="fuse-injected-22842688372-1" data-fuse="22842688372" data-fuse-injected-at="1694177286524" className="fuse-slot-dynamic" data-fuse-code="fuse-slot-22842688372-3" data-fuse-zone-instance="zone-instance-22842688372-3" data-fuse-slot="fuse-slot-22842688372-3" data-gpid="71161633/PL_plshowroom/video#single-3" data-fuse-processed-at="16177"><div id="fuse-slot-22842688372-1" className="fuse-slot"></div><div id="fuse-slot-22842688372-2" className="fuse-slot"></div><div id="fuse-slot-22842688372-3" className="fuse-slot"></div></div> */}
+        <h2 className="text-2xl font-bold">Privacy Policy</h2>
         <br />
-        <div data-fuse-privacy-tool=""></div>
         <br />
         <p>
           Spotify was developed as an open source app powered by the

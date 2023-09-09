@@ -75,14 +75,6 @@ const TrackPreview = ({ track }) => {
             <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio ref={audioRef}></audio>
-            {/* <Image priority={true} className="w-full" src={"/vinyl.png"} height={620} width={620} style={{
-                position: "absolute",
-                top: "0.5rem",
-                left: "4.5rem",
-                width: "9rem",
-                height: "9rem",
-                zIndex: 10
-            }} /> */}
         </div>
 
     );

@@ -58,18 +58,26 @@ const Tracks = ({ data }) => {
         }
     }, [time_range])
 
-    const handleDownload = () => {
+    function debounce(func, timeout = 300) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
 
+    const handleDownload = () => {
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
             scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
         }).then(canvas => {
-            canvas.toBlob(blob => saveAs(blob, "Gramophone_123.png"));
+            const id = Date.now()
+            canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
         });
     };
     const buttonStyle = {
-        width: '3rem', 
+        width: '3rem',
         height: '3rem',
         backgroundColor: '#181818',
         borderRadius: '50%',
@@ -79,7 +87,7 @@ const Tracks = ({ data }) => {
         border: '2px solid white',
         transform: 'translate(0, 0)',
         animation: 'float 2s ease-in-out infinite',
-      };
+    };
     const backgrounds = [
         {
             path: '/default_bg.svg',
@@ -185,7 +193,8 @@ const Tracks = ({ data }) => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             path: "/oooscillate.svg",
-            theme: "dark"
+            theme: "dark",
+            backgroundColor: '#121212'
         },
         {
             path: '/solid_bluelight.png',
@@ -267,9 +276,9 @@ const Tracks = ({ data }) => {
                                     height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                             </div>
                         )}
-                        <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (users.display_name) : 'Loading...'}  </p>
+                        <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}  </p>
                     </div>
-                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-10'>
+                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                         {tracks && tracks.map((track) => (
                             (track.album.images && (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
@@ -278,30 +287,32 @@ const Tracks = ({ data }) => {
                             ))
                         ))}
                     </div>
-                    <div className="w-full flex flex-col justify-center items-center my-5" >
-                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`}>gaslight-web.vercel.app</p>
+                    <div className="w-full flex flex-col justify-center items-center my-4" >
+                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >gaslight-web.vercel.app</p>
                         <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
                             <Image layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                         </div>
                     </div>
                 </div>
                 <div style={{ position: 'fixed', bottom: '2rem', right: '2rem' }}>
-                <button
-                    onClick={() => handleDownload()}
-                    type="button"
-                    style={buttonStyle}
-                    className="flex items-center justify-center"
-                    data-html2canvas-ignore="true"
-                >
-                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                    </svg>
-                </button>
+                    <button
+                        onClick={() => {
+                            debounce(handleDownload(), 3000)
+                        }}
+                        type="button"
+                        style={buttonStyle}
+                        className="flex items-center justify-center"
+                        data-html2canvas-ignore="true"
+                    >
+                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </>

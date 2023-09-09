@@ -1,7 +1,8 @@
 import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import Head from 'next/head'
-
+import { Space_Grotesk } from 'next/font/google'
+const space = Space_Grotesk({ subsets: ['latin'] })
 
 export default function App({
   Component,
@@ -15,7 +16,9 @@ export default function App({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
+      <main className={space.className}>
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   )
 }
