@@ -269,7 +269,7 @@ const Tracks = ({ data }) => {
                         )}
                         <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (users.display_name) : 'Loading...'}  </p>
                     </div>
-                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible'>
+                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-10'>
                         {tracks && tracks.map((track) => (
                             (track.album.images && (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
