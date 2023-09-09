@@ -34,7 +34,7 @@ const AboutUs = () => {
             <Image scale="1.1" width={200} height={200} src="/roshni.jpg" alt="Roshni" className="w-32 h-32 rounded-full mx-auto" />
             <h2 className="text-lg font-semibold mt-4">Roshni - Designer</h2>
             <p className="text-grey-300 text-xs italic">gareeb designer</p>
-            <p className="text-grey-300 text-sm mt-2">Hola! I'm a passionate logo and brand identity designer with a love for art and music.</p>
+            <p className="text-grey-300 text-sm mt-2">Hola! I&#39;m a passionate logo and brand identity designer with a love for art and music.</p>
             <p className="text-grey-300 text-sm">
               Beyond design, my life is punctuated by the electrifying and soulful energy of rock music
               which often serve as a wellspring of inspiration for my creative work.</p>
