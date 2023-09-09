@@ -65,12 +65,12 @@ const Tracks = ({ data }) => {
             imageTimeout: 50000,
             scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
         }).then(canvas => {
-            canvas.toBlob(blob => saveAs(blob, "download.png"));
+            canvas.toBlob(blob => saveAs(blob, "Gramophone_123.png"));
         });
     };
     const buttonStyle = {
-        width: '4rem', 
-        height: '4rem',
+        width: '3rem', 
+        height: '3rem',
         backgroundColor: '#181818',
         borderRadius: '50%',
         color: 'white',
@@ -212,6 +212,13 @@ const Tracks = ({ data }) => {
             theme: "light",
             backgroundColor: '#bfb5b2'
         },
+        {
+            backgroundImage: `url("/ocean.jpg")`,
+            path: '/ocean.jpg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
     ]
 
     return (
@@ -223,20 +230,20 @@ const Tracks = ({ data }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <div style={selectedBackground} id='my-container' className="py-5 flex flex-col items-center justify-center w-full">
+            <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-[#181818]"}`} aria-current="page" onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-[#181818]"}`} aria-current="page" onClick={() => {
                             router.push('/tracks?time_range=short_term')
                         }}>Last Month</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-[#181818]"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-[#181818]"}`} onClick={() => {
                             router.push('/tracks?time_range=medium_term')
                         }}>Last 6 Months</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-[#181818]"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-[#181818]"}`} onClick={() => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>
