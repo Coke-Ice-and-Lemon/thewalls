@@ -9,8 +9,8 @@ const Navbar = () => {
     const { data: session } = useSession()
 
     return (
-        <div>
-            <nav className="relative flex max-w-full w-full flex-wrap items-center justify-between px-2 py-3">
+        <div className="">
+            <nav className="backdrop-filter backdrop-blur-lg bg-opacity-30 flex max-w-full w-full flex-wrap items-center justify-between px-2 py-3 absolute top-0 z-10">
                 <div className="container max-w-full px-4 flex flex-wrap items-center justify-between">
                     <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                         <Link
@@ -35,13 +35,6 @@ const Navbar = () => {
                         id="example-navbar-danger"
                     >
                         <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-                            {/* <a className={`max-md:h-10 max-md:w-24 relative inline-flex items-center mx-4 justify-center p-4 px-6 py-3 overflow-hidden font-medium transition duration-300 ease-out   rounded-full shadow-md group`}>
-                                <span className="absolute inset-0 flex items-center justify-center text-black duration-300 -translate-x-full bg-green-500 group-hover:translate-x-0 ease">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </span>
-                                <span className={`absolute flex items-center justify-center max-md:text-xs h-full w-full transition-all duration-300 transform group-hover:translate-x-full ease`}>About Us</span>
-                                <span className="relative invisible">Button Text</span>
-                            </a> */}
                             <li className="nav-item">
                                 <Link
                                     className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"

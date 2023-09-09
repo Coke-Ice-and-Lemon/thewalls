@@ -6,7 +6,7 @@ const AboutUs = () => {
   return (
     <>
     <Navbar/>
-    <div className="container mx-auto px-4 flex flex-col justify-center items-center mt-10 w-full">
+    <div className="container mx-auto px-4 flex flex-col justify-center items-center mt-28 w-full">
       <h2 className='text-2xl font-bold'>About Us</h2>
       <div className="flex flex-col flex-wrap md:flex-row w-11/12 justify-between mt-10 ">
         <div className="p-4 md:w-[25%] mb-5 mx-10 rounded-lg">

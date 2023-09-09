@@ -214,7 +214,7 @@ const Tracks = ({ data }) => {
         },
         {
             backgroundImage: `url("/ocean.jpg")`,
-            path: '/ocean.jpg',
+            path: '/ocean_preview.jpg',
             theme: "dark",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -233,17 +233,17 @@ const Tracks = ({ data }) => {
             <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && "text-white bg-[#181818]"}`} aria-current="page" onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
                             router.push('/tracks?time_range=short_term')
                         }}>Last Month</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && "text-white bg-[#181818]"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && " border-[1px] border-white-400"}`} onClick={() => {
                             router.push('/tracks?time_range=medium_term')
                         }}>Last 6 Months</div>
                     </li>
                     <li className="mr-2">
-                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && "text-white bg-[#181818]"}`} onClick={() => {
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && " border-[1px] border-white-400"}`} onClick={() => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>

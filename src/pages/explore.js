@@ -7,8 +7,7 @@ const Explore = () => {
     return (
     <>
     <Navbar/>
-        <div className="w-full flex flex-col justify-center items-center mt-20">
-            
+        <div className="w-full flex flex-col justify-center items-center mt-28">
             <h1 className='mb-5 text-3xl font-bold'>Gramophone</h1>
             <h2 className=" md:text-xl lg:text-2xl font-bold">Select the time period</h2>
             <div className="flex flex-col md:flex-row w-11/12 justify-center items-center mt-5">
