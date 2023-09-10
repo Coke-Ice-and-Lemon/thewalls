@@ -48,6 +48,11 @@ const Tracks = ({ data }) => {
                 setTracks(await getTopTracks(timeRange))
                 setUsers(await getuserprofile())
             }
+            else{
+                if(router.isReady){
+                    router.redirect('/')
+                }
+            }
         }
         f();
     }, [session, timeRange])
