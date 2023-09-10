@@ -26,14 +26,25 @@ const Tracks = ({ data }) => {
     const [timeRange, setTimeRange] = useState(time_range);
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=15`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=25`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }
         })
         const data = await response.json()
-        console.log(data)
-        return data.items
+        let finalTracksArray = [];
+        if (data.items) {
+            finalTracksArray = data.items.filter((item) => {
+                if (item?.album && item?.album?.images && item?.album?.images[0]) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            })
+        }
+        // console.log("user tracks data", finalTracksArray.slice(0,15))
+        return finalTracksArray.slice(0, 15)
     }
     async function getuserprofile() {
         const response = await fetch('https://api.spotify.com/v1/me', {
@@ -53,7 +64,7 @@ const Tracks = ({ data }) => {
             }
             else {
                 if (router.isReady) {
-                    router.redirect('/')
+                    router.push('/')
                 }
             }
         }
@@ -82,11 +93,24 @@ const Tracks = ({ data }) => {
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
-                console.log(blob)
+                const filesArray = [
+                    new File(
+                        [blob],
+                        `gramophone_${id}.jpg`,
+                        {
+                            type: "image/jpeg",
+                            lastModified: new Date().getTime()
+                        }
+                    )
+                ];
+                const shareData = {
+                    files: filesArray,
+                };
+                navigator.share(shareData);
                 if (navigator.share) {
                     try {
                         await navigator
-                            .share(blob)
+                            .share(shareData)
                             .then(() =>
                                 console.log("Hooray! Your content was shared to tha world")
                             );
@@ -98,7 +122,6 @@ const Tracks = ({ data }) => {
                         "Web share is currently not supported on this browser. Please provide a callback"
                     );
                 }
-                console.log('Blob size:', blob.size);
             });
         });
     };
@@ -258,8 +281,127 @@ const Tracks = ({ data }) => {
             backgroundColor: '#bfb5b2'
         },
         {
-            backgroundImage: `url("/ocean.jpg")`,
-            path: '/ocean_preview.jpg',
+            backgroundImage: `url("/big wavy blue orange.svg")`,
+            path: '/big wavy blue orange.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/big wavy orange purple4.svg")`,
+            path: '/big wavy orange purple4.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/big wavy peak zoomed.svg")`,
+            path: '/big wavy peak zoomed.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/black_vector.svg")`,
+            path: '/black_vector.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("blue_green_bgblack.svg")`,
+            path: '/blue_green_bgblack.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/blue_green_peak.svg")`,
+            path: '/blue_green_peak.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/blue_vector.svg")`,
+            path: '/blue_vector.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/high blue green.svg")`,
+            path: '/high blue green.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/pink stacked wavey.svg")`,
+            path: '/pink stacked wavey.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/polygon_golden.svg")`,
+            path: '/polygon_golden.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/polygon_purple.svg")`,
+            path: '/polygon_purple.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/wavy green mountains.svg")`,
+            path: '/wavy green mountains.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/stacked-waves-haikei.svg")`,
+            path: '/stacked-waves-haikei.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/ccchaos.svg")`,
+            path: '/ccchaos.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/ccchaos (1).svg")`,
+            path: '/ccchaos (1).svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/ffflurry.svg")`,
+            path: '/ffflurry.svg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/dddepth-240.jpg")`,
+            path: '/dddepth-240.jpg',
+            theme: "dark",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+        },
+        {
+            backgroundImage: `url("/dddepth-241.jpg")`,
+            path: '/dddepth-241.jpg',
             theme: "dark",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -304,15 +446,26 @@ const Tracks = ({ data }) => {
                         ))}
                     </ul>
                 </div>
-                <div >
-                    <div className='flex flex-row items-center justify-center h-fit py-5'>
-                        {users && users.images && users.images.length > 0 && (
-                            <div className='w-10 h-35 mr-3 md:w-20'>
-                                <Image priority={true} layout="responsive"
-                                    height={300} width={300} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                <div>
+                    <div className="w-full flex flex-row justify-center items-center">
+                        <div style={{
+                            width: "fit-content",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            height: "fit-content",
+                        }} className='py-5'>
+                            {users && users.images && users.images.length > 0 && (
+                                <div className='w-10 h-35 mr-3 md:w-20'>
+                                    <Image priority={true} layout="responsive"
+                                        height={200} width={200} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                </div>
+                            )}
+                            <div className='flex flex-col justify-center items-center'>
+                                <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
                             </div>
-                        )}
-                        <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}  </p>
+                        </div>
                     </div>
                     <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                         {tracks && tracks.map((track) => (
