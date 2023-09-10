@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Navbar />
       <Head>
-        <title>GRAMOPHINE</title>
+        <title>GRAMOPHONE</title>
         <meta name="description" content="Get your most played tracks from Spotify." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
