@@ -82,7 +82,7 @@ const Tracks = ({ data }) => {
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
-                // setshareData(blob)
+                console.log(blob)
                 if (navigator.share) {
                     try {
                         await navigator
@@ -94,12 +94,11 @@ const Tracks = ({ data }) => {
                         console.log(`Oops! I couldn't share to the world because: ${error}`);
                     }
                 } else {
-                    // fallback code
-                    setShowModal(true);
                     console.log(
                         "Web share is currently not supported on this browser. Please provide a callback"
                     );
                 }
+                console.log('Blob size:', blob.size);
             });
         });
     };
