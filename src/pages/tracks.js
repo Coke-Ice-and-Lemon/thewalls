@@ -9,10 +9,13 @@ import Head from 'next/head'
 import Navbar from '@/components/Navbar';
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
+// import Share from "./Share";
 
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
+    // const [showModal, setShowModal] = useState(false);
+    // const [shareData, setshareData] = useState(false);
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
         backgroundImage: `url("/tortoise-shell.svg")`,
@@ -48,8 +51,8 @@ const Tracks = ({ data }) => {
                 setTracks(await getTopTracks(timeRange))
                 setUsers(await getuserprofile())
             }
-            else{
-                if(router.isReady){
+            else {
+                if (router.isReady) {
                     router.redirect('/')
                 }
             }
@@ -71,6 +74,35 @@ const Tracks = ({ data }) => {
         };
     }
 
+    const handleShare = () => {
+        const container = document.getElementById("my-container");
+        html2canvas(container, {
+            imageTimeout: 50000,
+            scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
+        }).then(canvas => {
+            const id = Date.now()
+            canvas.toBlob(async (blob) => {
+                // setshareData(blob)
+                if (navigator.share) {
+                    try {
+                        await navigator
+                            .share(blob)
+                            .then(() =>
+                                console.log("Hooray! Your content was shared to tha world")
+                            );
+                    } catch (error) {
+                        console.log(`Oops! I couldn't share to the world because: ${error}`);
+                    }
+                } else {
+                    // fallback code
+                    setShowModal(true);
+                    console.log(
+                        "Web share is currently not supported on this browser. Please provide a callback"
+                    );
+                }
+            });
+        });
+    };
     const handleDownload = () => {
         const container = document.getElementById("my-container");
         html2canvas(container, {
@@ -299,6 +331,19 @@ const Tracks = ({ data }) => {
                         </div>
                     </div>
                 </div>
+                <button
+                    onClick={() => {
+                        debounce(handleShare(), 3000)
+                    }}
+                    type="button"
+                    style={buttonStyle}
+                    className="flex items-center justify-center"
+                    data-html2canvas-ignore="true"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+                        <g transform="translate(33.28,33.28) scale(0.74,0.74)"><g fill="#ffffff" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" style={{ mixBlendMode: 'normal' }}><g transform="scale(5.33333,5.33333)"><path d="M36,5c-3.84823,0 -7,3.15178 -7,7c0,0.58577 0.19854,1.10946 0.33594,1.6543l-11.99023,5.99805c-1.28658,-1.57841 -3.1642,-2.65234 -5.3457,-2.65234c-3.84823,0 -7,3.15178 -7,7c0,3.84822 3.15177,7 7,7c2.1815,0 4.05912,-1.07394 5.3457,-2.65234l11.99023,5.99805c-0.13739,0.54483 -0.33594,1.06853 -0.33594,1.6543c0,3.84822 3.15177,7 7,7c3.84823,0 7,-3.15178 7,-7c0,-3.84822 -3.15177,-7 -7,-7c-2.1815,0 -4.05912,1.07394 -5.3457,2.65234l-11.99023,-5.99805c0.13739,-0.54483 0.33594,-1.06853 0.33594,-1.6543c0,-0.58577 -0.19854,-1.10946 -0.33594,-1.6543l11.99023,-5.99805c1.28658,1.57841 3.1642,2.65234 5.3457,2.65234c3.84823,0 7,-3.15178 7,-7c0,-3.84822 -3.15177,-7 -7,-7zM36,8c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4zM12,20c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4zM36,32c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4z"></path></g></g></g>
+                    </svg>
+                </button>
                 <div style={{ position: 'fixed', bottom: '2rem', right: '2rem' }}>
                     <button
                         onClick={() => {
