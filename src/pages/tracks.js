@@ -11,6 +11,267 @@ import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 // import Share from "./Share";
 
+const backgrounds = [
+    {
+        path: '/default_bg.svg',
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/hollowed-boxes.svg")`,
+        path: '/hollowed-boxes.svg',
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/ffflux.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/ffflux.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/hhholographic.webp")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/hhholographic.webp",
+        theme: "light"
+    },
+    {
+        backgroundImage: `url("/pppsychedelic.webp")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/pppsychedelic.webp",
+        theme: "dark"
+    },
+    {
+        backgroundColor: "black",
+        backgroundImage: `url("/ttten.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/ttten.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/sun-tornado.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/sun-tornado.svg",
+        theme: "light"
+    },
+    {
+        backgroundImage: `url("/grain.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/grain.svg",
+        theme: "light"
+    },
+    {
+        backgroundImage: `url("/rainbow-vortex.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/rainbow-vortex.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/endless-constellation.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/endless-constellation.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/sun-tornado_2.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/sun-tornado_2.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/ssscales.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/ssscales.svg",
+        theme: "light"
+    },
+    {
+        backgroundImage: `url("/llleaves.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/llleaves.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/sssquiggly.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/sssquiggly.svg",
+        theme: "dark"
+    },
+    {
+        backgroundImage: `url("/oooscillate.svg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/oooscillate.svg",
+        theme: "dark",
+        backgroundColor: '#121212'
+    },
+    {
+        path: '/solid_bluelight.png',
+        theme: "dark",
+        backgroundColor: '#83adb5'
+    },
+    {
+        path: '/solid_bluedark.png',
+        theme: "dark",
+        backgroundColor: '#2e4045'
+    },
+    {
+        path: '/solid_pinklight.png',
+        theme: "light",
+        backgroundColor: '#c7bbc9'
+    },
+    {
+        path: '/solid_pinkdark.png',
+        theme: "dark",
+        backgroundColor: '#5e3c58'
+    },
+    {
+        path: '/solid_beigedark.png',
+        theme: "light",
+        backgroundColor: '#bfb5b2'
+    },
+    {
+        backgroundImage: `url("/big wavy blue orange.svg")`,
+        path: '/orange_wavy_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/big wavy orange purple4.svg")`,
+        path: '/orange_wavy_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/big wavy peak zoomed.svg")`,
+        path: '/orange_wavy_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/black_vector.svg")`,
+        path: '/black_vector.svg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("blue_green_bgblack.svg")`,
+        path: '/green_blue_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/blue_green_peak.svg")`,
+        path: '/green_blue_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/blue_vector.svg")`,
+        path: '/blue_vector_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/high blue green.svg")`,
+        path: '/green_blue_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/pink stacked wavey.svg")`,
+        path: '/pink_wavey_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/polygon_golden.svg")`,
+        path: '/golden_polygon_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/polygon_purple.svg")`,
+        path: '/polygon_purple_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/wavy green mountains.svg")`,
+        path: '/green_blue_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/stacked-waves-haikei.svg")`,
+        path: '/stacked-waves-haikei_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/ccchaos.svg")`,
+        path: '/ccchaos_green_orange_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/ccchaos (1).svg")`,
+        path: '/ccchaos_blue_red_preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/ffflurry.svg")`,
+        path: '/ffflurry.svg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/dddepth-240.jpg")`,
+        path: '/dddepth-240.jpg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/dddepth-241.jpg")`,
+        path: '/dddepth-241.jpg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+]
+
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
@@ -24,6 +285,23 @@ const Tracks = ({ data }) => {
     const router = useRouter()
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
+
+    const Gradients = () => {
+        return (
+            <div className='w-full flex justify-center'>
+                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
+                    {backgrounds.map((bg, index) => (
+                        <li className="mr-2 flex-shrink-0" key={index}>
+                            <Image className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => {
+                                setSelectedBackground(bg)
+                            }} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
 
     async function getTopTracks(time) {
         const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=25`, {
@@ -147,266 +425,6 @@ const Tracks = ({ data }) => {
         transform: 'translate(0, 0)',
         animation: 'float 2s ease-in-out infinite',
     };
-    const backgrounds = [
-        {
-            path: '/default_bg.svg',
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/hollowed-boxes.svg")`,
-            path: '/hollowed-boxes.svg',
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/tortoise-shell.svg")`,
-            path: "/tortoise-shell.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/ffflux.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/ffflux.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/hhholographic.webp")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/hhholographic.webp",
-            theme: "light"
-        },
-        {
-            backgroundImage: `url("/pppsychedelic.webp")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/pppsychedelic.webp",
-            theme: "dark"
-        },
-        {
-            backgroundColor: "black",
-            backgroundImage: `url("/ttten.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/ttten.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/sun-tornado.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/sun-tornado.svg",
-            theme: "light"
-        },
-        {
-            backgroundImage: `url("/grain.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/grain.svg",
-            theme: "light"
-        },
-        {
-            backgroundImage: `url("/rainbow-vortex.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/rainbow-vortex.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/endless-constellation.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/endless-constellation.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/sun-tornado_2.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/sun-tornado_2.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/ssscales.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/ssscales.svg",
-            theme: "light"
-        },
-        {
-            backgroundImage: `url("/llleaves.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/llleaves.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/sssquiggly.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/sssquiggly.svg",
-            theme: "dark"
-        },
-        {
-            backgroundImage: `url("/oooscillate.svg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            path: "/oooscillate.svg",
-            theme: "dark",
-            backgroundColor: '#121212'
-        },
-        {
-            path: '/solid_bluelight.png',
-            theme: "dark",
-            backgroundColor: '#83adb5'
-        },
-        {
-            path: '/solid_bluedark.png',
-            theme: "dark",
-            backgroundColor: '#2e4045'
-        },
-        {
-            path: '/solid_pinklight.png',
-            theme: "light",
-            backgroundColor: '#c7bbc9'
-        },
-        {
-            path: '/solid_pinkdark.png',
-            theme: "dark",
-            backgroundColor: '#5e3c58'
-        },
-        {
-            path: '/solid_beigedark.png',
-            theme: "light",
-            backgroundColor: '#bfb5b2'
-        },
-        {
-            backgroundImage: `url("/big wavy blue orange.svg")`,
-            path: '/big wavy blue orange.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/big wavy orange purple4.svg")`,
-            path: '/big wavy orange purple4.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/big wavy peak zoomed.svg")`,
-            path: '/big wavy peak zoomed.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/black_vector.svg")`,
-            path: '/black_vector.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("blue_green_bgblack.svg")`,
-            path: '/blue_green_bgblack.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/blue_green_peak.svg")`,
-            path: '/blue_green_peak.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/blue_vector.svg")`,
-            path: '/blue_vector.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/high blue green.svg")`,
-            path: '/high blue green.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/pink stacked wavey.svg")`,
-            path: '/pink stacked wavey.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/polygon_golden.svg")`,
-            path: '/polygon_golden.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/polygon_purple.svg")`,
-            path: '/polygon_purple.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/wavy green mountains.svg")`,
-            path: '/wavy green mountains.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/stacked-waves-haikei.svg")`,
-            path: '/stacked-waves-haikei.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/ccchaos.svg")`,
-            path: '/ccchaos.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/ccchaos (1).svg")`,
-            path: '/ccchaos (1).svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/ffflurry.svg")`,
-            path: '/ffflurry.svg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/dddepth-240.jpg")`,
-            path: '/dddepth-240.jpg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-        {
-            backgroundImage: `url("/dddepth-241.jpg")`,
-            path: '/dddepth-241.jpg',
-            theme: "dark",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-        },
-    ]
 
     return (
         <>
@@ -435,17 +453,7 @@ const Tracks = ({ data }) => {
                         }}>All Time</div>
                     </li>
                 </ul>
-                <div className='w-full flex justify-center'>
-                    <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
-                        {backgrounds.map((bg, index) => (
-                            <li className="mr-2 flex-shrink-0" key={index}>
-                                <Image className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => {
-                                    setSelectedBackground(bg)
-                                }} />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <Gradients />
                 <div>
                     <div className="w-full flex flex-row justify-center items-center">
                         <div style={{
@@ -483,24 +491,29 @@ const Tracks = ({ data }) => {
                         </div>
                     </div>
                 </div>
-                <button
-                    onClick={() => {
-                        debounce(handleShare(), 3000)
-                    }}
-                    type="button"
-                    style={buttonStyle}
-                    className="flex items-center justify-center"
-                    data-html2canvas-ignore="true"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
-                        <g transform="translate(33.28,33.28) scale(0.74,0.74)"><g fill="#ffffff" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" style={{ mixBlendMode: 'normal' }}><g transform="scale(5.33333,5.33333)"><path d="M36,5c-3.84823,0 -7,3.15178 -7,7c0,0.58577 0.19854,1.10946 0.33594,1.6543l-11.99023,5.99805c-1.28658,-1.57841 -3.1642,-2.65234 -5.3457,-2.65234c-3.84823,0 -7,3.15178 -7,7c0,3.84822 3.15177,7 7,7c2.1815,0 4.05912,-1.07394 5.3457,-2.65234l11.99023,5.99805c-0.13739,0.54483 -0.33594,1.06853 -0.33594,1.6543c0,3.84822 3.15177,7 7,7c3.84823,0 7,-3.15178 7,-7c0,-3.84822 -3.15177,-7 -7,-7c-2.1815,0 -4.05912,1.07394 -5.3457,2.65234l-11.99023,-5.99805c0.13739,-0.54483 0.33594,-1.06853 0.33594,-1.6543c0,-0.58577 -0.19854,-1.10946 -0.33594,-1.6543l11.99023,-5.99805c1.28658,1.57841 3.1642,2.65234 5.3457,2.65234c3.84823,0 7,-3.15178 7,-7c0,-3.84822 -3.15177,-7 -7,-7zM36,8c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4zM12,20c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4zM36,32c2.22691,0 4,1.77309 4,4c0,2.22691 -1.77309,4 -4,4c-2.22691,0 -4,-1.77309 -4,-4c0,-2.22691 1.77309,-4 4,-4z"></path></g></g></g>
-                    </svg>
-                </button>
-                <div style={{ position: 'fixed', bottom: '2rem', right: '2rem' }}>
+                <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
+                    <button
+                        onClick={() => {
+                            debounce(handleShare(), 3000)
+                        }}
+                        type="button"
+                        className="flex items-center justify-center mr-2"
+                    >
+                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400   `} >Share</div>
+                    </button>
                     <button
                         onClick={() => {
                             debounce(handleDownload(), 3000)
                         }}
+                        type="button"
+                        className="flex items-center justify-center"
+                    >
+                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400   `} >Download</div>
+                    </button>
+                </div>
+                {/* <div style={{ position: 'fixed', bottom: '2rem', right: '2rem' }}>
+                    <button
+                        
                         type="button"
                         style={buttonStyle}
                         className="flex items-center justify-center"
@@ -515,7 +528,7 @@ const Tracks = ({ data }) => {
                             />
                         </svg>
                     </button>
-                </div>
+                </div> */}
             </div>
         </>
     )
