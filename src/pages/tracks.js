@@ -9,7 +9,8 @@ import Head from 'next/head'
 import Navbar from '@/components/Navbar';
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
-// import Share from "./Share";
+import { db } from "../firebase"
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 const backgrounds = [
     {
@@ -270,13 +271,61 @@ const backgrounds = [
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
+    {
+        backgroundImage: `url("/quantum-gradient.svg")`,
+        path: '/quantum-gradient-preview.png',
+        theme: "light",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/meteor.svg")`,
+        path: '/meteor-preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/sprinkle.svg")`,
+        path: '/sprinkle-preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/Circuit_Board.svg")`,
+        path: '/circuit-preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/Rect_Light.svg")`,
+        path: '/Rect_Light-preview.png',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    },
+    {
+        backgroundImage: `url("/pattern.svg")`,
+        path: '/pattern-preview.png',
+        theme: "light",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+    }
+    // {
+    //     backgroundImage: `url("/Sound Wave (3).svg")`,
+    //     path: '/Sound Wave preview.png',
+    //     theme: "light",
+    //     backgroundRepeat: "no-repeat",
+    //     backgroundSize: "cover",
+    // },
 ]
 
 const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
-    // const [showModal, setShowModal] = useState(false);
-    // const [shareData, setshareData] = useState(false);
+    const [downloadProgress, setDownloadProgress] = useState(0);
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
         backgroundImage: `url("/tortoise-shell.svg")`,
@@ -286,15 +335,16 @@ const Tracks = ({ data }) => {
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
 
+    const handleItemClick = (bg) => {
+        setSelectedBackground(bg);
+    };
     const Gradients = () => {
         return (
             <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar">
+                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar" >
                     {backgrounds.map((bg, index) => (
                         <li className="mr-2 flex-shrink-0" key={index}>
-                            <Image className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => {
-                                setSelectedBackground(bg)
-                            }} />
+                            <Image alt='Bg preview Image'className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
                         </li>
                     ))}
                 </ul>
@@ -362,12 +412,50 @@ const Tracks = ({ data }) => {
             timer = setTimeout(() => { func.apply(this, args); }, timeout);
         };
     }
-
-    const handleShare = () => {
+    const shareclickCountRef = db.collection('share_clicks').doc('clickCount');
+    const downloadclickCountRef = db.collection('download_clicks').doc('clickCount');
+    const incrementShareCount = async () => {
+        try {
+            await db.runTransaction(async (transaction) => {
+                const doc = await transaction.get(shareclickCountRef);
+    
+                if (!doc.exists) {
+                    transaction.set(shareclickCountRef, { share_count: 1 });
+                } else {
+                    const newCount = doc.data().share_count + 1;
+                    transaction.update(shareclickCountRef, { share_count: newCount });
+                }
+            });
+    
+            console.log("Share count incremented successfully!");
+        } catch (error) {
+            console.error("Error incrementing share count:", error);
+        }
+    };
+    const incrementDownloadCount = async () => {
+        try {
+            await db.runTransaction(async (transaction) => {
+                const doc = await transaction.get(downloadclickCountRef);
+    
+                if (!doc.exists) {
+                    transaction.set(downloadclickCountRef, { download_count: 1 });
+                } else {
+                    const newCount = doc.data().download_count + 1;
+                    transaction.update(downloadclickCountRef, { download_count: newCount });
+                }
+            });
+    
+            console.log("Share count incremented successfully!");
+        } catch (error) {
+            console.error("Error incrementing share count:", error);
+        }
+    };
+    const handleShare = async () => {
+        incrementShareCount();    
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
-            scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
+            scale: 5,
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
@@ -384,13 +472,13 @@ const Tracks = ({ data }) => {
                 const shareData = {
                     files: filesArray,
                 };
-                navigator.share(shareData);
+    
                 if (navigator.share) {
                     try {
                         await navigator
                             .share(shareData)
                             .then(() =>
-                                console.log("Hooray! Your content was shared to tha world")
+                                console.log("Hooray! Your content was shared to the world")
                             );
                     } catch (error) {
                         console.log(`Oops! I couldn't share to the world because: ${error}`);
@@ -403,27 +491,101 @@ const Tracks = ({ data }) => {
             });
         });
     };
+    // const handleShare = async () => {
+    //     try {
+    //         await db.runTransaction(async (transaction) => {
+    //             const docRef = doc(db, 'share_clicks', 'clickCount');
+    //             const docSnap = await getDoc(docRef);
+    
+    //             if (!docSnap.exists()) {
+    //                 transaction.set(docRef, { share_count: 1 });
+    //             } else {
+    //                 const newCount = docSnap.data().share_count + 1;
+    //                 transaction.update(docRef, { share_count: newCount });
+    //             }
+    //         });
+    
+    //         console.log("Click event logged successfully!");
+    //     } catch (error) {
+    //         console.error("Error logging click event:", error);
+    //     }
+    
+    
+    //     const container = document.getElementById("my-container");
+    //     await html2canvas(container, {
+    //         imageTimeout: 50000,
+    //         scale: 5,
+    //     }).then(canvas => {
+    //         const id = Date.now()
+    //         canvas.toBlob(async (blob) => {
+    //             const filesArray = [
+    //                 new File(
+    //                     [blob],
+    //                     `gramophone_${id}.jpg`,
+    //                     {
+    //                         type: "image/jpeg",
+    //                         lastModified: new Date().getTime()
+    //                     }
+    //                 )
+    //             ];
+    //             const shareData = {
+    //                 files: filesArray,
+    //             };
+    
+    //             if (navigator.share) {
+    //                 try {
+    //                     await navigator
+    //                         .share(shareData)
+    //                         .then(() =>
+    //                             console.log("Hooray! Your content was shared to the world")
+    //                         );
+    //                 } catch (error) {
+    //                     console.log(`Oops! I couldn't share to the world because: ${error}`);
+    //                 }
+    //             } else {
+    //                 console.log(
+    //                     "Web share is currently not supported on this browser. Please provide a callback"
+    //                 );
+    //             }
+    //         });
+    //     });
+    // };
+    // const handleDownload = () => {
+    //     const container = document.getElementById("my-container");
+    //     html2canvas(container, {
+    //         imageTimeout: 50000,
+    //         scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
+    //     }).then(canvas => {
+    //         const id = Date.now()
+    //         canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
+    //     });
+    // };
+
     const handleDownload = () => {
+        incrementDownloadCount();
         const container = document.getElementById("my-container");
-        html2canvas(container, {
-            imageTimeout: 50000,
-            scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
-        }).then(canvas => {
-            const id = Date.now()
-            canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
-        });
-    };
-    const buttonStyle = {
-        width: '3rem',
-        height: '3rem',
-        backgroundColor: '#181818',
-        borderRadius: '50%',
-        color: 'white',
-        outline: 'none',
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-        border: '2px solid white',
-        transform: 'translate(0, 0)',
-        animation: 'float 2s ease-in-out infinite',
+        const totalSteps = 100; // Set total steps for the progress
+        let currentStep = 0;
+
+        const interval = setInterval(() => {
+            if (currentStep >= totalSteps) {
+                clearInterval(interval);
+                html2canvas(container, {
+                    imageTimeout: 50000,
+                    scale: 5,
+                }).then(canvas => {
+                    const id = Date.now();
+                    canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
+                });
+            } else {
+                setDownloadProgress(prev => prev + 1);
+            }
+            currentStep += 1;
+        }, 30);
+
+        setTimeout(() => {
+            setDownloadProgress(0);
+        }, totalSteps * 70);
     };
 
     return (
@@ -464,15 +626,17 @@ const Tracks = ({ data }) => {
                             justifyContent: "center",
                             height: "fit-content",
                         }} className='py-5'>
-                            {users && users.images && users.images.length > 0 && (
+                            {users && users.images && users.images.length > 0 && (<>
                                 <div className='w-10 h-35 mr-3 md:w-20'>
                                     <Image priority={true} layout="responsive"
-                                        height={200} width={200} src={users.images[users.images.length - 1].url} alt="" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                        height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                                 </div>
+                                <div className=''>
+                                    <p layout='responsive' className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                </div>
+                            </>
                             )}
-                            <div className='flex flex-col justify-center items-center'>
-                                <p className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
-                            </div>
+
                         </div>
                     </div>
                     <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
@@ -487,7 +651,7 @@ const Tracks = ({ data }) => {
                     <div className="w-full flex flex-col justify-center items-center my-4" >
                         <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >gaslight-web.vercel.app</p>
                         <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
-                            <Image layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
+                            <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                         </div>
                     </div>
                 </div>
@@ -499,7 +663,7 @@ const Tracks = ({ data }) => {
                         type="button"
                         className="flex items-center justify-center mr-2"
                     >
-                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400   `} >Share</div>
+                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} >Share</div>
                     </button>
                     <button
                         onClick={() => {
@@ -508,27 +672,9 @@ const Tracks = ({ data }) => {
                         type="button"
                         className="flex items-center justify-center"
                     >
-                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400   `} >Download</div>
+                        <div className={`inline-block px-2 py-2 w-40 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} > {downloadProgress > 0 ? `Downloading...` : 'Download'}</div>
                     </button>
                 </div>
-                {/* <div style={{ position: 'fixed', bottom: '2rem', right: '2rem' }}>
-                    <button
-                        
-                        type="button"
-                        style={buttonStyle}
-                        className="flex items-center justify-center"
-                        data-html2canvas-ignore="true"
-                    >
-                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                            />
-                        </svg>
-                    </button>
-                </div> */}
             </div>
         </>
     )

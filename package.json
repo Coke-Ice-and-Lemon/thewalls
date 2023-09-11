@@ -17,6 +17,7 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "file-saver": "^2.0.5",
+    "firebase": "^10.3.1",
     "font-awesome": "^4.7.0",
     "html2canvas": "^1.4.1",
     "next": "13.4.19",
