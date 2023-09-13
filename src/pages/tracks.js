@@ -336,19 +336,26 @@ const Tracks = ({ data }) => {
     const [timeRange, setTimeRange] = useState(time_range);
 
     const handleItemClick = (bg) => {
-        setSelectedBackground(bg);
+        setSelectedBackground(bg.path);
     };
     const Gradients = () => {
-        return (
+        return (<>
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar" >
                     {backgrounds.map((bg, index) => (
                         <li className="mr-2 flex-shrink-0" key={index}>
-                            <Image alt='Bg preview Image'className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
+                            <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
                         </li>
                     ))}
                 </ul>
             </div>
+            <input
+                type="file"
+                accept=".jpg, .png, .jpeg"
+                onChange={handleUpload}
+                className="mb-4"
+            />
+        </>
         )
     }
 
@@ -413,12 +420,11 @@ const Tracks = ({ data }) => {
         };
     }
     const shareclickCountRef = db.collection('share_clicks').doc('clickCount');
-    const downloadclickCountRef = db.collection('download_clicks').doc('clickCount');
     const incrementShareCount = async () => {
         try {
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(shareclickCountRef);
-    
+
                 if (!doc.exists) {
                     transaction.set(shareclickCountRef, { share_count: 1 });
                 } else {
@@ -426,17 +432,18 @@ const Tracks = ({ data }) => {
                     transaction.update(shareclickCountRef, { share_count: newCount });
                 }
             });
-    
+
             console.log("Share count incremented successfully!");
         } catch (error) {
             console.error("Error incrementing share count:", error);
         }
     };
+    const downloadclickCountRef = db.collection('download_clicks').doc('clickCount');
     const incrementDownloadCount = async () => {
         try {
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(downloadclickCountRef);
-    
+
                 if (!doc.exists) {
                     transaction.set(downloadclickCountRef, { download_count: 1 });
                 } else {
@@ -444,14 +451,14 @@ const Tracks = ({ data }) => {
                     transaction.update(downloadclickCountRef, { download_count: newCount });
                 }
             });
-    
+
             console.log("Share count incremented successfully!");
         } catch (error) {
             console.error("Error incrementing share count:", error);
         }
     };
     const handleShare = async () => {
-        incrementShareCount();    
+        incrementShareCount();
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
@@ -472,7 +479,7 @@ const Tracks = ({ data }) => {
                 const shareData = {
                     files: filesArray,
                 };
-    
+
                 if (navigator.share) {
                     try {
                         await navigator
@@ -491,75 +498,17 @@ const Tracks = ({ data }) => {
             });
         });
     };
-    // const handleShare = async () => {
-    //     try {
-    //         await db.runTransaction(async (transaction) => {
-    //             const docRef = doc(db, 'share_clicks', 'clickCount');
-    //             const docSnap = await getDoc(docRef);
-    
-    //             if (!docSnap.exists()) {
-    //                 transaction.set(docRef, { share_count: 1 });
-    //             } else {
-    //                 const newCount = docSnap.data().share_count + 1;
-    //                 transaction.update(docRef, { share_count: newCount });
-    //             }
-    //         });
-    
-    //         console.log("Click event logged successfully!");
-    //     } catch (error) {
-    //         console.error("Error logging click event:", error);
-    //     }
-    
-    
-    //     const container = document.getElementById("my-container");
-    //     await html2canvas(container, {
-    //         imageTimeout: 50000,
-    //         scale: 5,
-    //     }).then(canvas => {
-    //         const id = Date.now()
-    //         canvas.toBlob(async (blob) => {
-    //             const filesArray = [
-    //                 new File(
-    //                     [blob],
-    //                     `gramophone_${id}.jpg`,
-    //                     {
-    //                         type: "image/jpeg",
-    //                         lastModified: new Date().getTime()
-    //                     }
-    //                 )
-    //             ];
-    //             const shareData = {
-    //                 files: filesArray,
-    //             };
-    
-    //             if (navigator.share) {
-    //                 try {
-    //                     await navigator
-    //                         .share(shareData)
-    //                         .then(() =>
-    //                             console.log("Hooray! Your content was shared to the world")
-    //                         );
-    //                 } catch (error) {
-    //                     console.log(`Oops! I couldn't share to the world because: ${error}`);
-    //                 }
-    //             } else {
-    //                 console.log(
-    //                     "Web share is currently not supported on this browser. Please provide a callback"
-    //                 );
-    //             }
-    //         });
-    //     });
-    // };
-    // const handleDownload = () => {
-    //     const container = document.getElementById("my-container");
-    //     html2canvas(container, {
-    //         imageTimeout: 50000,
-    //         scale: 5, // Set scale to 25x for full HD resolution (1920x1080)
-    //     }).then(canvas => {
-    //         const id = Date.now()
-    //         canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
-    //     });
-    // };
+
+    const handleUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            setSelectedBackground(reader.result);
+        }
+
+        reader.readAsDataURL(file);
+    }
 
     const handleDownload = () => {
         incrementDownloadCount();
@@ -597,7 +546,10 @@ const Tracks = ({ data }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
+            <div style={{
+                backgroundImage: `url(${selectedBackground})`, backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+            }} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
