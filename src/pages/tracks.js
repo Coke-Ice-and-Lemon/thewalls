@@ -347,7 +347,7 @@ const Tracks = ({ data }) => {
                             <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
                                 +
                             </label>
-                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
+                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
                         </li>
                     )}
