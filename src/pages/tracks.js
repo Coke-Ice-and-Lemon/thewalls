@@ -336,25 +336,30 @@ const Tracks = ({ data }) => {
     const [timeRange, setTimeRange] = useState(time_range);
 
     const handleItemClick = (bg) => {
-        setSelectedBackground(bg.path);
+        setSelectedBackground(bg);
     };
     const Gradients = () => {
         return (<>
             <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-x-scroll no-scrollbar" >
-                    {backgrounds.map((bg, index) => (
+                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                    {users && users.images && users.images.length > 0 && (
+                        <li className="bg-[#000] rounded-full px-2.5 ">
+                            <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
+                                +
+                            </label>
+                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
+
+                        </li>
+                    )}
+                    {backgrounds.map((bg, index) => (<>
                         <li className="mr-2 flex-shrink-0" key={index}>
                             <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
                         </li>
+                    </>
                     ))}
                 </ul>
             </div>
-            <input
-                type="file"
-                accept=".jpg, .png, .jpeg"
-                onChange={handleUpload}
-                className="mb-4"
-            />
+
         </>
         )
     }
@@ -504,7 +509,13 @@ const Tracks = ({ data }) => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            setSelectedBackground(reader.result);
+            setSelectedBackground({
+                ...selectedBackground,
+                backgroundImage: `url("${reader.result}")`,
+                theme: "dark",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+            });
         }
 
         reader.readAsDataURL(file);
@@ -546,10 +557,7 @@ const Tracks = ({ data }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <div style={{
-                backgroundImage: `url(${selectedBackground})`, backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-            }} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
+            <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
