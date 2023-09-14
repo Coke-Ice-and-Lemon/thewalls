@@ -70,8 +70,11 @@ const AboutUs = () => {
               <div className="flex flex-row items-center mt-4 justify-between">
                 <h2 className="text-lg font-semibold mr-2">roshni</h2>
                 <div className="flex flex-row">
-                  <Link href="#" target="_blank">
+                  <Link href="https://www.behance.net/roshnisugeesh004" target="_blank" className='mr-2'>
                     <Image src="/icons8-behance.svg" width={25} height={25} />
+                  </Link>
+                  <Link href="https://www.behance.net/roshnisugeesh004" target="_blank">
+                    <Image src="/icons8-instagram.svg" width={25} height={25} />
                   </Link>
                 </div>
               </div>
