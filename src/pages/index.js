@@ -15,10 +15,15 @@ export default function Home() {
       </Head>
       <div className="w-full flex flex-col items-center h-screen justify-center">
         <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>
-        <button className="text-white px-8 py-2 rounded-full bg-green-500 font-bold text-lg" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>Login with spotify</button>
-        <div className='flex flex-row justify-center w-6/12 md:11/12'>
+        <button className="text-white px-5 py-2 rounded-full bg-[#1DB954] font-bold text-lg flex flex-row items-center" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>
+          <Image src="/spotify.svg" width={20} height={20} />
+          <p className='ml-1 font-sans'>
+            Login with Spotify
+          </p>
+        </button>
+        {/* <div className='flex flex-row justify-center w-6/12 md:11/12'>
           <Image className="animate-spin-slow mt-5" src='/vinyl.png' width={300} height={300} alt="" />
-        </div>
+        </div> */}
       </div>
     </>
   )
