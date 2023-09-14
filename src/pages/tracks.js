@@ -617,7 +617,7 @@ const Tracks = ({ data }) => {
                     <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                         {tracks && tracks.map((track) => (
                             (track.album.images && (
-                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
                                     <TrackPreview track={track} />
                                 </Link>
                             ))
