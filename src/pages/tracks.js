@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import TrackPreview from '../components/TrackPreview';
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import Link from "next/link";
 import Head from 'next/head'
 import Navbar from '@/components/Navbar';
@@ -13,301 +13,301 @@ import { db } from "../firebase"
 
 const backgrounds = [
     {
-        path: '/assets/default_bg.svg',
+        path: '/default_bg.svg',
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/hollowed-boxes.svg")`,
-        path: '/assets/hollowed-boxes.svg',
+        backgroundImage: `url("/hollowed-boxes.svg")`,
+        path: '/hollowed-boxes.svg',
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/tortoise-shell.svg")`,
-        path: "/assets/tortoise-shell.svg",
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/ffflux.svg")`,
+        backgroundImage: `url("/ffflux.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/ffflux.svg",
+        path: "/ffflux.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/hhholographic.webp")`,
+        backgroundImage: `url("/hhholographic.webp")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/hhholographic.webp",
+        path: "/hhholographic.webp",
         theme: "light"
     },
     {
-        backgroundImage: `url("/assets/pppsychedelic.webp")`,
+        backgroundImage: `url("/pppsychedelic.webp")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/pppsychedelic.webp",
+        path: "/pppsychedelic.webp",
         theme: "dark"
     },
     {
         backgroundColor: "black",
-        backgroundImage: `url("/assets/ttten.svg")`,
+        backgroundImage: `url("/ttten.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/ttten.svg",
+        path: "/ttten.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/sun-tornado.svg")`,
+        backgroundImage: `url("/sun-tornado.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/sun-tornado.svg",
+        path: "/sun-tornado.svg",
         theme: "light"
     },
     {
-        backgroundImage: `url("/assets/grain.svg")`,
+        backgroundImage: `url("/grain.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/grain.svg",
+        path: "/grain.svg",
         theme: "light"
     },
     {
-        backgroundImage: `url("/assets/rainbow-vortex.svg")`,
+        backgroundImage: `url("/rainbow-vortex.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/rainbow-vortex.svg",
+        path: "/rainbow-vortex.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/endless-constellation.svg")`,
+        backgroundImage: `url("/endless-constellation.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/endless-constellation.svg",
+        path: "/endless-constellation.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/sun-tornado_2.svg")`,
+        backgroundImage: `url("/sun-tornado_2.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/sun-tornado_2.svg",
+        path: "/sun-tornado_2.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/ssscales.svg")`,
+        backgroundImage: `url("/ssscales.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/ssscales.svg",
+        path: "/ssscales.svg",
         theme: "light"
     },
     {
-        backgroundImage: `url("/assets/llleaves.svg")`,
+        backgroundImage: `url("/llleaves.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/llleaves.svg",
+        path: "/llleaves.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/sssquiggly.svg")`,
+        backgroundImage: `url("/sssquiggly.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/sssquiggly.svg",
+        path: "/sssquiggly.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/assets/oooscillate.svg")`,
+        backgroundImage: `url("/oooscillate.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        path: "/assets/oooscillate.svg",
+        path: "/oooscillate.svg",
         theme: "dark",
         backgroundColor: '#121212'
     },
     {
-        path: '/assets/solid_bluelight.png',
+        path: '/solid_bluelight.png',
         theme: "dark",
         backgroundColor: '#83adb5'
     },
     {
-        path: '/assets/solid_bluedark.png',
+        path: '/solid_bluedark.png',
         theme: "dark",
         backgroundColor: '#2e4045'
     },
     {
-        path: '/assets/solid_pinklight.png',
+        path: '/solid_pinklight.png',
         theme: "light",
         backgroundColor: '#c7bbc9'
     },
     {
-        path: '/assets/solid_pinkdark.png',
+        path: '/solid_pinkdark.png',
         theme: "dark",
         backgroundColor: '#5e3c58'
     },
     {
-        path: '/assets/solid_beigedark.png',
+        path: '/solid_beigedark.png',
         theme: "light",
         backgroundColor: '#bfb5b2'
     },
     {
-        backgroundImage: `url("/assets/big wavy blue orange.svg")`,
-        path: '/assets/orange_wavy_preview.png',
+        backgroundImage: `url("/big wavy blue orange.svg")`,
+        path: '/orange_wavy_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/big wavy orange purple4.svg")`,
-        path: '/assets/orange_wavy_preview.png',
+        backgroundImage: `url("/big wavy orange purple4.svg")`,
+        path: '/orange_wavy_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/big wavy peak zoomed.svg")`,
-        path: '/assets/orange_wavy_preview.png',
+        backgroundImage: `url("/big wavy peak zoomed.svg")`,
+        path: '/orange_wavy_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/black_vector.svg")`,
-        path: '/assets/black_vector.svg',
+        backgroundImage: `url("/black_vector.svg")`,
+        path: '/black_vector.svg',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("assets/blue_green_bgblack.svg")`,
-        path: '/assets/green_blue_preview.png',
+        backgroundImage: `url("blue_green_bgblack.svg")`,
+        path: '/green_blue_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/blue_green_peak.svg")`,
-        path: '/assets/green_blue_preview.png',
+        backgroundImage: `url("/blue_green_peak.svg")`,
+        path: '/green_blue_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/blue_vector.svg")`,
-        path: '/assets/blue_vector_preview.png',
+        backgroundImage: `url("/blue_vector.svg")`,
+        path: '/blue_vector_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/high blue green.svg")`,
-        path: '/assets/green_blue_preview.png',
+        backgroundImage: `url("/high blue green.svg")`,
+        path: '/green_blue_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/pink stacked wavey.svg")`,
-        path: '/assets/pink_wavey_preview.png',
+        backgroundImage: `url("/pink stacked wavey.svg")`,
+        path: '/pink_wavey_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/polygon_golden.svg")`,
-        path: '/assets/golden_polygon_preview.png',
+        backgroundImage: `url("/polygon_golden.svg")`,
+        path: '/golden_polygon_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/polygon_purple.svg")`,
-        path: '/assets/polygon_purple_preview.png',
+        backgroundImage: `url("/polygon_purple.svg")`,
+        path: '/polygon_purple_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/wavy green mountains.svg")`,
-        path: '/assets/green_blue_preview.png',
+        backgroundImage: `url("/wavy green mountains.svg")`,
+        path: '/green_blue_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/stacked-waves-haikei.svg")`,
-        path: '/assets/stacked-waves-haikei_preview.png',
+        backgroundImage: `url("/stacked-waves-haikei.svg")`,
+        path: '/stacked-waves-haikei_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/ccchaos.svg")`,
-        path: '/assets/ccchaos_green_orange_preview.png',
+        backgroundImage: `url("/ccchaos.svg")`,
+        path: '/ccchaos_green_orange_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/ccchaos (1).svg")`,
-        path: '/assets/ccchaos_blue_red_preview.png',
+        backgroundImage: `url("/ccchaos (1).svg")`,
+        path: '/ccchaos_blue_red_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/ffflurry.svg")`,
-        path: '/assets/ffflurry.svg',
+        backgroundImage: `url("/ffflurry.svg")`,
+        path: '/ffflurry.svg',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/dddepth-240.jpg")`,
-        path: '/assets/dddepth-240.jpg',
+        backgroundImage: `url("/dddepth-240.jpg")`,
+        path: '/dddepth-240.jpg',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/dddepth-241.jpg")`,
-        path: '/assets/dddepth-241.jpg',
+        backgroundImage: `url("/dddepth-241.jpg")`,
+        path: '/dddepth-241.jpg',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/quantum-gradient.svg")`,
-        path: '/assets/quantum-gradient-preview.png',
+        backgroundImage: `url("/quantum-gradient.svg")`,
+        path: '/quantum-gradient-preview.png',
         theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/meteor.svg")`,
-        path: '/assets/meteor-preview.png',
+        backgroundImage: `url("/meteor.svg")`,
+        path: '/meteor-preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/sprinkle.svg")`,
-        path: '/assets/sprinkle-preview.png',
+        backgroundImage: `url("/sprinkle.svg")`,
+        path: '/sprinkle-preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/Circuit_Board.svg")`,
-        path: '/assets/circuit-preview.png',
+        backgroundImage: `url("/Circuit_Board.svg")`,
+        path: '/circuit-preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/Rect_Light.svg")`,
-        path: '/assets/Rect_Light-preview.png',
+        backgroundImage: `url("/Rect_Light.svg")`,
+        path: '/Rect_Light-preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/assets/pattern.svg")`,
-        path: '/assets/pattern-preview.png',
+        backgroundImage: `url("/pattern.svg")`,
+        path: '/pattern-preview.png',
         theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -343,7 +343,7 @@ const Tracks = ({ data }) => {
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     {users && users.images && users.images.length > 0 && (
-                        <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={-147}>
+                        <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
                                 +
                             </label>
@@ -576,7 +576,7 @@ const Tracks = ({ data }) => {
                     </li>
                 </ul>
                 <Gradients />
-                <div>
+                <div className='w-full'>
                     <div className="w-full flex flex-row justify-center items-center">
                         <div style={{
                             width: "fit-content",
@@ -617,16 +617,16 @@ const Tracks = ({ data }) => {
                     <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                         {tracks && tracks.map((track) => (
                             (track.album.images && (
-                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%]  rounded overflow-hidden m-1.5 hover:scale-105 hover:cursor-pointer transition duration-150 ease-out hover:ease-in" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
                                     <TrackPreview track={track} />
                                 </Link>
                             ))
                         ))}
                     </div>
                     <div className="w-full flex flex-col justify-center items-center my-4" >
-                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >thewalls.vercel.app</p>
+                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >gaslight-web.vercel.app</p>
                         <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
-                            <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/assets/spotify_logo_dark.png` : `/assets/spotify_logo.png`} width={100} height={10} />
+                            <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                         </div>
                     </div>
                 </div>
