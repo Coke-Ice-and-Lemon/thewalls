@@ -21,9 +21,9 @@ export default function Home() {
             Login with Spotify
           </p>
         </button>
-        {/* <div className='flex flex-row justify-center w-6/12 md:11/12'>
+        <div className='flex flex-row justify-center w-6/12 md:11/12'>
           <Image className="animate-spin-slow mt-5" src='/vinyl.png' width={300} height={300} alt="" />
-        </div> */}
+        </div>
       </div>
     </>
   )
