@@ -15,7 +15,6 @@ export async function middleware(req) {
     if (!token && pathname.includes("tracks")) {
         return NextResponse.redirect(new URL('/', req.url))
     }
-
     return NextResponse.next()
 }
 
