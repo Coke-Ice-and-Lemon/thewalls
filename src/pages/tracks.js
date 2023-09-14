@@ -633,7 +633,7 @@ const Tracks = ({ data }) => {
                 <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
-                            // debounce(handleShare(), 3000)
+                            debounce(handleShare(), 3000)
                         }}
                         type="button"
                         className="flex items-center justify-center mr-2"
@@ -642,7 +642,7 @@ const Tracks = ({ data }) => {
                     </button>
                     <button
                         onClick={() => {
-                            // handleDownload()
+                            handleDownload()
                         }}
                         type="button"
                         className="flex items-center justify-center"
