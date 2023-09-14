@@ -11,7 +11,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Head>
-        <title>Gramophone</title>
+        <title>THE WALLS</title>
         <meta name="description" content="Get your most played tracks from Spotify." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

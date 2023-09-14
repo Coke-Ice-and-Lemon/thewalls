@@ -17,7 +17,7 @@ const Navbar = () => {
                             className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
                             href="/" onClick={() => setNavbarOpen(false)}
                         >
-                            Gramophone
+                            THE WALLS
                         </Link>
                         <button
                             className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -35,6 +35,24 @@ const Navbar = () => {
                         id="example-navbar-danger"
                     >
                         <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+                            {session ? (<>
+                                <li className="nav-item">
+                                    <Link
+                                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
+                                        href="/tracks?time_range=short_term" onClick={() => setNavbarOpen(false)}
+                                    >
+                                        <span className="ml-2">Explore</span>
+                                    </Link>
+                                </li>
+                            </>
+                            ) : (<li className="nav-item">
+                                <Link
+                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
+                                    href="/" onClick={() => setNavbarOpen(false)}
+                                >
+                                    <span className="ml-2">Login</span>
+                                </Link>
+                            </li>)}
                             <li className="nav-item">
                                 <Link
                                     className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
@@ -51,16 +69,8 @@ const Navbar = () => {
                                     <span className="ml-2">Privacy Policy</span>
                                 </Link>
                             </li>
-                            {session ? (<>
-                                <li className="nav-item">
-                                    <Link
-                                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
-                                        href="/explore" onClick={() => setNavbarOpen(false)}
-                                    >
-                                        <span className="ml-2">Explore</span>
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
+                            {session ?(<>
+                                    <li className="nav-item">
                                     <Link
                                         className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
                                         href='/' onClick={() => {
@@ -71,16 +81,7 @@ const Navbar = () => {
                                     >
                                         <span className="ml-2">Logout</span>
                                     </Link>
-                                </li>
-                            </>
-                            ) : (<li className="nav-item">
-                                <Link
-                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
-                                    href="/" onClick={() => setNavbarOpen(false)}
-                                >
-                                    <span className="ml-2">Login</span>
-                                </Link>
-                            </li>)}
+                                </li></>):<></>}
                         </ul>
                     </div>
                 </div>

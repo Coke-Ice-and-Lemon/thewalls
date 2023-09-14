@@ -10,7 +10,6 @@ import Navbar from '@/components/Navbar';
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { db } from "../firebase"
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 const backgrounds = [
     {
@@ -340,10 +339,11 @@ const Tracks = ({ data }) => {
     };
     const Gradients = () => {
         return (<>
+        
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     {users && users.images && users.images.length > 0 && (
-                        <li className="bg-[#000] rounded-full px-2.5 ">
+                        <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={-147}>
                             <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
                                 +
                             </label>
@@ -474,7 +474,7 @@ const Tracks = ({ data }) => {
                 const filesArray = [
                     new File(
                         [blob],
-                        `gramophone_${id}.jpg`,
+                        `the_wall_${id}.jpg`,
                         {
                             type: "image/jpeg",
                             lastModified: new Date().getTime()
@@ -521,12 +521,12 @@ const Tracks = ({ data }) => {
         reader.readAsDataURL(file);
     }
 
-    const handleDownload = () => {
+    const handleDownload = debounce(() => {
         incrementDownloadCount();
         const container = document.getElementById("my-container");
-        const totalSteps = 100; // Set total steps for the progress
+        const totalSteps = 100;
         let currentStep = 0;
-
+    
         const interval = setInterval(() => {
             if (currentStep >= totalSteps) {
                 clearInterval(interval);
@@ -535,23 +535,23 @@ const Tracks = ({ data }) => {
                     scale: 5,
                 }).then(canvas => {
                     const id = Date.now();
-                    canvas.toBlob(blob => saveAs(blob, `Gramophone_${id}.png`));
+                    canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
                 });
             } else {
                 setDownloadProgress(prev => prev + 1);
             }
             currentStep += 1;
         }, 30);
-
+    
         setTimeout(() => {
             setDownloadProgress(0);
         }, totalSteps * 70);
-    };
+    }, 3000);
 
     return (
         <>
             <Head>
-                <title>{users ? (users.display_name) : 'Gramophone'}</title>
+                <title>{users ? `${users.display_name}'s wall` : 'THE WALLS'}</title>
                 <meta name="description" content="Get your most played tracks from Spotify." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
@@ -581,18 +581,33 @@ const Tracks = ({ data }) => {
                         <div style={{
                             width: "fit-content",
                             display: "flex",
-                            flexDirection: "row",
+                            flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "center",
                             height: "fit-content",
                         }} className='py-5'>
                             {users && users.images && users.images.length > 0 && (<>
-                                <div className='w-10 h-35 mr-3 md:w-20'>
+                                <div className='w-14 h-35 mr-3 md:w-20'>
                                     <Image priority={true} layout="responsive"
                                         height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                                 </div>
-                                <div className=''>
-                                    <p layout='responsive' className={`text-lg font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                <div className='flex flex-col justify-center items-center mt-2'>
+                                    <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                    {/* {timeRange === 'short_term' && (
+                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
+                                            {users.display_name}&#39;s Recent Rhythms
+                                        </p>
+                                    )}
+                                    {timeRange === 'medium_term' && (
+                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
+                                            {users.display_name}&#39;s Melodic Evolution
+                                        </p>
+                                    )}
+                                    {timeRange === 'long_term' && (
+                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
+                                            {users.display_name}&#39;s Everlasting Jam
+                                        </p>
+                                    )} */}
                                 </div>
                             </>
                             )}
@@ -627,7 +642,7 @@ const Tracks = ({ data }) => {
                     </button>
                     <button
                         onClick={() => {
-                            debounce(handleDownload(), 3000)
+                            handleDownload()
                         }}
                         type="button"
                         className="flex items-center justify-center"
