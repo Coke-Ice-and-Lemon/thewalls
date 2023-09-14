@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <div className="w-full flex flex-col items-center mt-20">
         <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>
-        <button className="text-white px-8 py-2 rounded-full bg-green-500 font-bold text-lg" onClick={() => signIn('spotify', { callbackUrl: "/tracks?time_range=short_term" })}>Login with spotify</button>
+        <button className="text-white px-8 py-2 rounded-full bg-green-500 font-bold text-lg" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>Login with spotify</button>
       </div>
     </>
   )
