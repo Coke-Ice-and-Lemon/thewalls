@@ -39,7 +39,7 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <Link
                                         className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 hover:underline"
-                                        href="/tracks?time_range=short_term" onClick={() => setNavbarOpen(false)}
+                                        href="/explore" onClick={() => setNavbarOpen(false)}
                                     >
                                         <span className="ml-2">Explore</span>
                                     </Link>
