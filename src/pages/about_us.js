@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Navbar from '@/components/Navbar';
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ const AboutUs = () => {
         <div className='flex justify-center w-9/12'>
           <div className="flex flex-col flex-wrap md:flex-row justify-between mt-10 ">
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
-              <Image width={300} height={300} src={"/harsh.png"} alt="Harsh Mathur" className="w-32 h-32 rounded-full mx-auto" />
+              <Image width={300} height={300} src={"/assets/harsh.png"} alt="Harsh Mathur" className="w-32 h-32 rounded-full mx-auto" />
               <div className="flex flex-row items-center mt-4 justify-between">
                 <h2 className="text-lg font-semibold mr-2">harsh mathur</h2>
                 <div className="flex flex-row">
@@ -29,7 +29,7 @@ const AboutUs = () => {
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
-              <Image width={300} height={300} src={"/pooji.jpg"} alt="Poojan Patel" className="w-32 h-32 rounded-full mx-auto" />
+              <Image width={300} height={300} src={"/assets/pooji.jpg"} alt="Poojan Patel" className="w-32 h-32 rounded-full mx-auto" />
               <div className="flex flex-row items-center mt-4 justify-between">
                 <h2 className="text-lg font-semibold mr-2">poojan patel</h2>
                 <div className="flex flex-row">
@@ -66,12 +66,15 @@ const AboutUs = () => {
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
-              <Image scale="1.1" width={200} height={200} src="/roshni.jpg" alt="Roshni" className="w-32 h-32 rounded-full mx-auto" />
+              <Image scale="1.1" width={200} height={200} src="/assets/roshni.jpg" alt="Roshni" className="w-32 h-32 rounded-full mx-auto" />
               <div className="flex flex-row items-center mt-4 justify-between">
                 <h2 className="text-lg font-semibold mr-2">roshni</h2>
                 <div className="flex flex-row">
-                  <Link href="#" target="_blank">
+                  <Link href="https://www.behance.net/roshnisugeesh004" target="_blank" className='mr-2'>
                     <Image src="/icons8-behance.svg" width={25} height={25} />
+                  </Link>
+                  <Link href="https://www.instagram.com/_by_roshni/?next=%2F" target="_blank">
+                    <Image src="/icons8-instagram.svg" width={25} height={25} />
                   </Link>
                 </div>
               </div>
@@ -86,7 +89,7 @@ const AboutUs = () => {
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
-              <Image scale="1.1" width={200} height={200} src="/navya.jpg" alt="navya" className="w-32 h-32 rounded-full mx-auto" />
+              <Image scale="1.1" width={200} height={200} src="/assets/navya.jpg" alt="navya" className="w-32 h-32 rounded-full mx-auto" />
               <div className="flex flex-row items-center mt-4 justify-between">
                 <h2 className="text-lg font-semibold mr-2">navya sharma</h2>
                 <div className="flex flex-row">
@@ -95,7 +98,7 @@ const AboutUs = () => {
                   </Link>
                 </div>
               </div>
-              <p className="text-grey-300 text-xs italic">annoingly picky UX engineer</p>
+              <p className="text-grey-300 text-xs italic">annoyingly picky UX engineer</p>
               <p className="text-grey-300 text-sm mt-2">an interaction design student and a ux geek who has an iced coffee in her hands at all times.</p>
               <p className="text-grey-300 text-sm">
                 im into art, poetry, reading and all that creative jazz which reminds me that I also love jazz, rock, indie, r&b and hiphop and elevator music because im weird like that.</p>
