@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import TrackPreview from '../components/TrackPreview';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Link from "next/link";
 import Head from 'next/head'
 import Navbar from '@/components/Navbar';
