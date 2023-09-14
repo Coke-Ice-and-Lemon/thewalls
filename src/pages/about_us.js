@@ -73,7 +73,7 @@ const AboutUs = () => {
                   <Link href="https://www.behance.net/roshnisugeesh004" target="_blank" className='mr-2'>
                     <Image src="/icons8-behance.svg" width={25} height={25} />
                   </Link>
-                  <Link href="https://www.behance.net/roshnisugeesh004" target="_blank">
+                  <Link href="https://www.instagram.com/_by_roshni/?next=%2F" target="_blank">
                     <Image src="/icons8-instagram.svg" width={25} height={25} />
                   </Link>
                 </div>
