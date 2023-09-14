@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: { },
+    extend: {
+      animation: {
+        'spin-slow': 'spin 10s linear infinite', 
+      }
+    },
   },
   plugins: [],
   darkMode: "media"
