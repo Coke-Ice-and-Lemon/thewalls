@@ -16,8 +16,9 @@ export default function Home() {
       <div className="w-full flex flex-col items-center h-screen justify-center">
         <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>
         <button className="text-white px-8 py-2 rounded-full bg-green-500 font-bold text-lg" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>Login with spotify</button>
-        <div className='flex flex-row justify-center w-6/12 md:11/12'>
-          <Image className="animate-spin-slow mt-5" src='/vinyl.png' width={300} height={300} alt="" />
+        <div className='flex flex-col justify-center w-6/12 md:11/12 items-center'>
+          <Image className="animate-spin-slow my-5" src='/vinyl.png' width={300} height={300} />
+          {/* <iframe style={{ borderRadius: "12px" }} src="https://open.spotify.com/embed/track/0ikz6tENMONtK6qGkOrU3c?utm_source=generator&theme=0" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> */}
         </div>
       </div>
     </>
