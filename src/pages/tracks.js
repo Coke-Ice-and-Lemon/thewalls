@@ -624,7 +624,7 @@ const Tracks = ({ data }) => {
                         ))}
                     </div>
                     <div className="w-full flex flex-col justify-center items-center my-4" >
-                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >gaslight-web.vercel.app</p>
+                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >apollomusic.vercel.app</p>
                         <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
                             <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                         </div>
