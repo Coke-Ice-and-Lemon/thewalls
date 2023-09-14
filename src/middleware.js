@@ -4,16 +4,16 @@ import { NextResponse } from 'next/server'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req) {
-    const token = await getToken({ req, secret: process.env.JWT_SECRET })
+    // const token = await getToken({ req, secret: process.env.JWT_SECRET })
 
-    const { pathname } = req.nextUrl
-    if (pathname.includes("_next") ||  pathname.includes("/api/auth") || token) {
-        return NextResponse.next()
-    }
+    // const { pathname } = req.nextUrl
+    // if (pathname.startsWith("/_next") ||  pathname.includes("/api/auth") || token) {
+    //     return NextResponse.next()
+    // }
 
-    if (!token && (pathname !== "/" && pathname !== "/about_us" && pathname !== '/privacy-policy')) {
-        return NextResponse.redirect(new URL('/', req.url))
-    }
+    // if (!token && (pathname !== "/" && pathname !== "/about_us" && pathname !== '/privacy-policy')) {
+    //     return NextResponse.redirect(new URL('/', req.url))
+    // }
 
     return NextResponse.next()
 }
