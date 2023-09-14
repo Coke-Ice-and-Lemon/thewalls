@@ -7,7 +7,7 @@ export async function middleware(req) {
     const token = await getToken({ req, secret: process.env.JWT_SECRET })
 
     const { pathname } = req.nextUrl
-    if (pathname.includes("/api/auth") || token) {
+    if (pathname.includes("_next") ||  pathname.includes("/api/auth") || token) {
         return NextResponse.next()
     }
 
