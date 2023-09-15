@@ -26,7 +26,7 @@ const Privacypolicy = () => {
           maliciously, if you would like to revoke the wall&#39;s permissions, you
           can visit
           <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427"> your apps page</a>
-          and click &#39;REMOVE ACCESS&#39; on the walls.
+           and click &#39;REMOVE ACCESS&#39; on the walls.
           <a href="https://support.spotify.com/us/article/spotify-on-other-apps/"> Here </a>
           is a more detailed guide for doing so.
         </p>
