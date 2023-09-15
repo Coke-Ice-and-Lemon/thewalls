@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Navbar />
       <div className="w-full flex flex-col items-center h-screen justify-center">
-        <Images src="/idk258.svg" width={100} height={100} />
+        <Image src="/idk258.svg" width={100} height={100} />
         <h1 className='my-5 text-[#fffded] text-3xl font-bold'>THE WALLS</h1>
         <button className="text-[#fffded] px-5 py-2 rounded-lg bg-[#1DB954] font-bold text-lg flex flex-row items-center" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>
           <Image src="/spotify.svg" width={20} height={20} />
