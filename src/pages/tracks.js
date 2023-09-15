@@ -10,6 +10,8 @@ import Navbar from '@/components/Navbar';
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { db } from "../firebase"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const backgrounds = [
     {
@@ -337,11 +339,12 @@ const Tracks = ({ data }) => {
     const handleItemClick = (bg) => {
         setSelectedBackground(bg);
     };
+
     const Gradients = () => {
         return (<>
-        
+
             <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 m-2 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     {users && users.images && users.images.length > 0 && (
                         <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
@@ -363,7 +366,6 @@ const Tracks = ({ data }) => {
         </>
         )
     }
-
 
     async function getTopTracks(time) {
         const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=25`, {
@@ -526,7 +528,7 @@ const Tracks = ({ data }) => {
         const container = document.getElementById("my-container");
         const totalSteps = 100;
         let currentStep = 0;
-    
+
         const interval = setInterval(() => {
             if (currentStep >= totalSteps) {
                 clearInterval(interval);
@@ -542,11 +544,20 @@ const Tracks = ({ data }) => {
             }
             currentStep += 1;
         }, 30);
-    
+
         setTimeout(() => {
             setDownloadProgress(0);
         }, totalSteps * 70);
     }, 3000);
+
+    const contextClass = {
+        success: "bg-blue-600",
+        error: "bg-red-600",
+        info: "bg-gray-600",
+        warning: "bg-orange-400",
+        default: "bg-indigo-600",
+        dark: "bg-white-600 font-gray-300",
+    };
 
     return (
         <>
@@ -557,6 +568,11 @@ const Tracks = ({ data }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
+            <ToastContainer toastClassName={({ type }) => contextClass[type || "default"] +
+                "bg-transparent"
+            }
+                bodyClassName={() => "w-[60%] md:w-[80%] mt-[55%] md:mt-[60%] ml-2 rounded-lg text-lg text-black font-extrabold block p-3 text-sm bg-white"}
+            />
             <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
