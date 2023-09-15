@@ -9,7 +9,7 @@ const AboutUs = () => {
       <Navbar />
       <div className="container mx-auto px-4 flex flex-col justify-center items-center mt-28 w-full">
         <h2 className='text-2xl font-bold'>About Us</h2>
-        <div className='flex justify-center w-9/12'>
+        <div className='flex justify-center w-11/12  md:w-9/12'>
           <div className="flex flex-col flex-wrap md:flex-row justify-between mt-10 ">
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
               <Image width={300} height={300} src={"/harsh.png"} alt="Harsh Mathur" className="w-32 h-32 rounded-full mx-auto" />
@@ -25,7 +25,11 @@ const AboutUs = () => {
                 </div>
               </div>
               <p className="text-grey-300 text-xs italic">nocturnal developer</p>
-              <p className="text-grey-300 text-sm mt-2">find me jamming to the beatles and the smiths in my room at 3 am; my alternate personality will be dancing on the bar to honey singh at your father&#39;s wedding</p>
+              <p className="text-grey-300 text-sm mt-2 mb-5">find me jamming to the beatles and the smiths in my room at 3 am; my alternate personality will be dancing on the bar to honey singh at your father&#39;s wedding</p>
+              <iframe style={{
+                borderRadius:"12px"
+              }} 
+              src="https://open.spotify.com/embed/track/0p5eZCY0R7uNCZS1YDtIYI?utm_source=generator&theme=0" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
@@ -42,7 +46,11 @@ const AboutUs = () => {
                 </div>
               </div>
               <p className="text-grey-300 text-xs italic">{`developer (rage-quit mode)`}</p>
-              <p className="text-grey-300 text-sm mt-2">In a parallel universe, I am immersed in Valorant battles with Weekend&#39;s music setting the electrifying mood. On gloomy days,I escape the world with METROOOOOOOO.</p>
+              <p className="text-grey-300 text-sm mt-2 mb-5">In a parallel universe, I am immersed in Valorant battles with Weekend&#39;s music setting the electrifying mood. On gloomy days,I escape the world with METROOOOOOOO.</p>
+              <iframe style={{
+                borderRadius:"12px"
+              }} 
+              src="https://open.spotify.com/embed/track/2Ch7LmS7r2Gy2kc64wv3Bz?utm_source=generator" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
@@ -62,7 +70,11 @@ const AboutUs = () => {
                 </div>
               </div>
               <p className="text-grey-300 text-xs italic">developer / comic / samosa enthusiast </p>
-              <p className="text-grey-300 text-sm mt-2">In an alternate universe, you and me by the beach, the sun gently descending, you capturing the moment, and me, you. With Taylor Swift&#39;s songs playing in the background, talking about random stuff just like &#34;two headlights shine through the sleepless night.</p>
+              <p className="text-grey-300 text-sm mt-2 mb-5">In an alternate universe, you and me by the beach, the sun gently descending, you capturing the moment, and me, you. With Taylor Swift&#39;s songs playing in the background, talking about random stuff just like &#34;two headlights shine through the sleepless night.</p>
+              <iframe style={{
+                borderRadius:"12px"
+              }} 
+              src="https://open.spotify.com/embed/track/1dGr1c8CrMLDpV6mPbImSI?utm_source=generator&theme=0" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
             <div className="p-4 md:w-[40%] mx-5 mb-5 rounded-lg">
@@ -103,10 +115,10 @@ const AboutUs = () => {
               <p className="text-grey-300 text-sm">
                 im into art, poetry, reading and all that creative jazz which reminds me that I also love jazz, rock, indie, r&b and hiphop and elevator music because im weird like that.</p>
               <p className="text-grey-300 text-sm mt-2 mb-5"> oh and harsh also wanted me to mention about my obsession with LIIT&#39;s so there&#39;s that.</p>
-              {/* <iframe style={{
-                bordeRadius: "12px",
-                width: "100%"
-              }} src="https://open.spotify.com/embed/track/2GAhgAjOhEmItWLfgisyOn?utm_source=generator&theme=0" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> */}
+              <iframe style={{
+                borderRadius:"12px"
+              }} 
+              src="https://open.spotify.com/embed/track/73l2r0EXDHqgC63HL0Xtci?utm_source=generator" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
           </div>
         </div>
