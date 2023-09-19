@@ -18,7 +18,6 @@ const Explore = () => {
 
     return (
         <>
-            <Navbar />
             <div className="w-full flex flex-col items-center h-screen justify-center">
                 <Image quality={90} src="/idk258.svg" width={100} height={100} />
                 <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>

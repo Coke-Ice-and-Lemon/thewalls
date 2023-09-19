@@ -6,7 +6,6 @@ import Link from "next/link";
 const AboutUs = () => {
   return (
     <>
-      <Navbar />
       <div className="container mx-auto px-4 flex flex-col justify-center items-center mt-28 w-full">
         <h2 className='text-2xl font-bold'>About Us</h2>
         <div className='flex justify-center w-11/12  md:w-9/12'>

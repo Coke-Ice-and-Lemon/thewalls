@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react"
 import Head from 'next/head'
 import { Space_Grotesk } from 'next/font/google'
 import { useEffect, useState } from 'react'
+import Navbar from '@/components/Navbar'
 const space = Space_Grotesk({ subsets: ['latin'] })
 
 export default function App({
@@ -32,6 +33,7 @@ export default function App({
         <link rel="icon" href="/favicon-light.ico" />
       </Head>
       <main className={space.className}>
+        <Navbar />
         <Component {...pageProps} />
       </main>
     </SessionProvider>

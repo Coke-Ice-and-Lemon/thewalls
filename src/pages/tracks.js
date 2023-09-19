@@ -1,17 +1,16 @@
-import React from 'react'
-import { useSession, signOut } from "next-auth/react"
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import TrackPreview from '../components/TrackPreview';
+import { saveAs } from "file-saver";
+import html2canvas from "html2canvas";
+import { useSession } from "next-auth/react";
+import Head from 'next/head';
 import Image from "next/image";
 import Link from "next/link";
-import Head from 'next/head'
-import Navbar from '@/components/Navbar';
-import html2canvas from "html2canvas";
-import { saveAs } from "file-saver";
-import { db } from "../firebase"
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TrackPreview from '../components/TrackPreview';
+import { db } from "../firebase";
+import Spinner from "@/components/Spinner";
 
 const backgrounds = [
     {
@@ -327,6 +326,7 @@ const Tracks = ({ data }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
     const [downloadProgress, setDownloadProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
         backgroundImage: `url("/tortoise-shell.svg")`,
@@ -388,6 +388,7 @@ const Tracks = ({ data }) => {
         // console.log("user tracks data", finalTracksArray.slice(0,15))
         return finalTracksArray.slice(0, 15)
     }
+
     async function getuserprofile() {
         const response = await fetch('https://api.spotify.com/v1/me', {
             headers: {
@@ -399,10 +400,12 @@ const Tracks = ({ data }) => {
     }
 
     useEffect(() => {
+        setIsLoading(true)
         const f = async () => {
             if (session) {
                 setTracks(await getTopTracks(timeRange))
                 setUsers(await getuserprofile())
+                setIsLoading(false)
             }
             else {
                 if (router.isReady) {
@@ -560,20 +563,19 @@ const Tracks = ({ data }) => {
     };
 
     return (
-        <>
+        <div className="h-full">
             <Head>
                 <title>{users ? `${users.display_name}'s wall` : 'THE WALLS'}</title>
                 <meta name="description" content="Get your most played tracks from Spotify." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar />
             <ToastContainer toastClassName={({ type }) => contextClass[type || "default"] +
                 "bg-transparent"
             }
                 bodyClassName={() => "w-[60%] md:w-[80%] mt-[55%] md:mt-[60%] ml-2 rounded-lg text-lg text-black font-extrabold block p-3 text-sm bg-white"}
             />
-            <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full">
+            <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full h-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
@@ -592,24 +594,29 @@ const Tracks = ({ data }) => {
                     </li>
                 </ul>
                 <Gradients />
-                <div className='w-full'>
-                    <div className="w-full flex flex-row justify-center items-center">
-                        <div style={{
-                            width: "fit-content",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "fit-content",
-                        }} className='py-5'>
-                            {users && users.images && users.images.length > 0 && (<>
-                                <div className='w-14 h-35 mr-3 md:w-20'>
-                                    <Image priority={true} layout="responsive"
-                                        height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                                </div>
-                                <div className='flex flex-col justify-center items-center mt-2'>
-                                    <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
-                                    {/* {timeRange === 'short_term' && (
+                {isLoading ? (<div className="h-[40rem]">
+                    <div className="mt-5">
+                        <Spinner />
+                    </div>
+                </div>) : (
+                    <div className='w-full min-h-[40rem]'>
+                        <div className="w-full flex flex-row justify-center items-center">
+                            <div style={{
+                                width: "fit-content",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "fit-content",
+                            }} className='py-5'>
+                                {users && users.images && users.images.length > 0 && (<>
+                                    <div className='w-14 h-35 md:w-20'>
+                                        <Image priority={true} layout="responsive"
+                                            height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                    </div>
+                                    <div className='flex flex-col justify-center items-center mt-2'>
+                                        <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                        {/* {timeRange === 'short_term' && (
                                         <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
                                             {users.display_name}&#39;s Recent Rhythms
                                         </p>
@@ -624,28 +631,29 @@ const Tracks = ({ data }) => {
                                             {users.display_name}&#39;s Everlasting Jam
                                         </p>
                                     )} */}
-                                </div>
-                            </>
-                            )}
+                                    </div>
+                                </>
+                                )}
 
+                            </div>
+                        </div>
+                        <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
+                            {tracks && tracks.map((track) => (
+                                (track.album.images && (
+                                    <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
+                                        <TrackPreview track={track} />
+                                    </Link>
+                                ))
+                            ))}
+                        </div>
+                        <div className="w-full flex flex-col justify-center items-center my-4" >
+                            <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >thewalls.vercel.app</p>
+                            <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
+                                <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
+                            </div>
                         </div>
                     </div>
-                    <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
-                        {tracks && tracks.map((track) => (
-                            (track.album.images && (
-                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
-                                    <TrackPreview track={track} />
-                                </Link>
-                            ))
-                        ))}
-                    </div>
-                    <div className="w-full flex flex-col justify-center items-center my-4" >
-                        <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >thewalls.vercel.app</p>
-                        <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
-                            <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
-                        </div>
-                    </div>
-                </div>
+                )}
                 <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
@@ -667,7 +675,7 @@ const Tracks = ({ data }) => {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar'
 export default function Home() {
   return (
     <>
-      <Navbar />
       <div className="w-full flex flex-col items-center h-screen justify-center">
         <Image src="/idk258.svg" width={100} height={100} />
         <h1 className='my-5 text-[#fffded] text-3xl font-bold'>THE WALLS</h1>

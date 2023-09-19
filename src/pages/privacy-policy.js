@@ -4,7 +4,6 @@ import React from 'react'
 const Privacypolicy = () => {
   return (
     <>
-      <Navbar />
       <div className="text-lg text-center px-28 mt-28">
         <h2 className="text-2xl font-bold">Privacy Policy</h2>
         <br />
