@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
 import Spinner from "@/components/Spinner";
-
+// import { ChromePicker } from "react-color";
+import Colorful from '@uiw/react-color-colorful';
+import Interactive from '@uiw/react-drag-event-interactive';
 const backgrounds = [
     {
         path: '/default_bg.svg',
@@ -120,31 +122,7 @@ const backgrounds = [
         theme: "dark",
         backgroundColor: '#121212'
     },
-    {
-        path: '/solid_bluelight.png',
-        theme: "dark",
-        backgroundColor: '#83adb5'
-    },
-    {
-        path: '/solid_bluedark.png',
-        theme: "dark",
-        backgroundColor: '#2e4045'
-    },
-    {
-        path: '/solid_pinklight.png',
-        theme: "light",
-        backgroundColor: '#c7bbc9'
-    },
-    {
-        path: '/solid_pinkdark.png',
-        theme: "dark",
-        backgroundColor: '#5e3c58'
-    },
-    {
-        path: '/solid_beigedark.png',
-        theme: "light",
-        backgroundColor: '#bfb5b2'
-    },
+
     {
         backgroundImage: `url("/big wavy blue orange.svg")`,
         path: '/orange_wavy_preview.png',
@@ -330,7 +308,8 @@ const Tracks = ({ data }) => {
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
         backgroundImage: `url("/tortoise-shell.svg")`,
-        path: "/tortoise-shell.svg"
+        path: "/tortoise-shell.svg",
+        backgroundColor: '#000'
     })
     const router = useRouter()
     const time_range = router.query.time_range
@@ -339,20 +318,49 @@ const Tracks = ({ data }) => {
     const handleItemClick = (bg) => {
         setSelectedBackground(bg);
     };
+    const [color, setcolor] = useState('#fff')
+    const [showcolorpicker, setshowcolorpicker] = useState(false)
+    const handleColorChange = (updatedColor) => {
+        setcolor(updatedColor.hex);
+
+        setSelectedBackground({
+            backgroundColor: updatedColor.hex,
+        });
+    };
 
     const Gradients = () => {
         return (<>
 
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                    {users && users.images && users.images.length > 0 && (
-                        <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
+                    {users && users.images && users.images.length > 0 && (<>
+                        <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
                                 +
                             </label>
                             <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
                         </li>
+                        <li className=" rounded-full px-2.5 border-2 border-white relative">
+                            <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
+                                {!showcolorpicker ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
+                                    </svg>
+                                ) : <></>}
+                            </button>
+                            {showcolorpicker && (
+                                <div className="absolute top-0 left-0" onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                            )}
+                            {showcolorpicker && (
+                                <Colorful className='' color={color} onChange={handleColorChange} />
+                            )}
+                        </li>
+                    </>
                     )}
                     {backgrounds.map((bg, index) => (<>
                         <li className="mr-2 flex-shrink-0" key={index}>
@@ -657,21 +665,21 @@ const Tracks = ({ data }) => {
                 <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
-                            debounce(handleShare(), 3000)
-                        }}
-                        type="button"
-                        className="flex items-center justify-center mr-2"
-                    >
-                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} >Share</div>
-                    </button>
-                    <button
-                        onClick={() => {
                             handleDownload()
                         }}
                         type="button"
-                        className="flex items-center justify-center"
+                        className="flex items-center justify-center mr-2 "
                     >
                         <div className={`inline-block px-2 py-2 w-40 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} > {downloadProgress > 0 ? `Downloading...` : 'Download'}</div>
+                    </button>
+                    <button
+                        onClick={() => {
+                            debounce(handleShare(), 3000)
+                        }}
+                        type="button"
+                        className="flex items-center justify-center "
+                    >
+                        <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} >Share</div>
                     </button>
                 </div>
             </div>
