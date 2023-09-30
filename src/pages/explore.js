@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from 'react-toastify';

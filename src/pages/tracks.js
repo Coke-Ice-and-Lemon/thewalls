@@ -1,3 +1,4 @@
+import Spinner from "@/components/Spinner";
 import { saveAs } from "file-saver";
 import html2canvas from "html2canvas";
 import { useSession } from "next-auth/react";
@@ -10,7 +11,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
-import Spinner from "@/components/Spinner";
 
 const backgrounds = [
     {
@@ -322,7 +322,7 @@ const backgrounds = [
     // },
 ]
 
-const Tracks = ({ data }) => {
+const Tracks = ({}) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
     const [downloadProgress, setDownloadProgress] = useState(0);
@@ -616,25 +616,9 @@ const Tracks = ({ data }) => {
                                     </div>
                                     <div className='flex flex-col justify-center items-center mt-2'>
                                         <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
-                                        {/* {timeRange === 'short_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Recent Rhythms
-                                        </p>
-                                    )}
-                                    {timeRange === 'medium_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Melodic Evolution
-                                        </p>
-                                    )}
-                                    {timeRange === 'long_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Everlasting Jam
-                                        </p>
-                                    )} */}
                                     </div>
                                 </>
                                 )}
-
                             </div>
                         </div>
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>

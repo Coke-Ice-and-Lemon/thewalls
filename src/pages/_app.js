@@ -1,19 +1,14 @@
+import Navbar from '@/components/Navbar'
 import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
-import Head from 'next/head'
 import { Space_Grotesk } from 'next/font/google'
-import { useEffect, useState } from 'react'
-import Navbar from '@/components/Navbar'
+import Head from 'next/head'
 const space = Space_Grotesk({ subsets: ['latin'] })
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-
-  const getFaviconPath = (isDarkMode = false) => {
-    return `/favicon-${isDarkMode ? "dark" : "light"}.ico`;
-  };
 
   return (
     <SessionProvider session={session}>
