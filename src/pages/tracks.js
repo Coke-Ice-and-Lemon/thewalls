@@ -18,20 +18,8 @@ const backgrounds = [
         theme: "dark"
     },
     {
-        backgroundImage: `url("/hollowed-boxes.svg")`,
-        path: '/hollowed-boxes.svg',
-        theme: "dark"
-    },
-    {
         backgroundImage: `url("/tortoise-shell.svg")`,
         path: "/tortoise-shell.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/ffflux.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ffflux.svg",
         theme: "dark"
     },
     {
@@ -39,28 +27,6 @@ const backgrounds = [
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/hhholographic.webp",
-        theme: "light"
-    },
-    {
-        backgroundImage: `url("/pppsychedelic.webp")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/pppsychedelic.webp",
-        theme: "dark"
-    },
-    {
-        backgroundColor: "black",
-        backgroundImage: `url("/ttten.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ttten.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/sun-tornado.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/sun-tornado.svg",
         theme: "light"
     },
     {
@@ -77,13 +43,7 @@ const backgrounds = [
         path: "/rainbow-vortex.svg",
         theme: "dark"
     },
-    {
-        backgroundImage: `url("/endless-constellation.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/endless-constellation.svg",
-        theme: "dark"
-    },
+    //DEBATABLE 
     {
         backgroundImage: `url("/sun-tornado_2.svg")`,
         backgroundRepeat: "no-repeat",
@@ -92,72 +52,11 @@ const backgrounds = [
         theme: "dark"
     },
     {
-        backgroundImage: `url("/ssscales.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ssscales.svg",
-        theme: "light"
-    },
-    {
-        backgroundImage: `url("/llleaves.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/llleaves.svg",
-        theme: "dark"
-    },
-    {
         backgroundImage: `url("/sssquiggly.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/sssquiggly.svg",
         theme: "dark"
-    },
-    {
-        backgroundImage: `url("/oooscillate.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/oooscillate.svg",
-        theme: "dark",
-        backgroundColor: '#121212'
-    },
-    {
-        path: '/solid_bluelight.png',
-        theme: "dark",
-        backgroundColor: '#83adb5'
-    },
-    {
-        path: '/solid_bluedark.png',
-        theme: "dark",
-        backgroundColor: '#2e4045'
-    },
-    {
-        path: '/solid_pinklight.png',
-        theme: "light",
-        backgroundColor: '#c7bbc9'
-    },
-    {
-        path: '/solid_pinkdark.png',
-        theme: "dark",
-        backgroundColor: '#5e3c58'
-    },
-    {
-        path: '/solid_beigedark.png',
-        theme: "light",
-        backgroundColor: '#bfb5b2'
-    },
-    {
-        backgroundImage: `url("/big wavy blue orange.svg")`,
-        path: '/orange_wavy_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/big wavy orange purple4.svg")`,
-        path: '/orange_wavy_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
     },
     {
         backgroundImage: `url("/big wavy peak zoomed.svg")`,
@@ -174,43 +73,8 @@ const backgrounds = [
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("blue_green_bgblack.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/blue_green_peak.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/blue_vector.svg")`,
-        path: '/blue_vector_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/high blue green.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
         backgroundImage: `url("/pink stacked wavey.svg")`,
         path: '/pink_wavey_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/polygon_golden.svg")`,
-        path: '/golden_polygon_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -223,103 +87,12 @@ const backgrounds = [
         backgroundSize: "cover",
     },
     {
-        backgroundImage: `url("/wavy green mountains.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
         backgroundImage: `url("/stacked-waves-haikei.svg")`,
         path: '/stacked-waves-haikei_preview.png',
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
-    {
-        backgroundImage: `url("/ccchaos.svg")`,
-        path: '/ccchaos_green_orange_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/ccchaos (1).svg")`,
-        path: '/ccchaos_blue_red_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/ffflurry.svg")`,
-        path: '/ffflurry.svg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/dddepth-240.jpg")`,
-        path: '/dddepth-240.jpg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/dddepth-241.jpg")`,
-        path: '/dddepth-241.jpg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/quantum-gradient.svg")`,
-        path: '/quantum-gradient-preview.png',
-        theme: "light",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/meteor.svg")`,
-        path: '/meteor-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/sprinkle.svg")`,
-        path: '/sprinkle-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/Circuit_Board.svg")`,
-        path: '/circuit-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/Rect_Light.svg")`,
-        path: '/Rect_Light-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/pattern.svg")`,
-        path: '/pattern-preview.png',
-        theme: "light",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    }
-    // {
-    //     backgroundImage: `url("/Sound Wave (3).svg")`,
-    //     path: '/Sound Wave preview.png',
-    //     theme: "light",
-    //     backgroundRepeat: "no-repeat",
-    //     backgroundSize: "cover",
-    // },
 ]
 
 const Tracks = ({}) => {
