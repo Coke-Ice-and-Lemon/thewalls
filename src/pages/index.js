@@ -14,7 +14,7 @@ export default function Home() {
           </p>
         </button>
         <div class="w-[80%] md:w-max">
-          <p className='text-xs font-bold text-center italic'>The Walls creates a personalized album collage for users by analyzing their top-played tracks.</p>
+          <p className='text-xs font-bold text-center italic'>ready to create your wall? get in.</p>
         </div>
       </div>
     </>
