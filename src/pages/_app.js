@@ -14,6 +14,7 @@ export default function App({
     <SessionProvider session={session}>
       <Head>
         <title>THE WALLS</title>
+        <meta name="google-site-verification" content="ufjB4lpFxeLeyrleMdoU3BtoNleUMd-Wb53g-gZzEiQ" />
         <meta name="description" content="Veiw your top tracks. go crazy. have fun" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="THE WALLS" />
