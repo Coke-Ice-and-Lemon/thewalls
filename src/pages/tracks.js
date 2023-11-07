@@ -411,7 +411,7 @@ const Tracks = ({}) => {
                         </div>
                     </div>
                 )}
-                <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
+                {/* <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
                             debounce(handleShare(), 3000)
@@ -430,7 +430,7 @@ const Tracks = ({}) => {
                     >
                         <div className={`inline-block px-2 py-2 w-40 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} > {downloadProgress > 0 ? `Downloading...` : 'Download'}</div>
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )
