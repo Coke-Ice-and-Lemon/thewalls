@@ -95,7 +95,7 @@ const backgrounds = [
     },
 ]
 
-const Tracks = ({}) => {
+const Tracks = ({ }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
     const [downloadProgress, setDownloadProgress] = useState(0);
@@ -114,29 +114,29 @@ const Tracks = ({}) => {
     };
 
     const Gradients = () => {
-        return (<>
+        return (
+            <>
+                <div className='w-full flex justify-center'>
+                    <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                        {users && (
+                            <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
+                                <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
+                                    +
+                                </label>
+                                <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
-            <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                    {users && users.images && users.images.length > 0 && (
-                        <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
-                            <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
-                                +
-                            </label>
-                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
+                            </li>
+                        )}
+                        {backgrounds.map((bg, index) => (<>
+                            <li className="mr-2 flex-shrink-0" key={index}>
+                                <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
+                            </li>
+                        </>
+                        ))}
+                    </ul>
+                </div>
 
-                        </li>
-                    )}
-                    {backgrounds.map((bg, index) => (<>
-                        <li className="mr-2 flex-shrink-0" key={index}>
-                            <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
-                        </li>
-                    </>
-                    ))}
-                </ul>
-            </div>
-
-        </>
+            </>
         )
     }
 
@@ -382,15 +382,16 @@ const Tracks = ({}) => {
                                 justifyContent: "center",
                                 height: "fit-content",
                             }} className='py-5'>
-                                {users && users.images && users.images.length > 0 && (<>
-                                    <div className='w-14 h-35 md:w-20'>
-                                        <Image priority={true} layout="responsive"
-                                            height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                                    </div>
-                                    <div className='flex flex-col justify-center items-center mt-2'>
-                                        <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
-                                    </div>
-                                </>
+                                {users && users.images && users.images.length > 0 && (
+                                    <>
+                                        <div className='w-14 h-35 md:w-20'>
+                                            <Image priority={true} layout="responsive"
+                                                height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                        </div>
+                                        <div className='flex flex-col justify-center items-center mt-2'>
+                                            <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                        </div>
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -411,7 +412,7 @@ const Tracks = ({}) => {
                         </div>
                     </div>
                 )}
-                {/* <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
+                <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
                             debounce(handleShare(), 3000)
@@ -430,7 +431,7 @@ const Tracks = ({}) => {
                     >
                         <div className={`inline-block px-2 py-2 w-40 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} > {downloadProgress > 0 ? `Downloading...` : 'Download'}</div>
                     </button>
-                </div> */}
+                </div>
             </div>
         </div>
     )
