@@ -14,12 +14,12 @@ import { db } from "../firebase";
 
 const backgrounds = [
     {
-        path: '/default_bg.svg',
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg",
         theme: "dark"
     },
     {
-        backgroundImage: `url("/tortoise-shell.svg")`,
-        path: "/tortoise-shell.svg",
+        path: '/default_bg.svg',
         theme: "dark"
     },
     {
@@ -245,7 +245,7 @@ const Tracks = ({ }) => {
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
-            scale: 1,
+            scale: 2,
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
@@ -310,7 +310,7 @@ const Tracks = ({ }) => {
                 clearInterval(interval);
                 html2canvas(container, {
                     imageTimeout: 50000,
-                    scale: 5,
+                    scale: 2,
                 }).then(canvas => {
                     const id = Date.now();
                     canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
@@ -422,7 +422,7 @@ const Tracks = ({ }) => {
                     >
                         <div className={`inline-block px-2 py-2 w-28 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} >Share</div>
                     </button>
-                    {/* <button
+                    <button
                         onClick={() => {
                             handleDownload()
                         }}
@@ -430,7 +430,7 @@ const Tracks = ({ }) => {
                         className="flex items-center justify-center"
                     >
                         <div className={`inline-block px-2 py-2 w-40 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-40 shadow-xl cursor-pointer border-[1px] border-white-400 ${selectedBackground.theme == 'light' && "text-black"}  `} > {downloadProgress > 0 ? `Downloading...` : 'Download'}</div>
-                    </button> */}
+                    </button>
                 </div>
             </div>
         </div>
