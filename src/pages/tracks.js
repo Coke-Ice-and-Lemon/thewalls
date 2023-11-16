@@ -154,7 +154,7 @@ const Tracks = ({ }) => {
                 if (item?.album && item?.album?.images && item?.album?.images[0]) {
                     finalAlbumsObject[item?.album?.id] = {
                         image: item?.album?.images[0]?.url,
-                        href: item?.href
+                        href: item?.external_urls?.spotify
                     }
                 }
             })
