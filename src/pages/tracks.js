@@ -245,7 +245,7 @@ const Tracks = ({ }) => {
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
-            scale: 5,
+            scale: 1,
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {

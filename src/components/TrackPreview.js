@@ -2,79 +2,79 @@ import Image from "next/legacy/image";
 import React, { useEffect, useState } from 'react';
 const TrackPreview = ({ track }) => {
 
-    useEffect(() => {
-        // define a custom handler function
-        // for the contextmenu event
-        const handleContextMenu = (e) => {
-            // prevent the right-click menu from appearing
-            e.preventDefault()
-        }
+    // useEffect(() => {
+    //     // define a custom handler function
+    //     // for the contextmenu event
+    //     const handleContextMenu = (e) => {
+    //         // prevent the right-click menu from appearing
+    //         e.preventDefault()
+    //     }
 
-        // attach the event listener to 
-        // the document object
-        document.addEventListener("contextmenu", handleContextMenu)
+    //     // attach the event listener to 
+    //     // the document object
+    //     document.addEventListener("contextmenu", handleContextMenu)
 
-        // clean up the event listener when 
-        // the component unmounts
-        return () => {
-            document.removeEventListener("contextmenu", handleContextMenu)
-        }
-    }, [])
+    //     // clean up the event listener when 
+    //     // the component unmounts
+    //     return () => {
+    //         document.removeEventListener("contextmenu", handleContextMenu)
+    //     }
+    // }, [])
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = React.createRef();
-    const [isTouching, setIsTouching] = useState(false);
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const audioRef = React.createRef();
+    // const [isTouching, setIsTouching] = useState(false);
 
-    const Playpreview = () => {
-        if (!isTouching) {
-            console.log('playing');
-            if (track.preview_url) {
-                audioRef.current.src = track.preview_url;
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
-        }
-    };
+    // const Playpreview = () => {
+    //     if (!isTouching) {
+    //         console.log('playing');
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //         }
+    //     }
+    // };
 
-    const Stoppreview = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        }
-    };
+    // const Stoppreview = () => {
+    //     if (isPlaying) {
+    //         audioRef.current.pause();
+    //         setIsPlaying(false);
+    //     }
+    // };
 
-    const PlayTouchPreview = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
+    // const PlayTouchPreview = (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
 
-        // Check if audio is not already playing
-        if (!isPlaying && !isTouching) {
-            setIsTouching(true);
+    //     // Check if audio is not already playing
+    //     if (!isPlaying && !isTouching) {
+    //         setIsTouching(true);
 
-            if (track.preview_url) {
-                audioRef.current.src = track.preview_url;
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
-        }
-    };
-    const StopTouchPreview = () => {
-        if (isTouching) {
-            setIsTouching(false);
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //         }
+    //     }
+    // };
+    // const StopTouchPreview = () => {
+    //     if (isTouching) {
+    //         setIsTouching(false);
 
-            if (isPlaying) {
-                audioRef.current.pause();
-                setIsPlaying(false);
-            }
-        }
-    };
+    //         if (isPlaying) {
+    //             audioRef.current.pause();
+    //             setIsPlaying(false);
+    //         }
+    //     }
+    // };
 
     return (
-        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
-            onTouchEnd={StopTouchPreview} >
+        // <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
+        <div >
             <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
-            <audio ref={audioRef}></audio>
+            {/* <audio ref={audioRef}></audio> */}
         </div>
 
     );
