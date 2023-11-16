@@ -14,14 +14,14 @@ import { db } from "../firebase";
 
 const backgrounds = [
     {
-        path: '/default_bg.svg',
-        theme: "dark"
-    },
-    {
         backgroundImage: `url("/tortoise-shell.svg")`,
         path: "/tortoise-shell.svg",
         theme: "dark"
     },
+    // {
+    //     path: '/default_bg.svg',
+    //     theme: "dark"
+    // },
     {
         backgroundImage: `url("/hhholographic.webp")`,
         backgroundRepeat: "no-repeat",
@@ -102,7 +102,8 @@ const Tracks = ({ }) => {
     const [isLoading, setIsLoading] = useState(true);
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
-        path: '/default_bg.svg',
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg",
         theme: "dark"
     })
     const router = useRouter()
