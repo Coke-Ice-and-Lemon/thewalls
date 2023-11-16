@@ -141,25 +141,25 @@ const Tracks = ({ }) => {
     }
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=25`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=50`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }
         })
         const data = await response.json()
-        let finalTracksArray = [];
+        let finalAlbumsObject = {};
         if (data.items) {
-            finalTracksArray = data.items.filter((item) => {
+            data.items.map((item) => {
                 if (item?.album && item?.album?.images && item?.album?.images[0]) {
-                    return true
-                }
-                else {
-                    return false
+                    finalAlbumsObject[item?.album?.id] = {
+                        image: item?.album?.images[0]?.url,
+                        href: item?.href
+                    }
                 }
             })
         }
-        // console.log("user tracks data", finalTracksArray.slice(0,15))
-        return finalTracksArray.slice(0, 15)
+        // console.log("user tracks data", finalAlbumsObject)
+        return finalAlbumsObject
     }
 
     async function getuserprofile() {
@@ -396,12 +396,10 @@ const Tracks = ({ }) => {
                             </div>
                         </div>
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
-                            {tracks && tracks.map((track) => (
-                                (track.album.images && (
-                                    <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
-                                        <TrackPreview track={track} />
-                                    </Link>
-                                ))
+                            {tracks && Object.keys(tracks).slice(0,15).map((track) => (
+                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
+                                    <TrackPreview track={tracks[track]} />
+                                </Link>
                             ))}
                         </div>
                         <div className="w-full flex flex-col justify-center items-center my-4" >
