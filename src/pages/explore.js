@@ -6,11 +6,12 @@ const Explore = () => {
     const displayToast = () => {
         toast(<p>To use a custom background, click on the <span className="text-4xl">+</span> button</p>, {
             position: "top-left",
-            autoClose: "1",
+            autoClose: 1000,
             closeButton: false,
             closeOnClick: true,
             hideProgressBar: true,
-            draggable: false
+            draggable: false,
+            pauseOnHover: false,  
         })
     }
 
