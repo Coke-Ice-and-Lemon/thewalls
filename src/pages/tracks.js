@@ -14,12 +14,12 @@ import { db } from "../firebase";
 
 const backgrounds = [
     {
-        backgroundImage: `url("/tortoise-shell.svg")`,
-        path: "/tortoise-shell.svg",
+        path: '/default_bg.svg',
         theme: "dark"
     },
     {
-        path: '/default_bg.svg',
+        backgroundImage: `url("/tortoise-shell.svg")`,
+        path: "/tortoise-shell.svg",
         theme: "dark"
     },
     {
@@ -102,8 +102,8 @@ const Tracks = ({ }) => {
     const [isLoading, setIsLoading] = useState(true);
     const { data: session } = useSession()
     const [selectedBackground, setSelectedBackground] = useState({
-        backgroundImage: `url("/tortoise-shell.svg")`,
-        path: "/tortoise-shell.svg"
+        path: '/default_bg.svg',
+        theme: "dark"
     })
     const router = useRouter()
     const time_range = router.query.time_range
