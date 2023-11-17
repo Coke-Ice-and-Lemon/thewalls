@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
+import Compact from "@uiw/react-color-compact";
 
 const backgrounds = [
     {
@@ -109,35 +110,71 @@ const Tracks = ({ }) => {
     const router = useRouter()
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
+    const [color, setcolor] = useState('#fff')
+    const [showcolorpicker, setshowcolorpicker] = useState(false)
 
     const handleItemClick = (bg) => {
         setSelectedBackground(bg);
     };
 
+    const handleColorChange = (updatedColor) => {
+        setcolor(updatedColor.hex);
+        setSelectedBackground({
+            backgroundImage: "",
+            backgroundColor: updatedColor.hex,
+        });
+    };
+
     const Gradients = () => {
-        return (
-            <>
-                <div className='w-full flex justify-center'>
-                    <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                        {users && (
-                            <li className="bg-[#000] rounded-full px-2.5  border-2 border-white" key={"user"}>
-                                <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
-                                    +
-                                </label>
-                                <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
+        return (<>
+            <div className='w-full flex justify-center'>
+                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                    {users && users.images && users.images.length > 0 && (<>
+                        <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                            <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
+                                +
+                            </label>
+                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
-                            </li>
+                        </li>
+                        <li className=" rounded-full px-2.5 border-2 border-white relative">
+                            <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
+                                {showcolorpicker ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
+                                    </svg>
+                                )
+                                }
+                            </button>
+                        </li>
+                        {showcolorpicker && (
+                            <div className="absolute mt-14 z-10">
+                                <Compact
+                                    color={color}
+                                    placement="Top"
+                                    onChange={handleColorChange}
+                                    style={{
+                                        boxShadow: 'rgb(0 0 0 / 15%) 0px 0px 0px 1px, rgb(0 0 0 / 15%) 0px 8px 16px',
+                                    }}
+                                />
+                            </div>
                         )}
-                        {backgrounds.map((bg, index) => (<>
-                            <li className="mr-2 flex-shrink-0" key={index}>
-                                <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
-                            </li>
-                        </>
-                        ))}
-                    </ul>
-                </div>
+                    </>
+                    )}
+                    {backgrounds.map((bg, index) => (<>
+                        <li className="mr-2 flex-shrink-0" key={index}>
+                            <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
+                        </li>
+                    </>
+                    ))}
+                </ul>
+            </div>
 
-            </>
+        </>
         )
     }
 
@@ -397,7 +434,7 @@ const Tracks = ({ }) => {
                             </div>
                         </div>
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
-                            {tracks && Object.keys(tracks).slice(0,15).map((track) => (
+                            {tracks && Object.keys(tracks).slice(0, 15).map((track) => (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
                                     <TrackPreview track={tracks[track]} />
                                 </Link>
