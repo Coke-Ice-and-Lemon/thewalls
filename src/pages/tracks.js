@@ -90,7 +90,7 @@ const backgrounds = [
     {
         backgroundImage: `url("/stacked-waves-haikei.svg")`,
         path: '/stacked-waves-haikei_preview.png',
-        theme: "dark",
+        theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
