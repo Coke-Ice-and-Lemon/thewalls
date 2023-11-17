@@ -1,3 +1,5 @@
+import Spinner from "@/components/Spinner";
+import Compact from '@uiw/react-color-compact';
 import { saveAs } from "file-saver";
 import html2canvas from "html2canvas";
 import { useSession } from "next-auth/react";
@@ -10,10 +12,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
-import Spinner from "@/components/Spinner";
-// import { ChromePicker } from "react-color";
-import Colorful from '@uiw/react-color-colorful';
-import Interactive from '@uiw/react-drag-event-interactive';
 const backgrounds = [
     {
         path: '/default_bg.svg',
@@ -322,15 +320,14 @@ const Tracks = ({ data }) => {
     const [showcolorpicker, setshowcolorpicker] = useState(false)
     const handleColorChange = (updatedColor) => {
         setcolor(updatedColor.hex);
-
         setSelectedBackground({
+            backgroundImage: "",
             backgroundColor: updatedColor.hex,
         });
     };
 
     const Gradients = () => {
         return (<>
-
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     {users && users.images && users.images.length > 0 && (<>
@@ -343,23 +340,30 @@ const Tracks = ({ data }) => {
                         </li>
                         <li className=" rounded-full px-2.5 border-2 border-white relative">
                             <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
-                                {!showcolorpicker ? (
+                                {showcolorpicker ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                ) : (
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
                                     </svg>
-                                ) : <></>}
+                                )
+                                }
                             </button>
-                            {showcolorpicker && (
-                                <div className="absolute top-0 left-0" onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                            )}
-                            {showcolorpicker && (
-                                <Colorful className='' color={color} onChange={handleColorChange} />
-                            )}
                         </li>
+                        {showcolorpicker && (
+                            <div className="absolute mt-14 z-10">
+                                <Compact
+                                    color={color}
+                                    placement="Top"
+                                    onChange={handleColorChange}
+                                    style={{
+                                        boxShadow: 'rgb(0 0 0 / 15%) 0px 0px 0px 1px, rgb(0 0 0 / 15%) 0px 8px 16px',
+                                    }}
+                                />
+                            </div>
+                        )}
                     </>
                     )}
                     {backgrounds.map((bg, index) => (<>
