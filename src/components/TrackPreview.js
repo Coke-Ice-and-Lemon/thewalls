@@ -72,7 +72,7 @@ const TrackPreview = ({ track }) => {
     return (
         // <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
         <div >
-            <Image priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
+            <Image unoptimized priority={true}  className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             {/* <audio ref={audioRef}></audio> */}
         </div>

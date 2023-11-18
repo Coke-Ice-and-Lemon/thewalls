@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react"
 import { Space_Grotesk } from 'next/font/google'
 import Head from 'next/head'
 const space = Space_Grotesk({ subsets: ['latin'] })
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({
   Component,
@@ -30,6 +31,7 @@ export default function App({
       </Head>
       <main className={space.className}>
         <Navbar />
+        <Analytics />
         <Component {...pageProps} />
       </main>
     </SessionProvider>
