@@ -53,13 +53,6 @@ const backgrounds = [
         theme: "dark"
     },
     {
-        backgroundImage: `url("/sssquiggly.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/sssquiggly.svg",
-        theme: "dark"
-    },
-    {
         backgroundImage: `url("/big wavy peak zoomed.svg")`,
         path: '/orange_wavy_preview.png',
         theme: "dark",
@@ -114,6 +107,7 @@ const Tracks = ({ }) => {
     const [showcolorpicker, setshowcolorpicker] = useState(false)
 
     function lightOrDark(color) {
+        let r,g,b,hsp
         // Check the format of the color, HEX or RGB?
         if (color.match(/^rgb/)) {
             color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
@@ -156,6 +150,7 @@ const Tracks = ({ }) => {
         setSelectedBackground({
             backgroundImage: "",
             backgroundColor: updatedColor.hex,
+            theme:lightOrDark(updatedColor.hex)
         });
     };
 

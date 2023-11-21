@@ -27,6 +27,12 @@ export default function App({
         <meta name="twitter:title" content="THE WALLS" />
         <meta name="twitter:description" content="Veiw your top tracks. go crazy. have fun" />
         <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image" content="/banner_image.png"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="robots" content="index, follow"/>
+        <meta name="googlebot" content="index, follow"/>
+        <meta name="bingbot" content="index, follow"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
         <link rel="icon" href="/favicon-light.ico" />
       </Head>
       <main className={space.className}>
