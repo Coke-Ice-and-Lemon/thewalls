@@ -318,6 +318,7 @@ const Tracks = ({ }) => {
         html2canvas(container, {
             imageTimeout: 50000,
             scale: 2,
+            useCORS: true
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
@@ -383,6 +384,7 @@ const Tracks = ({ }) => {
                 html2canvas(container, {
                     imageTimeout: 50000,
                     scale: 2,
+                    useCORS: true
                 }).then(canvas => {
                     const id = Date.now();
                     canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
