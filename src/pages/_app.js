@@ -22,6 +22,7 @@ export default function App({
         <meta property="og:description" content="Veiw your top tracks. go crazy. have fun" />
         <meta property="og:type" content="website" />
         <meta property="og:image:alt" content="THE WALLS" />
+        <meta property="og:image" content="https://ibb.co/BynsCxP" />
         <meta property="og:url" content="https://thewalls.vercel.app" />
         <meta property="og:site_name" content="THE WALLS" />
         <meta name="twitter:title" content="THE WALLS" />
