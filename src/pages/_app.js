@@ -22,13 +22,13 @@ export default function App({
         <meta property="og:description" content="Veiw your top tracks. go crazy. have fun" />
         <meta property="og:type" content="website" />
         <meta property="og:image:alt" content="THE WALLS" />
-        <meta property="og:image" content="https://ibb.co/BynsCxP" />
+        <meta property="og:image" content="https://ibb.co/JnzrLCs" />
         <meta property="og:url" content="https://thewalls.vercel.app" />
         <meta property="og:site_name" content="THE WALLS" />
         <meta name="twitter:title" content="THE WALLS" />
         <meta name="twitter:description" content="Veiw your top tracks. go crazy. have fun" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:image" content="https://ibb.co/BynsCxP"/>
+        <meta name="twitter:image" content="https://ibb.co/JnzrLCs"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="robots" content="index, follow"/>
         <meta name="googlebot" content="index, follow"/>
