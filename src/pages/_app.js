@@ -29,12 +29,13 @@ export default function App({
         <meta name="twitter:title" content="THE WALLS" />
         <meta name="twitter:description" content="Veiw your top tracks. go crazy. have fun" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:image" content="https://i.ibb.co/zsSPcN4/banner-image.png"/>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <meta name="robots" content="index, follow"/>
-        <meta name="googlebot" content="index, follow"/>
-        <meta name="bingbot" content="index, follow"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <meta name="twitter:image" content="https://i.ibb.co/zsSPcN4/banner-image.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="keywords" content="Spotify playlist, music recommendations, curated playlists, music discovery, artist insights, genre exploration, top tracks, hit songs, album reviews, music trends, streaming service, audio content, personalized music, user-generated playlists, collaborative playlists, Spotify stats, music analytics, favorite genres, explore music, music curation, music library, on-demand streaming, thewalls, spotify wrapped,wrap of the year, top songs of the month, top tracks of the month, favourite top songs, top tracks,the,walls,wrap of the year"> </meta>
         <link rel="icon" href="/favicon-light.ico" />
       </Head>
       <main className={space.className}>
