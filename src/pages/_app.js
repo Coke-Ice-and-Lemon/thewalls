@@ -35,7 +35,7 @@ export default function App({
         <meta name="googlebot" content="index, follow" />
         <meta name="bingbot" content="index, follow" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="keywords" content="Spotify playlist, music recommendations, curated playlists, music discovery, artist insights, genre exploration, top tracks, hit songs, album reviews, music trends, streaming service, audio content, personalized music, user-generated playlists, collaborative playlists, Spotify stats, music analytics, favorite genres, explore music, music curation, music library, on-demand streaming, thewalls, spotify wrapped,wrap of the year, top songs of the month, top tracks of the month, favourite top songs, top tracks,the,walls,wrap of the year"> </meta>
+        <meta name="keywords" content="Spotify playlist, music recommendations, curated playlists, music discovery, artist insights, genre exploration, top tracks, hit songs, album reviews, music trends, streaming service, audio content, personalized music, user-generated playlists, collaborative playlists, Spotify stats, music analytics, favorite genres, explore music, music curation, music library, on-demand streaming, thewalls, spotify wrapped,wrap of the year, top songs of the month, top tracks of the month, favourite top songs, top tracks,the,walls,wrap of the year"/>
         <link rel="icon" href="/favicon-light.ico" />
       </Head>
       <main className={space.className}>
