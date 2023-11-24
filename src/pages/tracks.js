@@ -361,6 +361,7 @@ const Tracks = ({ }) => {
                 theme: "dark",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
+                backgroundColor: ""
             });
         }
 
