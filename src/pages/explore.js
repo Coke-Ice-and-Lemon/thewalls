@@ -18,7 +18,7 @@ const Explore = () => {
     return (
         <>
             <div className="w-full flex flex-col items-center h-screen justify-center">
-                <Image quality={90} src="/idk258.svg" width={100} height={100} />
+                <Image quality={90} alt='explore_img' src="/idk258.svg" width={100} height={100} />
                 <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>
                 <h2 className=" md:text-xl lg:text-2xl font-bold">Select the time period</h2>
                 <div className="flex flex-col md:flex-row w-11/12 justify-center items-center mt-5">
