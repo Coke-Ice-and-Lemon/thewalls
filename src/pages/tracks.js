@@ -107,7 +107,7 @@ const Tracks = ({ }) => {
     const [showcolorpicker, setshowcolorpicker] = useState(false)
 
     function lightOrDark(color) {
-        let r,g,b,hsp
+        let r, g, b, hsp
         // Check the format of the color, HEX or RGB?
         if (color.match(/^rgb/)) {
             color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
@@ -150,7 +150,7 @@ const Tracks = ({ }) => {
         setSelectedBackground({
             backgroundImage: "",
             backgroundColor: updatedColor.hex,
-            theme:lightOrDark(updatedColor.hex)
+            theme: lightOrDark(updatedColor.hex)
         });
     };
 
@@ -158,9 +158,9 @@ const Tracks = ({ }) => {
         return (<>
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                    {users && users.images && users.images.length > 0 && (<>
+                    <>
                         <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
-                            <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
+                            <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
                             <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
@@ -169,11 +169,11 @@ const Tracks = ({ }) => {
                         <li className=" rounded-full px-2.5 border-2 border-white relative">
                             <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
                                 {showcolorpicker ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={3} stroke="currentColor" className="w-7 h-10">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={2} stroke="currentColor" className="w-7 h-10">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
                                     </svg>
                                 )
@@ -193,7 +193,7 @@ const Tracks = ({ }) => {
                             </div>
                         )}
                     </>
-                    )}
+
                     {backgrounds.map((bg, index) => (<>
                         <li className="mr-2 flex-shrink-0" key={index}>
                             <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
@@ -452,12 +452,12 @@ const Tracks = ({ }) => {
                                 justifyContent: "center",
                                 height: "fit-content",
                             }} className='py-5'>
-                                {users && users.images && users.images.length > 0 && (
+                                {users && (
                                     <>
-                                        <div className='w-14 h-35 md:w-20'>
+                                        {users.images && users.images.length > 0 && <div className='w-14 h-35 md:w-20'>
                                             <Image priority={true} layout="responsive"
                                                 height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                                        </div>
+                                        </div>}
                                         <div className='flex flex-col justify-center items-center mt-2'>
                                             <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
                                         </div>
