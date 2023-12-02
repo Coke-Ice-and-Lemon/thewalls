@@ -17,7 +17,8 @@ const backgrounds = [
     {
         backgroundImage: `url("/tortoise-shell.svg")`,
         path: "/tortoise-shell.svg",
-        theme: "dark"
+        theme: "dark",
+        backgroundPosition: "center"
     },
     // {
     //     path: '/default_bg.svg',
@@ -28,21 +29,27 @@ const backgrounds = [
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/hhholographic.webp",
-        theme: "light"
+        theme: "light",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/grain.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/grain.svg",
-        theme: "light"
+        theme: "light",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/rainbow-vortex.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/rainbow-vortex.svg",
-        theme: "dark"
+        theme: "dark",
+        backgroundPosition: "center"
+
     },
     //DEBATABLE 
     {
@@ -50,7 +57,9 @@ const backgrounds = [
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/sun-tornado_2.svg",
-        theme: "dark"
+        theme: "dark",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/big wavy peak zoomed.svg")`,
@@ -58,6 +67,7 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
     },
     {
         backgroundImage: `url("/black_vector.svg")`,
@@ -65,6 +75,8 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/pink stacked wavey.svg")`,
@@ -72,6 +84,8 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/polygon_purple.svg")`,
@@ -79,6 +93,7 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
     },
     {
         backgroundImage: `url("/stacked-waves-haikei.svg")`,
@@ -86,6 +101,23 @@ const backgrounds = [
         theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/spectrum-gradient.svg")`,
+        path: '/spectrum-gradient-preview.svg',
+        theme: "light",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/shirt.svg")`,
+        path: '/shirt-preview.svg',
+        theme: "light",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
     },
 ]
 
