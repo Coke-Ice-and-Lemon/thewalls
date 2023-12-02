@@ -61,8 +61,8 @@ const AboutUs = () => {
                   <Link href="https://www.linkedin.com/in/satish-panchal-26221b203/" target="_blank" className='mr-2'>
                     <Image src="/icons8-linkedin.svg" width={25} height={25} />
                   </Link>
-                  <Link href="https://twitter.com/Satisshhhhhh" target="_blank">
-                    <Image src="/icons8-twitter.svg" width={25} height={25} />
+                  <Link href="https://www.instagram.com/satisshhhhhh/" target="_blank">
+                    <Image src="/icons8-instagram.svg" width={25} height={25} />
                   </Link>
                 </div>
               </div>
