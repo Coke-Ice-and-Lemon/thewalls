@@ -382,22 +382,95 @@ const Tracks = ({ }) => {
         });
     };
 
+    // const handleUpload = (event,updatedColor) => {
+    //     const file = event.target.files[0];
+    //     const reader = new FileReader();
+
+    //     reader.onload = () => {
+    //         setSelectedBackground({
+    //             ...selectedBackground,
+    //             backgroundImage: `url("${reader.result}")`,
+    //             theme: lightOrDark(updatedColor.hex),
+    //             backgroundRepeat: "no-repeat",
+    //             backgroundSize: "cover",
+    //             backgroundColor: ""
+    //         });
+    //     }
+    //     reader.readAsDataURL(file);
+    // }
+
     const handleUpload = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
-
+    
         reader.onload = () => {
-            setSelectedBackground({
-                ...selectedBackground,
-                backgroundImage: `url("${reader.result}")`,
-                theme: "dark",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundColor: ""
-            });
-        }
-
+            const imageUrl = reader.result;
+    
+            // Create an Image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+    
+            img.onload = () => {
+                // Get the dominant color
+                const dominantColor = getDominantColor(img);
+    
+                // Use your lightOrDark function to determine the theme
+                const theme = lightOrDark(dominantColor);
+    
+                // Update your state or perform other actions based on the theme
+                setSelectedBackground({
+                    ...selectedBackground,
+                    backgroundImage: `url("${imageUrl}")`,
+                    backgroundColor: dominantColor,
+                    theme: theme
+                });
+            };
+        };
+    
         reader.readAsDataURL(file);
+    };
+    
+    // Function to get the dominant color from an image
+    function getDominantColor(img) {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+    
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+    
+        // Get image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    
+        // Calculate the average color
+        let totalR = 0,
+            totalG = 0,
+            totalB = 0;
+    
+        for (let i = 0; i < imageData.length; i += 4) {
+            totalR += imageData[i];
+            totalG += imageData[i + 1];
+            totalB += imageData[i + 2];
+        }
+    
+        const averageR = Math.round(totalR / (imageData.length / 4));
+        const averageG = Math.round(totalG / (imageData.length / 4));
+        const averageB = Math.round(totalB / (imageData.length / 4));
+    
+        // Convert to hex format
+        const dominantColor = rgbToHex(averageR, averageG, averageB);
+    
+        return dominantColor;
+    }
+    
+    // Function to convert RGB to hex format
+    function rgbToHex(r, g, b) {
+        const componentToHex = (c) => {
+            const hex = c.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        };
+    
+        return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
     }
 
     const handleDownload = debounce(() => {
@@ -466,6 +539,14 @@ const Tracks = ({ }) => {
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && " border-[1px] border-white-400"}`} onClick={() => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
+                    </li>
+                    <li className="mr-2 flex flex-row items-center justify-center">
+                        <div className={`cursor-pointer`} onClick={() => {
+                            setSelectedBackground({
+                                ...selectedBackground,
+                                theme: selectedBackground.theme == "light" ? "dark" : "light"
+                            });
+                        }}><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 22c5.5228475 0 10-4.4771525 10-10s-4.4771525-10-10-10-10 4.4771525-10 10 4.4771525 10 10 10zm0-1.5v-17c4.6944204 0 8.5 3.80557963 8.5 8.5 0 4.6944204-3.8055796 8.5-8.5 8.5z" fill={selectedBackground.theme == "light" ? "#000000" : "#ffffff"} /></svg></div>
                     </li>
                 </ul>
                 <Gradients />
