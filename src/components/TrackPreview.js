@@ -25,10 +25,11 @@ const TrackPreview = ({ track }) => {
     const audioRef = React.createRef();
     const [isTouching, setIsTouching] = useState(false);
 
-    const PlayPreview = () => {
-        if (!isPlaying && !isTouching) {
-            console.log('playing');
-            if (track.preview_url) {
+    useEffect(() => {
+        if (isTouching) {
+            console.log('istouching')
+            if (!isPlaying && track.preview_url) {
+                console.log('startplaying')
                 audioRef.current.src = track.preview_url;
                 audioRef.current.play();
                 setIsPlaying(true);
@@ -36,6 +37,13 @@ const TrackPreview = ({ track }) => {
         } else {
             StopPlaying();
         }
+    }, [isTouching, isPlaying, track.preview_url]);
+
+    const handleMouseEnter = (e) => {
+        e.preventDefault();
+        setIsTouching(false);
+        setIsPlaying(false);
+        setIsTouching(true);
     };
 
     const StopPlaying = () => {
