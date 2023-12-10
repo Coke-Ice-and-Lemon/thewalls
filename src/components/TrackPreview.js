@@ -1,5 +1,5 @@
 import Image from "next/legacy/image";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 const TrackPreview = ({ track }) => {
 
     useEffect(() => {
@@ -21,66 +21,97 @@ const TrackPreview = ({ track }) => {
         }
     }, [])
 
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const audioRef = React.createRef();
+    // const [isTouching, setIsTouching] = useState(false);
+
+    // const PlayPreview = () => {
+    //     if (!isPlaying && !isTouching) {
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //             console.log('playing');
+    //         }
+    //     } else {
+    //         StopPlaying();
+    //     }
+    // };
+
+    // const StopPlaying = () => {
+    //     if (isPlaying) {
+    //         audioRef.current.pause();
+    //         setIsPlaying(false);
+    //     }
+    // };
+
+    // const PlayTouchPreview = (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+
+    //     // Check if audio is not already playing
+    //     if (!isPlaying && !isTouching) {
+    //         setIsTouching(true);
+
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //         }
+    //     } else {
+    //         StopPlaying();
+    //     }
+    // };
+
+    // const StopTouchPreview = () => {
+    //     if (isTouching) {
+    //         setIsTouching(false);
+    //         StopPlaying();
+    //     }
+    // };
     const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = React.createRef();
     const [isTouching, setIsTouching] = useState(false);
+    const audioRef = useRef();
 
     useEffect(() => {
         if (isTouching) {
-            console.log('istouching')
             if (!isPlaying && track.preview_url) {
-                console.log('startplaying')
                 audioRef.current.src = track.preview_url;
                 audioRef.current.play();
                 setIsPlaying(true);
             }
         } else {
-            StopPlaying();
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            setIsPlaying(false);
         }
     }, [isTouching, isPlaying, track.preview_url]);
 
-    const handleMouseEnter = (e) => {
-        e.preventDefault();
+    const handleMouseEnter = () => {
         setIsTouching(false);
         setIsPlaying(false);
         setIsTouching(true);
     };
 
-    const StopPlaying = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        }
+    const handleMouseLeave = () => {
+        setIsTouching(false);
     };
 
-    const PlayTouchPreview = (e) => {
-        e.stopPropagation();
+    const handleTouchStart = (e) => {
         e.preventDefault();
-
-        // Check if audio is not already playing
-        if (!isPlaying && !isTouching) {
-            setIsTouching(true);
-
-            if (track.preview_url) {
-                audioRef.current.src = track.preview_url;
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
-        } else {
-            StopPlaying();
-        }
+        setIsTouching(true);
     };
 
-    const StopTouchPreview = () => {
-        if (isTouching) {
-            setIsTouching(false);
-            StopPlaying();
-        }
+    const handleTouchEnd = (e) => {
+        e.preventDefault();
+        setIsTouching(false);
     };
-
 
     return (
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={!isTouching ? StopPlaying : undefined} onTouchStart={PlayTouchPreview} onTouchEnd={StopTouchPreview}>
+        <div onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}>
             <Image unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio loop={false} ref={audioRef}></audio>
