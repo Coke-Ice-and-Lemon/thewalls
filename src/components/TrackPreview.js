@@ -25,7 +25,7 @@ const TrackPreview = ({ track }) => {
     const audioRef = React.createRef();
     const [isTouching, setIsTouching] = useState(false);
 
-    const Playpreview = () => {
+    const PlayPreview = () => {
         if (!isPlaying && !isTouching) {
             console.log('playing');
             if (track.preview_url) {
@@ -34,11 +34,11 @@ const TrackPreview = ({ track }) => {
                 setIsPlaying(true);
             }
         } else {
-            StopTouchPreview();
+            StopPlaying();
         }
     };
 
-    const Stoppreview = () => {
+    const StopPlaying = () => {
         if (isPlaying) {
             audioRef.current.pause();
             setIsPlaying(false);
@@ -59,23 +59,20 @@ const TrackPreview = ({ track }) => {
                 setIsPlaying(true);
             }
         } else {
-            StopTouchPreview();
+            StopPlaying();
         }
     };
 
     const StopTouchPreview = () => {
         if (isTouching) {
             setIsTouching(false);
-
-            if (isPlaying) {
-                audioRef.current.pause();
-                setIsPlaying(false);
-            }
+            StopPlaying();
         }
     };
 
+
     return (
-        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview} onTouchEnd={StopTouchPreview}>
+        <div onMouseEnter={PlayPreview} onMouseLeave={!isTouching ? StopPlaying : undefined} onTouchStart={PlayTouchPreview} onTouchEnd={StopTouchPreview}>
             <Image unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio loop={false} ref={audioRef}></audio>
