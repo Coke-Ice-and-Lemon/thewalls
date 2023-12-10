@@ -13,8 +13,13 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@next/font": "13.4.19",
+<<<<<<< HEAD
     "@uiw/react-color": "^1.4.2",
     "@uiw/react-drag-event-interactive": "^1.4.2",
+=======
+    "@uiw/react-color-compact": "^2.0.2",
+    "@vercel/analytics": "^1.1.1",
+>>>>>>> baf0b607670f68ad5a06ec3f71ae855eb400fb8c
     "dom-to-image": "^2.6.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
