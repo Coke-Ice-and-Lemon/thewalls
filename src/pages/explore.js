@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from 'react-toastify';
@@ -8,18 +6,19 @@ const Explore = () => {
     const displayToast = () => {
         toast(<p>To use a custom background, click on the <span className="text-4xl">+</span> button</p>, {
             position: "top-left",
-            autoClose: "1",
+            autoClose: 2500,
             closeButton: false,
             closeOnClick: true,
             hideProgressBar: true,
-            draggable: false
+            draggable: false,
+            pauseOnHover: false,  
         })
     }
 
     return (
         <>
             <div className="w-full flex flex-col items-center h-screen justify-center">
-                <Image quality={90} src="/idk258.svg" width={100} height={100} />
+                <Image quality={90} alt='explore_img' src="/idk258.svg" width={100} height={100} />
                 <h1 className='mb-5 text-3xl font-bold'>THE WALLS</h1>
                 <h2 className=" md:text-xl lg:text-2xl font-bold">Select the time period</h2>
                 <div className="flex flex-col md:flex-row w-11/12 justify-center items-center mt-5">

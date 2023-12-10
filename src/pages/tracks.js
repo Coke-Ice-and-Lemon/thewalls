@@ -1,5 +1,4 @@
 import Spinner from "@/components/Spinner";
-import Compact from '@uiw/react-color-compact';
 import { saveAs } from "file-saver";
 import html2canvas from "html2canvas";
 import { useSession } from "next-auth/react";
@@ -12,128 +11,55 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
+import Compact from "@uiw/react-color-compact";
+
 const backgrounds = [
-    {
-        path: '/default_bg.svg',
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/hollowed-boxes.svg")`,
-        path: '/hollowed-boxes.svg',
-        theme: "dark"
-    },
     {
         backgroundImage: `url("/tortoise-shell.svg")`,
         path: "/tortoise-shell.svg",
-        theme: "dark"
+        theme: "dark",
+        backgroundPosition: "center"
     },
-    {
-        backgroundImage: `url("/ffflux.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ffflux.svg",
-        theme: "dark"
-    },
+    // {
+    //     path: '/default_bg.svg',
+    //     theme: "dark"
+    // },
     {
         backgroundImage: `url("/hhholographic.webp")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/hhholographic.webp",
-        theme: "light"
-    },
-    {
-        backgroundImage: `url("/pppsychedelic.webp")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/pppsychedelic.webp",
-        theme: "dark"
-    },
-    {
-        backgroundColor: "black",
-        backgroundImage: `url("/ttten.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ttten.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/sun-tornado.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/sun-tornado.svg",
-        theme: "light"
+        theme: "light",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/grain.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/grain.svg",
-        theme: "light"
+        theme: "light",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/rainbow-vortex.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/rainbow-vortex.svg",
-        theme: "dark"
+        theme: "dark",
+        backgroundPosition: "center"
+
     },
-    {
-        backgroundImage: `url("/endless-constellation.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/endless-constellation.svg",
-        theme: "dark"
-    },
+    //DEBATABLE 
     {
         backgroundImage: `url("/sun-tornado_2.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         path: "/sun-tornado_2.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/ssscales.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/ssscales.svg",
-        theme: "light"
-    },
-    {
-        backgroundImage: `url("/llleaves.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/llleaves.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/sssquiggly.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/sssquiggly.svg",
-        theme: "dark"
-    },
-    {
-        backgroundImage: `url("/oooscillate.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/oooscillate.svg",
         theme: "dark",
-        backgroundColor: '#121212'
-    },
+        backgroundPosition: "center"
 
-    {
-        backgroundImage: `url("/big wavy blue orange.svg")`,
-        path: '/orange_wavy_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/big wavy orange purple4.svg")`,
-        path: '/orange_wavy_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
     },
     {
         backgroundImage: `url("/big wavy peak zoomed.svg")`,
@@ -141,6 +67,7 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
     },
     {
         backgroundImage: `url("/black_vector.svg")`,
@@ -148,34 +75,8 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("blue_green_bgblack.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/blue_green_peak.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/blue_vector.svg")`,
-        path: '/blue_vector_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/high blue green.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/pink stacked wavey.svg")`,
@@ -183,13 +84,8 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/polygon_golden.svg")`,
-        path: '/golden_polygon_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundPosition: "center"
+
     },
     {
         backgroundImage: `url("/polygon_purple.svg")`,
@@ -197,108 +93,35 @@ const backgrounds = [
         theme: "dark",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/wavy green mountains.svg")`,
-        path: '/green_blue_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
+        backgroundPosition: "center"
     },
     {
         backgroundImage: `url("/stacked-waves-haikei.svg")`,
         path: '/stacked-waves-haikei_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/ccchaos.svg")`,
-        path: '/ccchaos_green_orange_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/ccchaos (1).svg")`,
-        path: '/ccchaos_blue_red_preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/ffflurry.svg")`,
-        path: '/ffflurry.svg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/dddepth-240.jpg")`,
-        path: '/dddepth-240.jpg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/dddepth-241.jpg")`,
-        path: '/dddepth-241.jpg',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/quantum-gradient.svg")`,
-        path: '/quantum-gradient-preview.png',
         theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center"
     },
     {
-        backgroundImage: `url("/meteor.svg")`,
-        path: '/meteor-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/sprinkle.svg")`,
-        path: '/sprinkle-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/Circuit_Board.svg")`,
-        path: '/circuit-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/Rect_Light.svg")`,
-        path: '/Rect_Light-preview.png',
-        theme: "dark",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    {
-        backgroundImage: `url("/pattern.svg")`,
-        path: '/pattern-preview.png',
+        backgroundImage: `url("/spectrum-gradient.svg")`,
+        path: '/spectrum-gradient-preview.svg',
         theme: "light",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-    }
-    // {
-    //     backgroundImage: `url("/Sound Wave (3).svg")`,
-    //     path: '/Sound Wave preview.png',
-    //     theme: "light",
-    //     backgroundRepeat: "no-repeat",
-    //     backgroundSize: "cover",
-    // },
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/shirt.svg")`,
+        path: '/shirt-preview.svg',
+        theme: "light",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
 ]
 
-const Tracks = ({ data }) => {
+const Tracks = ({ }) => {
     const [tracks, setTracks] = useState();
     const [users, setUsers] = useState(null)
     const [downloadProgress, setDownloadProgress] = useState(0);
@@ -307,22 +130,61 @@ const Tracks = ({ data }) => {
     const [selectedBackground, setSelectedBackground] = useState({
         backgroundImage: `url("/tortoise-shell.svg")`,
         path: "/tortoise-shell.svg",
-        backgroundColor: '#000'
+        theme: "dark"
     })
     const router = useRouter()
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
+    const [color, setcolor] = useState('#fff')
+    const [showcolorpicker, setshowcolorpicker] = useState(false)
+
+    function lightOrDark(color) {
+        let r, g, b, hsp
+        // Check the format of the color, HEX or RGB?
+        if (color.match(/^rgb/)) {
+            color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+
+            r = color[1];
+            g = color[2];
+            b = color[3];
+        }
+        else {
+            color = +("0x" + color.slice(1).replace(
+                color.length < 5 && /./g, '$&$&'
+            )
+            );
+
+            r = color >> 16;
+            g = color >> 8 & 255;
+            b = color & 255;
+        }
+
+        hsp = Math.sqrt(
+            0.299 * (r * r) +
+            0.587 * (g * g) +
+            0.114 * (b * b)
+        );
+
+        if (hsp > 127.5) {
+            return 'light';
+        }
+        else {
+            return 'dark';
+        }
+    }
 
     const handleItemClick = (bg) => {
         setSelectedBackground(bg);
     };
-    const [color, setcolor] = useState('#fff')
-    const [showcolorpicker, setshowcolorpicker] = useState(false)
+ 
+    
+
     const handleColorChange = (updatedColor) => {
         setcolor(updatedColor.hex);
         setSelectedBackground({
             backgroundImage: "",
             backgroundColor: updatedColor.hex,
+            theme: lightOrDark(updatedColor.hex)
         });
     };
 
@@ -330,9 +192,9 @@ const Tracks = ({ data }) => {
         return (<>
             <div className='w-full flex justify-center'>
                 <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                    {users && users.images && users.images.length > 0 && (<>
+                    <>
                         <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
-                            <label htmlFor="upload-button" className="text-center text-5xl rounded-full cursor-pointer">
+                            <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
                             <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
@@ -341,11 +203,11 @@ const Tracks = ({ data }) => {
                         <li className=" rounded-full px-2.5 border-2 border-white relative">
                             <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
                                 {showcolorpicker ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={3} stroke="currentColor" className="w-7 h-10">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={1.5} stroke="currentColor" className="w-7 h-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={2} stroke="currentColor" className="w-7 h-10">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
                                     </svg>
                                 )
@@ -365,7 +227,7 @@ const Tracks = ({ data }) => {
                             </div>
                         )}
                     </>
-                    )}
+
                     {backgrounds.map((bg, index) => (<>
                         <li className="mr-2 flex-shrink-0" key={index}>
                             <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
@@ -380,25 +242,27 @@ const Tracks = ({ data }) => {
     }
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=25`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=100`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }
         })
         const data = await response.json()
-        let finalTracksArray = [];
+        let finalAlbumsObject = {};
         if (data.items) {
-            finalTracksArray = data.items.filter((item) => {
+            data.items.map((item) => {
                 if (item?.album && item?.album?.images && item?.album?.images[0]) {
-                    return true
-                }
-                else {
-                    return false
+                    console.log(item)
+                    finalAlbumsObject[item?.album?.id] = {
+                        image: item?.album?.images[0]?.url,
+                        href: item?.external_urls?.spotify,
+                        preview_url: item?.preview_url
+                    }
                 }
             })
         }
-        // console.log("user tracks data", finalTracksArray.slice(0,15))
-        return finalTracksArray.slice(0, 15)
+        // console.log("user tracks data", finalAlbumsObject)
+        return finalAlbumsObject
     }
 
     async function getuserprofile() {
@@ -484,7 +348,8 @@ const Tracks = ({ data }) => {
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
-            scale: 5,
+            scale: 2,
+            useCORS: true
         }).then(canvas => {
             const id = Date.now()
             canvas.toBlob(async (blob) => {
@@ -521,21 +386,95 @@ const Tracks = ({ data }) => {
         });
     };
 
+    // const handleUpload = (event,updatedColor) => {
+    //     const file = event.target.files[0];
+    //     const reader = new FileReader();
+
+    //     reader.onload = () => {
+    //         setSelectedBackground({
+    //             ...selectedBackground,
+    //             backgroundImage: `url("${reader.result}")`,
+    //             theme: lightOrDark(updatedColor.hex),
+    //             backgroundRepeat: "no-repeat",
+    //             backgroundSize: "cover",
+    //             backgroundColor: ""
+    //         });
+    //     }
+    //     reader.readAsDataURL(file);
+    // }
+
     const handleUpload = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
-
+    
         reader.onload = () => {
-            setSelectedBackground({
-                ...selectedBackground,
-                backgroundImage: `url("${reader.result}")`,
-                theme: "dark",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-            });
-        }
-
+            const imageUrl = reader.result;
+    
+            // Create an Image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+    
+            img.onload = () => {
+                // Get the dominant color
+                const dominantColor = getDominantColor(img);
+    
+                // Use your lightOrDark function to determine the theme
+                const theme = lightOrDark(dominantColor);
+    
+                // Update your state or perform other actions based on the theme
+                setSelectedBackground({
+                    ...selectedBackground,
+                    backgroundImage: `url("${imageUrl}")`,
+                    backgroundColor: dominantColor,
+                    theme: theme
+                });
+            };
+        };
+    
         reader.readAsDataURL(file);
+    };
+    
+    // Function to get the dominant color from an image
+    function getDominantColor(img) {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+    
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+    
+        // Get image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    
+        // Calculate the average color
+        let totalR = 0,
+            totalG = 0,
+            totalB = 0;
+    
+        for (let i = 0; i < imageData.length; i += 4) {
+            totalR += imageData[i];
+            totalG += imageData[i + 1];
+            totalB += imageData[i + 2];
+        }
+    
+        const averageR = Math.round(totalR / (imageData.length / 4));
+        const averageG = Math.round(totalG / (imageData.length / 4));
+        const averageB = Math.round(totalB / (imageData.length / 4));
+    
+        // Convert to hex format
+        const dominantColor = rgbToHex(averageR, averageG, averageB);
+    
+        return dominantColor;
+    }
+    
+    // Function to convert RGB to hex format
+    function rgbToHex(r, g, b) {
+        const componentToHex = (c) => {
+            const hex = c.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        };
+    
+        return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
     }
 
     const handleDownload = debounce(() => {
@@ -549,7 +488,8 @@ const Tracks = ({ data }) => {
                 clearInterval(interval);
                 html2canvas(container, {
                     imageTimeout: 50000,
-                    scale: 5,
+                    scale: 2,
+                    useCORS: true
                 }).then(canvas => {
                     const id = Date.now();
                     canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
@@ -604,6 +544,14 @@ const Tracks = ({ data }) => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>
+                    <li className="mr-2 flex flex-row items-center justify-center">
+                        <div className={`cursor-pointer`} onClick={() => {
+                            setSelectedBackground({
+                                ...selectedBackground,
+                                theme: selectedBackground.theme == "light" ? "dark" : "light"
+                            });
+                        }}><svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 22c5.5228475 0 10-4.4771525 10-10s-4.4771525-10-10-10-10 4.4771525-10 10 4.4771525 10 10 10zm0-1.5v-17c4.6944204 0 8.5 3.80557963 8.5 8.5 0 4.6944204-3.8055796 8.5-8.5 8.5z" fill={selectedBackground.theme == "light" ? "#000000" : "#ffffff"} /></svg></div>
+                    </li>
                 </ul>
                 <Gradients />
                 {isLoading ? (<div className="h-[40rem]">
@@ -621,41 +569,24 @@ const Tracks = ({ data }) => {
                                 justifyContent: "center",
                                 height: "fit-content",
                             }} className='py-5'>
-                                {users && users.images && users.images.length > 0 && (<>
-                                    <div className='w-14 h-35 md:w-20'>
-                                        <Image priority={true} layout="responsive"
-                                            height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                                    </div>
-                                    <div className='flex flex-col justify-center items-center mt-2'>
-                                        <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
-                                        {/* {timeRange === 'short_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Recent Rhythms
-                                        </p>
-                                    )}
-                                    {timeRange === 'medium_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Melodic Evolution
-                                        </p>
-                                    )}
-                                    {timeRange === 'long_term' && (
-                                        <p className={`text-s italic md:text-s ${selectedBackground.theme == 'light' && "text-black"}`}>
-                                            {users.display_name}&#39;s Everlasting Jam
-                                        </p>
-                                    )} */}
-                                    </div>
-                                </>
+                                {users && (
+                                    <>
+                                        {users.images && users.images.length > 0 && <div className='w-14 h-35 md:w-20'>
+                                            <Image priority={true} layout="responsive"
+                                                height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                        </div>}
+                                        <div className='flex flex-col justify-center items-center mt-2'>
+                                            <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
+                                        </div>
+                                    </>
                                 )}
-
                             </div>
                         </div>
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
-                            {tracks && tracks.map((track) => (
-                                (track.album.images && (
-                                    <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track?.id} href={track?.external_urls?.spotify} target="_blank">
-                                        <TrackPreview track={track} />
-                                    </Link>
-                                ))
+                            {tracks && Object.keys(tracks).slice(0, 15).map((track) => (
+                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
+                                    <TrackPreview track={tracks[track]} />
+                                </Link>
                             ))}
                         </div>
                         <div className="w-full flex flex-col justify-center items-center my-4" >

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Image from "next/legacy/image"
+import Image from "next/legacy/image";
+import React, { useEffect, useState } from 'react';
 const TrackPreview = ({ track }) => {
 
     useEffect(() => {
@@ -26,13 +26,16 @@ const TrackPreview = ({ track }) => {
     const [isTouching, setIsTouching] = useState(false);
 
     const Playpreview = () => {
-        if (!isTouching) {
+        if (!isPlaying && !isTouching) {
             console.log('playing');
             if (track.preview_url) {
                 audioRef.current.src = track.preview_url;
                 audioRef.current.play();
                 setIsPlaying(true);
             }
+        }
+        else {
+            StopTouchPreview()
         }
     };
 
@@ -57,6 +60,9 @@ const TrackPreview = ({ track }) => {
                 setIsPlaying(true);
             }
         }
+        else{
+            StopTouchPreview()
+        }
     };
     const StopTouchPreview = () => {
         if (isTouching) {
@@ -70,11 +76,10 @@ const TrackPreview = ({ track }) => {
     };
 
     return (
-        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview}
-            onTouchEnd={StopTouchPreview} >
-            <Image priority={true} className="w-full" src={track?.album?.images[0]?.url} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
+        <div onMouseEnter={Playpreview} onMouseLeave={Stoppreview} onTouchStart={PlayTouchPreview} onTouchEnd={StopTouchPreview}>
+            <Image unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
-            <audio ref={audioRef}></audio>
+            <audio loop={false} ref={audioRef}></audio>
         </div>
 
     );

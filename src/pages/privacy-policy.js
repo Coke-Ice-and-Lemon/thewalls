@@ -1,10 +1,8 @@
-import Navbar from '@/components/Navbar'
-import React from 'react'
 
 const Privacypolicy = () => {
   return (
     <>
-      <div className="text-lg text-center px-28 mt-28">
+      <div className="text-lg text-center px-14 md:px-28 xl:px-72 mt-28">
         <h2 className="text-2xl font-bold">Privacy Policy</h2>
         <br />
         <br />
@@ -24,7 +22,7 @@ const Privacypolicy = () => {
           Although you can rest assured that your data is not being stored or used
           maliciously, if you would like to revoke the wall&#39;s permissions, you
           can visit
-          <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427"> your apps page</a>
+          <a href="http://www.spotify.com/account/apps/?_ga=2.57194153.2059435232.1677244602-1044990631.1616788427"> your apps page </a>
            and click &#39;REMOVE ACCESS&#39; on the walls.
           <a href="https://support.spotify.com/us/article/spotify-on-other-apps/"> Here </a>
           is a more detailed guide for doing so.
