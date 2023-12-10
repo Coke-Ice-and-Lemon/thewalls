@@ -33,9 +33,8 @@ const TrackPreview = ({ track }) => {
                 audioRef.current.play();
                 setIsPlaying(true);
             }
-        }
-        else {
-            StopTouchPreview()
+        } else {
+            StopTouchPreview();
         }
     };
 
@@ -59,11 +58,11 @@ const TrackPreview = ({ track }) => {
                 audioRef.current.play();
                 setIsPlaying(true);
             }
-        }
-        else{
-            StopTouchPreview()
+        } else {
+            StopTouchPreview();
         }
     };
+
     const StopTouchPreview = () => {
         if (isTouching) {
             setIsTouching(false);
