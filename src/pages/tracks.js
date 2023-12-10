@@ -252,7 +252,6 @@ const Tracks = ({ }) => {
         if (data.items) {
             data.items.map((item) => {
                 if (item?.album && item?.album?.images && item?.album?.images[0]) {
-                    console.log(item)
                     finalAlbumsObject[item?.album?.id] = {
                         image: item?.album?.images[0]?.url,
                         href: item?.external_urls?.spotify,
