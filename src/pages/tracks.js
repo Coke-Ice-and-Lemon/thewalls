@@ -426,6 +426,10 @@ const Tracks = ({ }) => {
                     ...selectedBackground,
                     backgroundImage: `url("${imageUrl}")`,
                     backgroundColor: dominantColor,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor: "",
                     theme: theme
                 });
             };
