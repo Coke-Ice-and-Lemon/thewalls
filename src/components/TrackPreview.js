@@ -75,7 +75,7 @@ const TrackPreview = ({ track }) => {
 
     useEffect(() => {
         if (isTouching) {
-            console.log('hello move')
+            console.log('hello')
             if (!isPlaying && track.preview_url) {
                 audioRef.current.src = track.preview_url;
                 audioRef.current.play();
@@ -112,9 +112,8 @@ const TrackPreview = ({ track }) => {
         <div onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}>
-        onTouchMove={(e) => e.preventDefault()
-        }
+        onTouchEnd={handleTouchEnd}
+        onTouchMove={(e) => e.preventDefault()}>
             <Image unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio loop={false} ref={audioRef}></audio>
