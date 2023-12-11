@@ -41,7 +41,7 @@ const TrackPreview = ({ track }) => {
         }
     }, [isTouching, isPlaying, track.preview_url]);
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (e) => {
         setIsTouching(false);
         setIsPlaying(false);
         setIsTouching(true);
@@ -52,7 +52,6 @@ const TrackPreview = ({ track }) => {
     };
 
     const handleTouchStart = (e) => {
-        e.preventDefault();
         setIsTouching(true);
     };
 
