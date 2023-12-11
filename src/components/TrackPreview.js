@@ -21,15 +21,61 @@ const TrackPreview = ({ track }) => {
         }
     }, [])
 
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const audioRef = React.createRef();
+    // const [isTouching, setIsTouching] = useState(false);
+
+    // const PlayPreview = () => {
+    //     if (!isPlaying && !isTouching) {
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //             console.log('playing');
+    //         }
+    //     } else {
+    //         StopPlaying();
+    //     }
+    // };
+
+    // const StopPlaying = () => {
+    //     if (isPlaying) {
+    //         audioRef.current.pause();
+    //         setIsPlaying(false);
+    //     }
+    // };
+
+    // const PlayTouchPreview = (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+
+    //     // Check if audio is not already playing
+    //     if (!isPlaying && !isTouching) {
+    //         setIsTouching(true);
+
+    //         if (track.preview_url) {
+    //             audioRef.current.src = track.preview_url;
+    //             audioRef.current.play();
+    //             setIsPlaying(true);
+    //         }
+    //     } else {
+    //         StopPlaying();
+    //     }
+    // };
+
+    // const StopTouchPreview = () => {
+    //     if (isTouching) {
+    //         setIsTouching(false);
+    //         StopPlaying();
+    //     }
+    // };
     const [isPlaying, setIsPlaying] = useState(false);
     const [isTouching, setIsTouching] = useState(false);
     const audioRef = useRef();
 
     useEffect(() => {
         if (isTouching) {
-            console.log('touching')
             if (!isPlaying && track.preview_url) {
-                console.log('playing')
                 audioRef.current.src = track.preview_url;
                 audioRef.current.play();
                 setIsPlaying(true);
@@ -41,7 +87,7 @@ const TrackPreview = ({ track }) => {
         }
     }, [isTouching, isPlaying, track.preview_url]);
 
-    const handleMouseEnter = (e) => {
+    const handleMouseEnter = () => {
         setIsTouching(false);
         setIsPlaying(false);
         setIsTouching(true);
@@ -52,6 +98,7 @@ const TrackPreview = ({ track }) => {
     };
 
     const handleTouchStart = (e) => {
+        e.preventDefault();
         setIsTouching(true);
     };
 
