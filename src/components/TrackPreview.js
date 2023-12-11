@@ -1,5 +1,8 @@
 import Image from "next/legacy/image";
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+// import { driver } from "driver.js";
+// import "driver.js/dist/driver.css";
+
 const TrackPreview = ({ track }) => {
 
     useEffect(() => {
@@ -20,6 +23,19 @@ const TrackPreview = ({ track }) => {
             document.removeEventListener("contextmenu", handleContextMenu)
         }
     }, [])
+
+    // useEffect(() => {
+    //     const driverObj = driver({
+    //         showProgress: false,
+    //         showButtons:['close'],
+    //         steps: [
+    //           { element: '#element-of-mystery', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to track preview', side: "left", align: 'start' }},
+    //         ]
+    //       });
+    //       driverObj.drive();
+    //   }, []);
+
+
 
     // const [isPlaying, setIsPlaying] = useState(false);
     // const audioRef = React.createRef();
@@ -108,11 +124,11 @@ const TrackPreview = ({ track }) => {
 
     return (
         <div onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={(e) => e.preventDefault()}>
-            <Image unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={(e) => e.preventDefault()}>
+            <Image id="element-of-mystery" unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio loop={false} ref={audioRef}></audio>
         </div>

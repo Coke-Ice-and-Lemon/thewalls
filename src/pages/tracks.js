@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
 import Compact from "@uiw/react-color-compact";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const backgrounds = [
     {
@@ -188,19 +190,34 @@ const Tracks = ({ }) => {
         });
     };
 
+    //Tooltip driverjs function tour guide
+    useEffect(() => {
+        const driverObj = driver({
+            showProgress: true,
+            showButtons:['close','next'],
+            stagePadding: 7.5,
+            steps: [
+              { element: '#element-of-magic', popover: { title: 'Custom Backgrounds', description: 'Upload backgrounds of your choice, Have Fun !!', side: "top", align: 'start' }},
+              { element: '#element-of-colour', popover: { title: 'Custom Color Backgrounds', description: 'Choose Colourful backgrounds of your choice !!', side: "left", align: 'start' }},
+              { element: '#element-of-preview', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to the track preview', side: "left", align: 'start' }},
+            ]
+          });
+          driverObj.drive();
+      },[]);
+
     const Gradients = () => {
         return (<>
             <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                <ul  data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     <>
-                        <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                        <li id="element-of-magic" className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
                             <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
                         </li>
-                        <li className=" rounded-full px-2.5 border-2 border-white relative">
+                        <li id='element-of-colour' className=" rounded-full px-2.5 border-2 border-white relative">
                             <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
                                 {showcolorpicker ? (
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={3} stroke="currentColor" className="w-7 h-10">
@@ -385,22 +402,6 @@ const Tracks = ({ }) => {
         });
     };
 
-    // const handleUpload = (event,updatedColor) => {
-    //     const file = event.target.files[0];
-    //     const reader = new FileReader();
-
-    //     reader.onload = () => {
-    //         setSelectedBackground({
-    //             ...selectedBackground,
-    //             backgroundImage: `url("${reader.result}")`,
-    //             theme: lightOrDark(updatedColor.hex),
-    //             backgroundRepeat: "no-repeat",
-    //             backgroundSize: "cover",
-    //             backgroundColor: ""
-    //         });
-    //     }
-    //     reader.readAsDataURL(file);
-    // }
 
     const handleUpload = (event) => {
         const file = event.target.files[0];
@@ -517,6 +518,8 @@ const Tracks = ({ }) => {
         dark: "bg-white-600 font-gray-300",
     };
 
+    
+
     return (
         <div className="h-full">
             <Head>
@@ -525,11 +528,11 @@ const Tracks = ({ }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <ToastContainer toastClassName={({ type }) => contextClass[type || "default"] +
+            {/* <ToastContainer toastClassName={({ type }) => contextClass[type || "default"] +
                 "bg-transparent"
             }
                 bodyClassName={() => "w-[60%] md:w-[80%] mt-[55%] md:mt-[60%] ml-2 rounded-lg text-lg text-black font-extrabold block p-3 text-sm bg-white"}
-            />
+            /> */}
             <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full h-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
@@ -588,7 +591,8 @@ const Tracks = ({ }) => {
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                             {tracks && Object.keys(tracks).slice(0, 15).map((track) => (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
-                                    <TrackPreview track={tracks[track]} />
+                                    <span id="element-of-preview"><TrackPreview  track={tracks[track]} /></span>
+                                    
                                 </Link>
                             ))}
                         </div>
