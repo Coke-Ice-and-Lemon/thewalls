@@ -14,7 +14,7 @@ import { db } from "../firebase";
 import Compact from "@uiw/react-color-compact";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-// import '../styles/tutorialstyle.css'; 
+import Avatar from "boring-avatars";
 
 const backgrounds = [
     {
@@ -179,8 +179,8 @@ const Tracks = ({ }) => {
     const handleItemClick = (bg) => {
         setSelectedBackground(bg);
     };
- 
-    
+
+
 
     const handleColorChange = (updatedColor) => {
         setcolor(updatedColor.hex);
@@ -192,29 +192,35 @@ const Tracks = ({ }) => {
     };
 
     useEffect(() => {
-    const hasCompletedTutorial = localStorage.getItem('hasCompletedTutorial');
+        const hasCompletedTutorial = localStorage.getItem('hasCompletedthewallsTutorial');
 
-    if (!hasCompletedTutorial) {
-      const driverObj = driver({
-        popoverClass:'driverjs-theme',
-        showProgress: true,
-        showButtons: ['close', 'next'],
-        stagePadding: 7.5,
-        steps: [
-          { element: '#element-of-magic', popover: { title: 'Custom Backgrounds', description: 'Upload backgrounds of your choice, Have Fun !!', side: "top", align: 'start' }},
-          { element: '#element-of-colour', popover: { title: 'Custom Color Backgrounds', description: 'Choose Colourful backgrounds of your choice !!', side: "left", align: 'start' }},
-          { element: '#element-of-preview', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to the track preview', side: "left", align: 'start' }},
-        ]
-      });
-      driverObj.drive();
-      localStorage.setItem('hasCompletedTutorial', 'true');
-    }
-  }, []);
+        if (!hasCompletedTutorial) {
+            const driverObj = driver({
+                popoverClass: 'driverjs-theme',
+                showProgress: true,
+                showButtons: ['close', 'next','previous'],
+                stagePadding: 7.5,
+                steps: [
+                    { element: '#element-of-magic', popover: { title: 'custom backgrounds', description: 'upload your images to use as the background. go crazy, have fun.', side: "top", align: 'start' } },
+
+                    { element: '#element-of-colour', popover: { title: 'solid color backgrounds', description: 'sometimes subtle is nice. choose your favourite color as the background.', side: "left", align: 'start' } },
+                    
+                    { element: '#element-of-toggle', popover: { title: 'toggle text color ', description: 'click on the button to toggle the text color based on how you like it.', side: "left", align: 'start' } },
+
+                    { element: '#element-of-preview', popover: { title: 'preview your top tracks', description: 'hold the album cover to listen to the track preview', side: "left", align: 'start' } },
+
+                    
+                ]
+            });
+            driverObj.drive();
+            localStorage.setItem('hasCompletedthewallsTutorial', 'true');
+        }
+    }, []);
 
     const Gradients = () => {
         return (<>
             <div className='w-full flex justify-center'>
-                <ul  data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     <>
                         <li id="element-of-magic" className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
@@ -365,6 +371,7 @@ const Tracks = ({ }) => {
             console.error("Error incrementing share count:", error);
         }
     };
+    
     const handleShare = async () => {
         incrementShareCount();
         const container = document.getElementById("my-container");
@@ -412,21 +419,21 @@ const Tracks = ({ }) => {
     const handleUpload = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
-    
+
         reader.onload = () => {
             const imageUrl = reader.result;
-    
+
             // Create an Image element
             const img = document.createElement('img');
             img.src = imageUrl;
-    
+
             img.onload = () => {
                 // Get the dominant color
                 const dominantColor = getDominantColor(img);
-    
+
                 // Use your lightOrDark function to determine the theme
                 const theme = lightOrDark(dominantColor);
-    
+
                 // Update your state or perform other actions based on the theme
                 setSelectedBackground({
                     ...selectedBackground,
@@ -440,50 +447,50 @@ const Tracks = ({ }) => {
                 });
             };
         };
-    
+
         reader.readAsDataURL(file);
     };
-    
+
     // Function to get the dominant color from an image
     function getDominantColor(img) {
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
-    
+
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, img.width, img.height);
-    
+
         // Get image data
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    
+
         // Calculate the average color
         let totalR = 0,
             totalG = 0,
             totalB = 0;
-    
+
         for (let i = 0; i < imageData.length; i += 4) {
             totalR += imageData[i];
             totalG += imageData[i + 1];
             totalB += imageData[i + 2];
         }
-    
+
         const averageR = Math.round(totalR / (imageData.length / 4));
         const averageG = Math.round(totalG / (imageData.length / 4));
         const averageB = Math.round(totalB / (imageData.length / 4));
-    
+
         // Convert to hex format
         const dominantColor = rgbToHex(averageR, averageG, averageB);
-    
+
         return dominantColor;
     }
-    
+
     // Function to convert RGB to hex format
     function rgbToHex(r, g, b) {
         const componentToHex = (c) => {
             const hex = c.toString(16);
             return hex.length === 1 ? '0' + hex : hex;
         };
-    
+
         return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
     }
 
@@ -524,7 +531,7 @@ const Tracks = ({ }) => {
         dark: "bg-white-600 font-gray-300",
     };
 
-    
+
 
     return (
         <div className="h-full">
@@ -556,7 +563,7 @@ const Tracks = ({ }) => {
                             router.push('/tracks?time_range=long_term')
                         }}>All Time</div>
                     </li>
-                    <li className="mr-2 flex flex-row items-center justify-center">
+                    <li id='element-of-toggle' className="mr-2 flex flex-row items-center justify-center">
                         <div className={`cursor-pointer`} onClick={() => {
                             setSelectedBackground({
                                 ...selectedBackground,
@@ -580,13 +587,16 @@ const Tracks = ({ }) => {
                                 alignItems: "center",
                                 justifyContent: "center",
                                 height: "fit-content",
-                            }} className='py-5'>
+                            }} className=''>
                                 {users && (
                                     <>
-                                        {users.images && users.images.length > 0 && <div className='w-14 h-35 md:w-20'>
-                                            <Image priority={true} layout="responsive"
-                                                height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
-                                        </div>}
+                                        {users.images && users.images.length > 0
+                                            &&
+                                            <div className='w-14 h-35 md:w-20 py-5'>
+                                                <Image priority={true} layout="responsive"
+                                                    height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
+                                            </div>
+                                        }
                                         <div className='flex flex-col justify-center items-center mt-2'>
                                             <p className={`text-lg lowercase font-bold md:text-2xl ${selectedBackground.theme == 'light' && "text-black"}`}>{users ? (`${users.display_name}'s wall`) : 'Loading...'}</p>
                                         </div>
@@ -597,8 +607,8 @@ const Tracks = ({ }) => {
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                             {tracks && Object.keys(tracks).slice(0, 15).map((track) => (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
-                                    <span id="element-of-preview"><TrackPreview  track={tracks[track]} /></span>
-                                    
+                                    <span id="element-of-preview"><TrackPreview track={tracks[track]} /></span>
+
                                 </Link>
                             ))}
                         </div>
