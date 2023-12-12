@@ -92,7 +92,6 @@ const AboutUs = () => {
               <p className="text-grey-300 text-sm">
                 Beyond design, my life is punctuated by the electrifying and soulful energy of rock music
                 which often serve as a wellspring of inspiration for my creative work.</p>
-              <p className="text-grey-300 text-sm mt-2">Just as music pulses with passion and raw emotion, I channel that same intensity into every design project.</p>
               <p className="text-grey-300 text-sm mb-5">
                 My design philosophy is a harmonious fusion of artistic creativity and the rebellious spirit of rock n roll!</p>
                 <iframe style={{
