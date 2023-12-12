@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import '@/styles/globals.css'
+import '@/styles/tutorialstyle.css'
 import { SessionProvider } from "next-auth/react"
 import { Space_Grotesk } from 'next/font/google'
 import Head from 'next/head'

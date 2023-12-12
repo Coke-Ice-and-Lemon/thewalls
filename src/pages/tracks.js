@@ -14,6 +14,7 @@ import { db } from "../firebase";
 import Compact from "@uiw/react-color-compact";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+// import '../styles/tutorialstyle.css'; 
 
 const backgrounds = [
     {
@@ -190,20 +191,25 @@ const Tracks = ({ }) => {
         });
     };
 
-    //Tooltip driverjs function tour guide
     useEffect(() => {
-        const driverObj = driver({
-            showProgress: true,
-            showButtons:['close','next'],
-            stagePadding: 7.5,
-            steps: [
-              { element: '#element-of-magic', popover: { title: 'Custom Backgrounds', description: 'Upload backgrounds of your choice, Have Fun !!', side: "top", align: 'start' }},
-              { element: '#element-of-colour', popover: { title: 'Custom Color Backgrounds', description: 'Choose Colourful backgrounds of your choice !!', side: "left", align: 'start' }},
-              { element: '#element-of-preview', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to the track preview', side: "left", align: 'start' }},
-            ]
-          });
-          driverObj.drive();
-      },[]);
+    const hasCompletedTutorial = localStorage.getItem('hasCompletedTutorial');
+
+    if (!hasCompletedTutorial) {
+      const driverObj = driver({
+        popoverClass:'driverjs-theme',
+        showProgress: true,
+        showButtons: ['close', 'next'],
+        stagePadding: 7.5,
+        steps: [
+          { element: '#element-of-magic', popover: { title: 'Custom Backgrounds', description: 'Upload backgrounds of your choice, Have Fun !!', side: "top", align: 'start' }},
+          { element: '#element-of-colour', popover: { title: 'Custom Color Backgrounds', description: 'Choose Colourful backgrounds of your choice !!', side: "left", align: 'start' }},
+          { element: '#element-of-preview', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to the track preview', side: "left", align: 'start' }},
+        ]
+      });
+      driverObj.drive();
+      localStorage.setItem('hasCompletedTutorial', 'true');
+    }
+  }, []);
 
     const Gradients = () => {
         return (<>
