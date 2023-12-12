@@ -1,4 +1,7 @@
 import Spinner from "@/components/Spinner";
+import Compact from "@uiw/react-color-compact";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 import { saveAs } from "file-saver";
 import html2canvas from "html2canvas";
 import { useSession } from "next-auth/react";
@@ -7,14 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
 import { db } from "../firebase";
-import Compact from "@uiw/react-color-compact";
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
-import Avatar from "boring-avatars";
 
 const backgrounds = [
     {
