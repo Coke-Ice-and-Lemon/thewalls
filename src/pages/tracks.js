@@ -44,6 +44,47 @@ const backgrounds = [
 
     },
     {
+        backgroundImage: `url("/pika-5.png")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/pika-5-preview.png",
+        theme: "light",
+        backgroundPosition: "center"
+
+    },
+    {
+        backgroundImage: `url("/pika-8.png")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/pika-8-preview.png",
+        theme: "dark",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/ishan-awasthi.jpg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/ishan-awasthi-preview.jpg",
+        theme: "dark",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/jello.jpg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/jello-preview.jpg",
+        theme: "dark",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/dhoop.jpg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        path: "/dhoop-preview.jpg",
+        theme: "dark",
+        backgroundPosition: "center"
+    },
+    {
         backgroundImage: `url("/rainbow-vortex.svg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -53,15 +94,15 @@ const backgrounds = [
 
     },
     //DEBATABLE 
-    {
-        backgroundImage: `url("/sun-tornado_2.svg")`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        path: "/sun-tornado_2.svg",
-        theme: "dark",
-        backgroundPosition: "center"
+    // {
+    //     backgroundImage: `url("/sun-tornado_2.svg")`,
+    //     backgroundRepeat: "no-repeat",
+    //     backgroundSize: "cover",
+    //     path: "/sun-tornado_2.svg",
+    //     theme: "dark",
+    //     backgroundPosition: "center"
 
-    },
+    // },
     {
         backgroundImage: `url("/big wavy peak zoomed.svg")`,
         path: '/orange_wavy_preview.png',
@@ -585,12 +626,12 @@ const Tracks = ({ }) => {
                                 alignItems: "center",
                                 justifyContent: "center",
                                 height: "fit-content",
-                            }} className=''>
+                            }} className='py-5'>
                                 {users && (
                                     <>
                                         {users.images && users.images.length > 0
                                             &&
-                                            <div className='w-14 h-35 md:w-20 py-5'>
+                                            <div className='w-14 h-35 md:w-20'>
                                                 <Image priority={true} layout="responsive"
                                                     height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                                             </div>
