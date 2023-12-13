@@ -295,7 +295,7 @@ const Tracks = ({ }) => {
 
                     {backgrounds.map((bg, index) => (<>
                         <li className="mr-2 flex-shrink-0" key={index}>
-                            <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
+                            <Image loading="eager" alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
                         </li>
                     </>
                     ))}
@@ -640,7 +640,7 @@ const Tracks = ({ }) => {
                                         {users.images && users.images.length > 0
                                             &&
                                             <div className='w-14 h-35 md:w-20'>
-                                                <Image priority={true} layout="responsive"
+                                                <Image loading="eager" priority={true} layout="responsive"
                                                     height={200} width={200} src={users.images[users.images.length - 1].url} alt="Profile phot" className="mx-auto rounded-full dark:bg-gray-500 aspect-square shadow-md" />
                                             </div>
                                         }
@@ -662,7 +662,7 @@ const Tracks = ({ }) => {
                         <div className="w-full flex flex-col justify-center items-center my-4" >
                             <p className={`mb-0 font-semibold italic ${selectedBackground.theme == 'light' && "text-black"}`} >thewalls.vercel.app</p>
                             <div className="mb-1 mt-4 w-20 h-5 md:w-40 md:h-10">
-                                <Image alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
+                                <Image loading="eager" alt='spotify logo' layout="responsive" src={selectedBackground.theme == 'light' ? `/spotify_logo_dark.png` : `/spotify_logo.png`} width={100} height={10} />
                             </div>
                         </div>
                     </div>
