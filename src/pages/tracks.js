@@ -237,15 +237,15 @@ const Tracks = ({ }) => {
             const driverObj = driver({
                 popoverClass: 'driverjs-theme',
                 showProgress: true,
-                showButtons: ['close', 'next','previous'],
+                showButtons: ['close', 'next', 'previous'],
                 stagePadding: 7.5,
                 steps: [
                     { element: '#element-of-magic', popover: { title: 'choose your backgrounds', description: 'upload your own images/ choose a solid color or just use one our backgrounds.', side: "top", align: 'start' } },
-                    
+
                     { element: '#element-of-preview', popover: { title: 'preview your top tracks', description: 'hold the album cover to listen to the track preview', side: "left", align: 'start' } },
-                    
+
                     { element: '#element-of-share', popover: { title: 'download & share', description: "let everyone know what you're listening to", side: "left", align: 'start' } },
-                    
+
                 ]
             });
             driverObj.drive();
@@ -258,7 +258,7 @@ const Tracks = ({ }) => {
             <div className='w-full flex justify-center'>
                 <ul id="element-of-magic" data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     <>
-                        <li  className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                        <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
@@ -407,7 +407,7 @@ const Tracks = ({ }) => {
             console.error("Error incrementing share count:", error);
         }
     };
-    
+
     const handleShare = async () => {
         incrementShareCount();
         const container = document.getElementById("my-container");
@@ -545,7 +545,18 @@ const Tracks = ({ }) => {
                     useCORS: true
                 }).then(canvas => {
                     const id = Date.now();
-                    canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
+                    canvas.toBlob(blob => {
+                        const wallImage = new File(
+                            [blob],
+                            `the_wall_${id}.jpg`,
+                            {
+                                type: "image/jpeg",
+                                lastModified: new Date().getTime()
+                            }
+                        )
+                        saveAs(wallImage)
+                    });
+
                 });
             } else {
                 setDownloadProgress(prev => prev + 1);
