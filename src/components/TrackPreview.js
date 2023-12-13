@@ -128,9 +128,9 @@ const TrackPreview = ({ track }) => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchMove={(e) => e.preventDefault()}>
-            <Image loading="eager" id="element-of-mystery" className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
+            <Image loading="eager" id="element-of-mystery" unoptimized className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
-            <audio loop={false} ref={audioRef}></audio>
+            <audio data-html2canvas-ignore="true" loop={false} ref={audioRef}></audio>
         </div>
 
     );
