@@ -240,14 +240,11 @@ const Tracks = ({ }) => {
                 showButtons: ['close', 'next','previous'],
                 stagePadding: 7.5,
                 steps: [
-                    { element: '#element-of-magic', popover: { title: 'custom backgrounds', description: 'upload your images to use as the background. go crazy, have fun.', side: "top", align: 'start' } },
-
-                    { element: '#element-of-colour', popover: { title: 'solid color backgrounds', description: 'sometimes subtle is nice. choose your favourite color as the background.', side: "left", align: 'start' } },
+                    { element: '#element-of-magic', popover: { title: 'choose your backgrounds', description: 'upload your own images/ choose a solid color or just use one our backgrounds.', side: "top", align: 'start' } },
                     
-                    { element: '#element-of-toggle', popover: { title: 'toggle text color ', description: 'click on the button to toggle the text color based on how you like it.', side: "left", align: 'start' } },
-
                     { element: '#element-of-preview', popover: { title: 'preview your top tracks', description: 'hold the album cover to listen to the track preview', side: "left", align: 'start' } },
-
+                    
+                    { element: '#element-of-share', popover: { title: 'download & share', description: "let everyone know what you're listening to", side: "left", align: 'start' } },
                     
                 ]
             });
@@ -259,9 +256,9 @@ const Tracks = ({ }) => {
     const Gradients = () => {
         return (<>
             <div className='w-full flex justify-center'>
-                <ul data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                <ul id="element-of-magic" data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     <>
-                        <li id="element-of-magic" className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                        <li  className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
@@ -659,7 +656,7 @@ const Tracks = ({ }) => {
                         </div>
                     </div>
                 )}
-                <div className='flex flex-row mt-10' data-html2canvas-ignore="true">
+                <div id='element-of-share' className='flex flex-row mt-10' data-html2canvas-ignore="true">
                     <button
                         onClick={() => {
                             handleDownload()
