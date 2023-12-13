@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
-import { db } from "../firebase";
 
 const backgrounds = [
     {
@@ -369,47 +368,8 @@ const Tracks = ({ }) => {
             timer = setTimeout(() => { func.apply(this, args); }, timeout);
         };
     }
-    const shareclickCountRef = db.collection('share_clicks').doc('clickCount');
-    const incrementShareCount = async () => {
-        try {
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(shareclickCountRef);
-
-                if (!doc.exists) {
-                    transaction.set(shareclickCountRef, { share_count: 1 });
-                } else {
-                    const newCount = doc.data().share_count + 1;
-                    transaction.update(shareclickCountRef, { share_count: newCount });
-                }
-            });
-
-            console.log("Share count incremented successfully!");
-        } catch (error) {
-            console.error("Error incrementing share count:", error);
-        }
-    };
-    const downloadclickCountRef = db.collection('download_clicks').doc('clickCount');
-    const incrementDownloadCount = async () => {
-        try {
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(downloadclickCountRef);
-
-                if (!doc.exists) {
-                    transaction.set(downloadclickCountRef, { download_count: 1 });
-                } else {
-                    const newCount = doc.data().download_count + 1;
-                    transaction.update(downloadclickCountRef, { download_count: newCount });
-                }
-            });
-
-            console.log("Share count incremented successfully!");
-        } catch (error) {
-            console.error("Error incrementing share count:", error);
-        }
-    };
 
     const handleShare = async () => {
-        incrementShareCount();
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
@@ -531,7 +491,6 @@ const Tracks = ({ }) => {
     }
 
     const handleDownload = debounce(() => {
-        incrementDownloadCount();
         const container = document.getElementById("my-container");
         const totalSteps = 100;
         let currentStep = 0;
@@ -568,16 +527,6 @@ const Tracks = ({ }) => {
             setDownloadProgress(0);
         }, totalSteps * 70);
     }, 3000);
-
-    const contextClass = {
-        success: "bg-blue-600",
-        error: "bg-red-600",
-        info: "bg-gray-600",
-        warning: "bg-orange-400",
-        default: "bg-indigo-600",
-        dark: "bg-white-600 font-gray-300",
-    };
-
 
 
     return (
