@@ -21,7 +21,7 @@ const AboutUs = () => {
                   </Link>
                 </div>
               </div>
-              <p className="text-grey-300 text-xs italic">nocturnal developer</p>
+              <p className="text-grey-300 text-xs italic">developer (clicks keys)</p>
               <p className="text-grey-300 text-sm mt-2 mb-5">find me jamming to the beatles and the smiths in my room at 3 am; my alternate personality will be dancing on the bar to honey singh at your father&#39;s wedding</p>
               <iframe style={{
                 borderRadius:"12px"
@@ -110,7 +110,7 @@ const AboutUs = () => {
                   </Link>
                 </div>
               </div>
-              <p className="text-grey-300 text-xs italic">annoingly picky UX engineer</p>
+              <p className="text-grey-300 text-xs italic">annoyingly picky UX engineer</p>
               <p className="text-grey-300 text-sm mt-2">an interaction design student and a ux geek who has an iced coffee in her hands at all times.</p>
               <p className="text-grey-300 text-sm">
                 im into art, poetry, reading and all that creative jazz which reminds me that I also love jazz, rock, indie, r&b and hiphop and elevator music because im weird like that.</p>
