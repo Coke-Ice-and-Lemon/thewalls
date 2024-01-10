@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -48,7 +48,10 @@ const Navbar = () => {
                             ) : (<li className="nav-item">
                                 <Link
                                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-[#fffded] hover:opacity-75 hover:underline"
-                                    href="/" onClick={() => setNavbarOpen(false)}
+                                    href="/" onClick={() => {
+                                        signIn('spotify', { callbackUrl: "/explore" })
+                                        setNavbarOpen(false)
+                                    }}
                                 >
                                     <span className="ml-2">Login</span>
                                 </Link>
@@ -69,8 +72,8 @@ const Navbar = () => {
                                     <span className="ml-2">Privacy Policy</span>
                                 </Link>
                             </li>
-                            {session ?(<>
-                                    <li className="nav-item">
+                            {session ? (<>
+                                <li className="nav-item">
                                     <Link
                                         className="px-3 py-2 h-full flex items-center text-xs uppercase font-bold leading-snug text-[#fffded] hover:opacity-75 hover:underline"
                                         href='/' onClick={() => {
@@ -81,7 +84,7 @@ const Navbar = () => {
                                     >
                                         <span className="ml-2">Logout</span>
                                     </Link>
-                                </li></>):<></>}
+                                </li></>) : <></>}
                         </ul>
                     </div>
                 </div>

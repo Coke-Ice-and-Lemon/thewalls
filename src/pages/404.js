@@ -7,7 +7,7 @@ const PageNotFound = () => {
             <h2 className='text-2xl font-bold'>it looks like you&#39;re lost</h2>
             <div className="flex flex-row mt-5 mb-3 w-full justify-center items-center">
                 <h3 className="text-9xl">4</h3>
-                <Image src="/vinyl.png" className="animate-spin-slow w-44 h-44" width={225} height={225} />
+                <Image src="/vinyl.png" className="animate-spin-slow w-44 h-44" width={225} height={225} alt="spinning vinyl on the walls" />
                 <h3 className="text-9xl">4</h3>
             </div>
             <h4 className="text-3xl font-bold">PAGE NOT FOUND</h4>
