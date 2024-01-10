@@ -1,3 +1,6 @@
+
+![the walls banner](https://github.com/cokelemonice/thewalls/assets/58532371/277b9b54-f897-49dc-8391-863325bccb48)
+
 ## 🚀 **Getting Started with the walls**
 
 Welcome to the walls! This guide will walk you through the steps to get started with the walls project.
