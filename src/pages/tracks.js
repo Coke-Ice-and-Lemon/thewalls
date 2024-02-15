@@ -258,7 +258,7 @@ const Tracks = ({ }) => {
             <div className='w-full flex justify-center'>
                 <ul id="element-of-magic" data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
                     <>
-                        <li  className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                        <li  className="bg-black rounded-full px-2.5  border-2 border-white relative" key={"user"}>
                             <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
                                 +
                             </label>
@@ -307,7 +307,7 @@ const Tracks = ({ }) => {
     }
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=100`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=50`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }

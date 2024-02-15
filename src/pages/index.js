@@ -13,7 +13,7 @@ export default function Home() {
             Login with Spotify
           </p>
         </button>
-        <div class="w-[80%] md:w-max">
+        <div className="w-[80%] md:w-max">
           <p className='text-xs font-bold text-center italic'>ready to create your wall? get in.</p>
         </div>
       </div>
