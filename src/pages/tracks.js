@@ -306,7 +306,7 @@ const Tracks = ({ }) => {
     }
 
     async function getTopTracks(time) {
-        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=100`, {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${time}&limit=50`, {
             headers: {
                 Authorization: `Bearer ${session.accessToken}`
             }
