@@ -1,7 +1,5 @@
 import Image from "next/legacy/image";
 import React, { useEffect, useState, useRef } from 'react';
-// import { driver } from "driver.js";
-// import "driver.js/dist/driver.css";
 
 const TrackPreview = ({ track }) => {
 
@@ -24,67 +22,6 @@ const TrackPreview = ({ track }) => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     const driverObj = driver({
-    //         showProgress: false,
-    //         showButtons:['close'],
-    //         steps: [
-    //           { element: '#element-of-mystery', popover: { title: 'Preview Your Top Tracks', description: 'Hold the album cover to listen to track preview', side: "left", align: 'start' }},
-    //         ]
-    //       });
-    //       driverObj.drive();
-    //   }, []);
-
-
-
-    // const [isPlaying, setIsPlaying] = useState(false);
-    // const audioRef = React.createRef();
-    // const [isTouching, setIsTouching] = useState(false);
-
-    // const PlayPreview = () => {
-    //     if (!isPlaying && !isTouching) {
-    //         if (track.preview_url) {
-    //             audioRef.current.src = track.preview_url;
-    //             audioRef.current.play();
-    //             setIsPlaying(true);
-    //             console.log('playing');
-    //         }
-    //     } else {
-    //         StopPlaying();
-    //     }
-    // };
-
-    // const StopPlaying = () => {
-    //     if (isPlaying) {
-    //         audioRef.current.pause();
-    //         setIsPlaying(false);
-    //     }
-    // };
-
-    // const PlayTouchPreview = (e) => {
-    //     e.stopPropagation();
-    //     e.preventDefault();
-
-    //     // Check if audio is not already playing
-    //     if (!isPlaying && !isTouching) {
-    //         setIsTouching(true);
-
-    //         if (track.preview_url) {
-    //             audioRef.current.src = track.preview_url;
-    //             audioRef.current.play();
-    //             setIsPlaying(true);
-    //         }
-    //     } else {
-    //         StopPlaying();
-    //     }
-    // };
-
-    // const StopTouchPreview = () => {
-    //     if (isTouching) {
-    //         setIsTouching(false);
-    //         StopPlaying();
-    //     }
-    // };
     const [isPlaying, setIsPlaying] = useState(false);
     const [isTouching, setIsTouching] = useState(false);
     const audioRef = useRef();

@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import TrackPreview from '../components/TrackPreview';
-import { db } from "../firebase";
 
 const backgrounds = [
     {
@@ -21,10 +20,6 @@ const backgrounds = [
         theme: "dark",
         backgroundPosition: "center"
     },
-    // {
-    //     path: '/default_bg.svg',
-    //     theme: "dark"
-    // },
     {
         backgroundImage: `url("/hhholographic.webp")`,
         backgroundRepeat: "no-repeat",
@@ -219,8 +214,6 @@ const Tracks = ({ }) => {
         setSelectedBackground(bg);
     };
 
-
-
     const handleColorChange = (updatedColor) => {
         setcolor(updatedColor.hex);
         setSelectedBackground({
@@ -237,15 +230,15 @@ const Tracks = ({ }) => {
             const driverObj = driver({
                 popoverClass: 'driverjs-theme',
                 showProgress: true,
-                showButtons: ['close', 'next','previous'],
+                showButtons: ['close', 'next', 'previous'],
                 stagePadding: 7.5,
                 steps: [
                     { element: '#element-of-magic', popover: { title: 'choose your backgrounds', description: 'upload your own images/ choose a solid color or just use one our backgrounds.', side: "top", align: 'start' } },
-                    
+
                     { element: '#element-of-preview', popover: { title: 'preview your top tracks', description: 'hold the album cover to listen to the track preview', side: "left", align: 'start' } },
-                    
+
                     { element: '#element-of-share', popover: { title: 'download & share', description: "let everyone know what you're listening to", side: "left", align: 'start' } },
-                    
+
                 ]
             });
             driverObj.drive();
@@ -254,55 +247,55 @@ const Tracks = ({ }) => {
     }, []);
 
     const Gradients = () => {
-        return (<>
-            <div className='w-full flex justify-center'>
-                <ul id="element-of-magic" data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
-                    <>
-                        <li  className="bg-black rounded-full px-2.5  border-2 border-white relative" key={"user"}>
-                            <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
-                                +
-                            </label>
-                            <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
+        return (
+            <>
+                <div className='w-full flex justify-center'>
+                    <ul id="element-of-magic" data-html2canvas-ignore="true" className="px-10 flex items-start mb-8 space-x-3 overflow-y-hidden overflow-x-scroll no-scrollbar" >
+                        <>
+                            <li className="bg-black rounded-full px-2.5  border-2 border-white" key={"user"}>
+                                <label htmlFor="upload-button" className="text-center text-5xl font-light rounded-full cursor-pointer">
+                                    +
+                                </label>
+                                <input id="upload-button" htmlFor="upload-button" type="file" accept=".jpg, .png, .jpeg, .svg" style={{ display: "none" }} onChange={handleUpload} className={`p-0.5 rounded-full bg-white cursor-pointer h-12 w-12`} />
 
-                        </li>
-                        <li id='element-of-colour' className=" rounded-full px-2.5 border-2 border-white relative">
-                            <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
-                                {showcolorpicker ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={3} stroke="currentColor" className="w-7 h-10">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={2} stroke="currentColor" className="w-7 h-10">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
-                                    </svg>
-                                )
-                                }
-                            </button>
-                        </li>
-                        {showcolorpicker && (
-                            <div className="absolute mt-14 z-10">
-                                <Compact
-                                    color={color}
-                                    placement="Top"
-                                    onChange={handleColorChange}
-                                    style={{
-                                        boxShadow: 'rgb(0 0 0 / 15%) 0px 0px 0px 1px, rgb(0 0 0 / 15%) 0px 8px 16px',
-                                    }}
-                                />
-                            </div>
-                        )}
-                    </>
+                            </li>
+                            <li id='element-of-colour' className=" rounded-full px-2.5 border-2 border-white relative">
+                                <button onClick={() => setshowcolorpicker(showcolorpicker => !showcolorpicker)}>
+                                    {showcolorpicker ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={3} stroke="currentColor" className="w-7 h-10">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 20" strokeWidth={2} stroke="currentColor" className="w-7 h-10">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11.25l1.5 1.5.75-.75V8.758l2.276-.61a3 3 0 10-3.675-3.675l-.61 2.277H12l-.75.75 1.5 1.5M15 11.25l-8.47 8.47c-.34.34-.8.53-1.28.53s-.94.19-1.28.53l-.97.97-.75-.75.97-.97c.34-.34.53-.8.53-1.28s.19-.94.53-1.28L12.75 9M15 11.25L12.75 9" />
+                                        </svg>
+                                    )
+                                    }
+                                </button>
+                            </li>
+                            {showcolorpicker && (
+                                <div className="absolute mt-14 z-10">
+                                    <Compact
+                                        color={color}
+                                        placement="Top"
+                                        onChange={handleColorChange}
+                                        style={{
+                                            boxShadow: 'rgb(0 0 0 / 15%) 0px 0px 0px 1px, rgb(0 0 0 / 15%) 0px 8px 16px',
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </>
 
-                    {backgrounds.map((bg, index) => (<>
-                        <li className="mr-2 flex-shrink-0" key={index}>
-                            <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
-                        </li>
-                    </>
-                    ))}
-                </ul>
-            </div>
-
-        </>
+                        {backgrounds.map((bg, index) => (<>
+                            <li className="mr-2 flex-shrink-0" key={index}>
+                                <Image alt='Bg preview Image' className={`p-0.5 rounded-full bg-white cursor-pointer`} src={bg.path} width={50} height={50} onClick={() => handleItemClick(bg)} />
+                            </li>
+                        </>
+                        ))}
+                    </ul>
+                </div>
+            </>
         )
     }
 
@@ -325,7 +318,6 @@ const Tracks = ({ }) => {
                 }
             })
         }
-        // console.log("user tracks data", finalAlbumsObject)
         return finalAlbumsObject
     }
 
@@ -369,47 +361,8 @@ const Tracks = ({ }) => {
             timer = setTimeout(() => { func.apply(this, args); }, timeout);
         };
     }
-    const shareclickCountRef = db.collection('share_clicks').doc('clickCount');
-    const incrementShareCount = async () => {
-        try {
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(shareclickCountRef);
 
-                if (!doc.exists) {
-                    transaction.set(shareclickCountRef, { share_count: 1 });
-                } else {
-                    const newCount = doc.data().share_count + 1;
-                    transaction.update(shareclickCountRef, { share_count: newCount });
-                }
-            });
-
-            console.log("Share count incremented successfully!");
-        } catch (error) {
-            console.error("Error incrementing share count:", error);
-        }
-    };
-    const downloadclickCountRef = db.collection('download_clicks').doc('clickCount');
-    const incrementDownloadCount = async () => {
-        try {
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(downloadclickCountRef);
-
-                if (!doc.exists) {
-                    transaction.set(downloadclickCountRef, { download_count: 1 });
-                } else {
-                    const newCount = doc.data().download_count + 1;
-                    transaction.update(downloadclickCountRef, { download_count: newCount });
-                }
-            });
-
-            console.log("Share count incremented successfully!");
-        } catch (error) {
-            console.error("Error incrementing share count:", error);
-        }
-    };
-    
     const handleShare = async () => {
-        incrementShareCount();
         const container = document.getElementById("my-container");
         html2canvas(container, {
             imageTimeout: 50000,
@@ -531,7 +484,6 @@ const Tracks = ({ }) => {
     }
 
     const handleDownload = debounce(() => {
-        incrementDownloadCount();
         const container = document.getElementById("my-container");
         const totalSteps = 100;
         let currentStep = 0;
@@ -545,7 +497,18 @@ const Tracks = ({ }) => {
                     useCORS: true
                 }).then(canvas => {
                     const id = Date.now();
-                    canvas.toBlob(blob => saveAs(blob, `the_wall_${id}.png`));
+                    canvas.toBlob(blob => {
+                        const wallImage = new File(
+                            [blob],
+                            `the_wall_${id}.jpg`,
+                            {
+                                type: "image/jpeg",
+                                lastModified: new Date().getTime()
+                            }
+                        )
+                        saveAs(wallImage)
+                    });
+
                 });
             } else {
                 setDownloadProgress(prev => prev + 1);
@@ -557,17 +520,6 @@ const Tracks = ({ }) => {
             setDownloadProgress(0);
         }, totalSteps * 70);
     }, 3000);
-
-    const contextClass = {
-        success: "bg-blue-600",
-        error: "bg-red-600",
-        info: "bg-gray-600",
-        warning: "bg-orange-400",
-        default: "bg-indigo-600",
-        dark: "bg-white-600 font-gray-300",
-    };
-
-
 
     return (
         <div className="h-full">

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <div className="w-full flex flex-col items-center h-screen justify-center">
-        <Image src="/idk258.svg" width={100} height={100} />
+        <Image src="/idk258.svg" width={100} height={100} alt="The walls" />
         <h1 className=' text-[#fffded] text-3xl font-bold'>THE WALLS</h1>
         <button className="text-[#fffded] px-5 py-2 rounded-lg bg-[#1DB954] font-bold text-lg flex flex-row items-center my-5" onClick={() => signIn('spotify', { callbackUrl: "/explore" })}>
           <Image src="/spotify.svg" alt='spotify_logo' width={20} height={20} />

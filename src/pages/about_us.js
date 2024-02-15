@@ -14,10 +14,10 @@ const AboutUs = () => {
                 <h2 className="text-lg font-semibold mr-2">harsh mathur</h2>
                 <div className="flex flex-row">
                   <Link href="https://twitter.com/harshwhere" target="_blank" className='mr-2'>
-                    <Image src="/icons8-twitter.svg" width={25} height={25} />
+                    <Image src="/icons8-twitter.svg" width={25} height={25} alt="Harsh Mathur" />
                   </Link>
                   <Link href="https://github.com/harshmathurx" target="_blank">
-                    <Image src="/icons8-github.svg" width={25} height={25} />
+                    <Image src="/icons8-github.svg" width={25} height={25} alt="Harsh Mathur" />
                   </Link>
                 </div>
               </div>
@@ -35,10 +35,10 @@ const AboutUs = () => {
                 <h2 className="text-lg font-semibold mr-2">poojan patel</h2>
                 <div className="flex flex-row">
                   <Link href="https://twitter.com/Poojan_bahaha" className='mr-2' target="_blank">
-                    <Image src="/icons8-twitter.svg" width={25} height={25} />
+                    <Image src="/icons8-twitter.svg" width={25} height={25} alt="Poojan Patel" />
                   </Link>
                   <Link href="https://github.com/Poojan-20" target="_blank">
-                    <Image src="/icons8-github.svg" width={25} height={25} />
+                    <Image src="/icons8-github.svg" width={25} height={25} alt="Poojan Patel" />
                   </Link>
                 </div>
               </div>
@@ -56,13 +56,13 @@ const AboutUs = () => {
                 <h2 className="text-lg font-semibold mr-2">satish panchal</h2>
                 <div className="flex flex-row">
                   <Link href="http://www.github.com/satisshhhhhh" target="_blank" className='mr-2'>
-                    <Image src="/icons8-github.svg" width={25} height={25} />
+                    <Image src="/icons8-github.svg" width={25} height={25} alt="Satish Panchal" />
                   </Link>
                   <Link href="https://www.linkedin.com/in/satish-panchal-26221b203/" target="_blank" className='mr-2'>
-                    <Image src="/icons8-linkedin.svg" width={25} height={25} />
+                    <Image src="/icons8-linkedin.svg" width={25} height={25} alt="Satish Panchal" />
                   </Link>
                   <Link href="https://www.instagram.com/satisshhhhhh/" target="_blank">
-                    <Image src="/icons8-instagram.svg" width={25} height={25} />
+                    <Image src="/icons8-instagram.svg" width={25} height={25} alt="Satish Panchal" />
                   </Link>
                 </div>
               </div>
@@ -80,10 +80,10 @@ const AboutUs = () => {
                 <h2 className="text-lg font-semibold mr-2">roshni</h2>
                 <div className="flex flex-row">
                   <Link href="https://www.behance.net/roshnisugeesh004" target="_blank">
-                    <Image src="/icons8-behance.svg" width={25} height={25} />
+                    <Image src="/icons8-behance.svg" width={25} height={25} alt="Roshni" />
                   </Link>
                   <Link href="https://www.instagram.com/_by_roshni/?next=%2F" target="_blank">
-                    <Image src="/icons8-instagram.svg" width={25} height={25} />
+                    <Image src="/icons8-instagram.svg" width={25} height={25} alt="Roshni" />
                   </Link>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const AboutUs = () => {
                 <h2 className="text-lg font-semibold mr-2">navya sharma</h2>
                 <div className="flex flex-row">
                   <Link href="https://www.linkedin.com/in/navya-sharma-880126207" target="_blank" className='mr-2'>
-                    <Image src="/icons8-linkedin.svg" width={25} height={25} />
+                    <Image src="/icons8-linkedin.svg" width={25} height={25} alt="Navya Sharma" />
                   </Link>
                 </div>
               </div>
