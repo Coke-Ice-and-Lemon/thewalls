@@ -156,6 +156,30 @@ const backgrounds = [
         backgroundSize: "cover",
         backgroundPosition: "center"
     },
+    {
+        backgroundImage: `url("/kala kapda.jpg")`,
+        path: '/kala_kapda_preview.jpg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/lal kapda.jpg")`,
+        path: '/lal_kapda_preview.jpg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
+    {
+        backgroundImage: `url("/sand.jpg")`,
+        path: '/sand_preview.jpg',
+        theme: "dark",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
 ]
 
 const Tracks = ({ }) => {
