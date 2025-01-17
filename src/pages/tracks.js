@@ -184,7 +184,7 @@ const backgrounds = [
 ]
 
 const Tracks = ({ }) => {
-    const [tracks, setTracks] = useState();
+    const [topItems, setTopItems] = useState();
     const [users, setUsers] = useState(null)
     const [downloadProgress, setDownloadProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -194,6 +194,7 @@ const Tracks = ({ }) => {
         path: "/tortoise-shell.svg",
         theme: "dark"
     })
+    const [topOption, setTopOption] = useState("tracks")
     const router = useRouter()
     const time_range = router.query.time_range
     const [timeRange, setTimeRange] = useState(time_range);
@@ -346,6 +347,29 @@ const Tracks = ({ }) => {
         return finalAlbumsObject
     }
 
+    async function getTopArtists(time) {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/artists?time_range=${time}&limit=50`, {
+            headers: {
+                Authorization: `Bearer ${session.accessToken}`
+            }
+        })
+        const data = await response.json()
+        let finalAlbumsObject = {};
+        if (data.items) {
+            console.log(data.items)
+            data.items.map((item) => {
+                if (item?.images && item?.images[0]) {
+                    finalAlbumsObject[item?.id] = {
+                        image: item?.images[0]?.url,
+                        href: item?.external_urls?.spotify,
+                        preview_url: item?.preview_url
+                    }
+                }
+            })
+        }
+        return finalAlbumsObject
+    }
+
     async function getuserprofile() {
         const response = await fetch('https://api.spotify.com/v1/me', {
             headers: {
@@ -360,7 +384,12 @@ const Tracks = ({ }) => {
         setIsLoading(true)
         const f = async () => {
             if (session) {
-                setTracks(await getTopTracks(timeRange))
+                if (topOption == "tracks") {
+                    setTopItems(await getTopTracks(timeRange))
+                }
+                else {
+                    setTopItems(await getTopArtists(timeRange))
+                }
                 setUsers(await getuserprofile())
                 setIsLoading(false)
             }
@@ -371,7 +400,7 @@ const Tracks = ({ }) => {
             }
         }
         f();
-    }, [session, timeRange])
+    }, [session, timeRange, topOption])
 
     useEffect(() => {
         if (router.isReady) {
@@ -562,6 +591,22 @@ const Tracks = ({ }) => {
             <div style={selectedBackground} id='my-container' className="py-16 flex flex-col items-center justify-center w-full h-full">
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${topOption == "tracks" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
+                            if (topOption !== "tracks") {
+                                setTopOption("tracks")
+                            }
+                        }}>Top Tracks</div>
+                    </li>
+                    <li className="mr-2">
+                        <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${topOption == "artists" && " border-[1px] border-white-400"}`} onClick={() => {
+                            if (topOption !== "artists") {
+                                setTopOption("artists")
+                            }
+                        }}>Top Artists</div>
+                    </li>
+                </ul>
+                <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
+                    <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
                             router.push('/tracks?time_range=short_term')
                         }}>Last Month</div>
@@ -618,9 +663,9 @@ const Tracks = ({ }) => {
                             </div>
                         </div>
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
-                            {tracks && Object.keys(tracks).slice(0, 15).map((track) => (
-                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={tracks[track]?.href} target="_blank">
-                                    <span id="element-of-preview"><TrackPreview track={tracks[track]} /></span>
+                            {topItems && Object.keys(topItems).slice(0, 15).map((track) => (
+                                <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={topItems[track]?.href} target="_blank">
+                                    <span id="element-of-preview"><TrackPreview track={topItems[track]} /></span>
 
                                 </Link>
                             ))}
