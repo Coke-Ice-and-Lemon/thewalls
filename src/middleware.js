@@ -12,7 +12,7 @@ export async function middleware(req) {
     //     return NextResponse.next()
     // }
 
-    if (!token && pathname.includes("tracks")) {
+    if (!token && pathname.includes("top")) {
         return NextResponse.redirect(new URL('/', req.url))
     }
     return NextResponse.next()

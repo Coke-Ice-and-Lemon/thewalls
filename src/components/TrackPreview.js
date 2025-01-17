@@ -1,7 +1,7 @@
 import Image from "next/legacy/image";
 import React, { useEffect, useState, useRef } from 'react';
 
-const TrackPreview = ({ track }) => {
+const TrackPreview = ({ track, topOptionType }) => {
 
     useEffect(() => {
         // define a custom handler function
@@ -65,7 +65,7 @@ const TrackPreview = ({ track }) => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchMove={(e) => e.preventDefault()}>
-            <Image id="element-of-mystery" unoptimized priority={true} className="w-full" src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
+            <Image id="element-of-mystery" unoptimized priority={true} className={`w-full ${topOptionType == "artists" ? "rounded-full" : "rounded-sm"}`} src={track?.image} max-width={640} max-height={640} height={640} width={640} alt="Sunset in the mountains" layout="responsive"
                 position="relative" />
             <audio loop={false} ref={audioRef}></audio>
         </div>

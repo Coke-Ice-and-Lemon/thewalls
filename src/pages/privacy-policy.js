@@ -15,7 +15,7 @@ const Privacypolicy = () => {
         <p>
           None of the data used by the walls is stored or collected anywhere, and
           it is NOT shared with any third parties. All information is used solely
-          for displaying your Top Tracks .
+          for displaying your Top Tracks and Artists.
         </p>
         <br />
         <p>

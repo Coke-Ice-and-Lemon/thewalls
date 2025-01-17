@@ -608,17 +608,17 @@ const Tracks = ({ }) => {
                 <ul data-html2canvas-ignore="true" className="flex flex-wrap text-xs sm:font-medium text-center mb-5 justify-center mt-5">
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "short_term" && " border-[1px] border-white-400"}`} aria-current="page" onClick={() => {
-                            router.push('/tracks?time_range=short_term')
+                            router.push('/top?time_range=short_term')
                         }}>Last Month</div>
                     </li>
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "medium_term" && " border-[1px] border-white-400"}`} onClick={() => {
-                            router.push('/tracks?time_range=medium_term')
+                            router.push('/top?time_range=medium_term')
                         }}>Last 6 Months</div>
                     </li>
                     <li className="mr-2">
                         <div className={`inline-block px-2 py-2 rounded-lg transition delay-300 backdrop-filter backdrop-blur-lg bg-opacity-60 shadow-xl cursor-pointer ${selectedBackground.theme == 'light' && "text-black"} ${timeRange == "long_term" && " border-[1px] border-white-400"}`} onClick={() => {
-                            router.push('/tracks?time_range=long_term')
+                            router.push('/top?time_range=long_term')
                         }}>All Time</div>
                     </li>
                     <li id='element-of-toggle' className="mr-2 flex flex-row items-center justify-center">
@@ -665,7 +665,7 @@ const Tracks = ({ }) => {
                         <div className='flex flex-row flex-wrap h-full w-full justify-center overflow-visible px-7'>
                             {topItems && Object.keys(topItems).slice(0, 15).map((track) => (
                                 <Link className="w-[25%] sm:w-[20%] lg:w-[15%] xl:w-[15%] 2xl-[15%] overflow-hidden m-1.5 hover:cursor-pointer" key={track} href={topItems[track]?.href} target="_blank">
-                                    <span id="element-of-preview"><TrackPreview track={topItems[track]} /></span>
+                                    <span id="element-of-preview"><TrackPreview topOptionType={topOption} track={topItems[track]} /></span>
 
                                 </Link>
                             ))}
