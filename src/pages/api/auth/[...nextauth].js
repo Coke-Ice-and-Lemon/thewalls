@@ -1,16 +1,23 @@
 import NextAuth from "next-auth"
 import SpotifyProvider from "next-auth/providers/spotify"
+import GoogleProvider from "next-auth/providers/google"
 import fetch from "node-fetch";
 
-const scopes = [
-    "user-top-read",
-].join(",")
+const spotifyScopes = ["user-top-read"].join(",")
+const ytMusicScopes = [
+  'https://www.googleapis.com/auth/youtube.readonly',
+  'https://www.googleapis.com/auth/youtube',
+  'openid',
+  'email',
+  'profile',
+  'https://www.googleapis.com/auth/youtube.force-ssl'
+].join(' ')
 
-const params = {
-    scope: scopes
+const spotifyParams = {
+    scope: spotifyScopes
 }
 
-const LOGIN_URL = "https://accounts.spotify.com/authorize?" + new URLSearchParams(params).toString();
+const LOGIN_URL = "https://accounts.spotify.com/authorize?" + new URLSearchParams(spotifyParams).toString();
 
 async function refreshAccessToken(token) {
     const params = new URLSearchParams()
@@ -40,6 +47,19 @@ export const authOptions = {
             clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
             authorization: LOGIN_URL
         }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    scope: ytMusicScopes,
+                    access_type: "offline",
+                    response_type: "code",
+                    prompt: "consent"
+                }
+            },
+            checks: ["pkce", "state"]
+        })
     ],
     secret: process.env.JWT_SECRET,
     pages: {
@@ -52,6 +72,7 @@ export const authOptions = {
                 token.accessToken = account.access_token
                 token.refreshToken = account.refresh_token
                 token.accessTokenExpires = account.expires_at
+                token.provider = account.provider
                 return token
             }
             // access token has not expired
@@ -62,9 +83,10 @@ export const authOptions = {
             // access token has expired
             return await refreshAccessToken(token)
         },
-        async session({ session, token, user }) {
+        async session({ session, token }) {
             // Send properties to the client, like an access_token from a provider.
             session.accessToken = token.accessToken
+            session.provider = token.provider
             return session
         }
     }

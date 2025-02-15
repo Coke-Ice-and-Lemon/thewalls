@@ -329,20 +329,82 @@ const Tracks = ({ }) => {
     }
 
     async function getuserprofile() {
-        const response = await fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                Authorization: `Bearer ${session.accessToken}`
+        if (session.provider === 'spotify') {
+            const response = await fetch('https://api.spotify.com/v1/me', {
+                headers: {
+                    Authorization: `Bearer ${session.accessToken}`
+                }
+            })
+            const data = await response.json()
+            return data
+        } else if (session.provider === 'google') {
+            const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${session.accessToken}`
+                }
+            })
+            const data = await response.json()
+            return {
+                display_name: data.name,
+                images: [{url: data.picture}]
             }
-        })
-        const data = await response.json()
-        return data
+        }
+        return null
+    }
+
+    async function getYouTubeMusicTracks(session) {
+        try {
+            // Get user's liked videos
+            const response = await fetch(
+                'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&myRating=like&maxResults=50',
+                {
+                    headers: {
+                        Authorization: `Bearer ${session.accessToken}`
+                    }
+                }
+            );
+            const data = await response.json();
+
+            // Format the response similar to Spotify's format
+            let finalAlbumsObject = {};
+            
+            if (data.items) {
+                // Filter for music content (you might want to adjust these criteria)
+                const musicVideos = data.items.filter(item => 
+                    item.snippet.categoryId === '10' || // Music category
+                    item.snippet.title.toLowerCase().includes('music') ||
+                    item.snippet.title.toLowerCase().includes('song') ||
+                    item.snippet.title.toLowerCase().includes('audio')
+                );
+
+                musicVideos.forEach((item) => {
+                    if (item?.snippet?.thumbnails?.high) {
+                        finalAlbumsObject[item.id] = {
+                            image: item.snippet.thumbnails.high.url,
+                            href: `https://www.youtube.com/watch?v=${item.id}`,
+                            title: item.snippet.title,
+                            preview_url: null
+                        }
+                    }
+                });
+            }
+            
+            return finalAlbumsObject;
+        } catch (error) {
+            console.error("Error fetching YouTube Music data:", error);
+            return {};
+        }
     }
 
     useEffect(() => {
         setIsLoading(true)
         const f = async () => {
             if (session) {
-                setTracks(await getTopTracks(timeRange))
+                if (session.provider === 'spotify') {
+                    setTracks(await getTopTracks(timeRange))
+                } else if (session.provider === 'google') {
+                    setTracks(await getYouTubeMusicTracks(session))
+                }
                 setUsers(await getuserprofile())
                 setIsLoading(false)
             }
