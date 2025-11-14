@@ -3,6 +3,11 @@ import SpotifyProvider from "next-auth/providers/spotify"
 import GoogleProvider from "next-auth/providers/google"
 import fetch from "node-fetch";
 
+// Fix for SSL certificate error on Windows
+if (process.env.NODE_ENV === 'development') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+
 const spotifyScopes = ["user-top-read"].join(",")
 const ytMusicScopes = [
   'https://www.googleapis.com/auth/youtube.readonly',
