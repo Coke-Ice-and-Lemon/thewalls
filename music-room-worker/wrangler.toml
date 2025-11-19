@@ -1,0 +1,9 @@
+name = "music-room-worker"
+main = "src/index.ts"
+compatibility_date = "2024-11-15"
+account_id = "60ab37483ac8baff58965cf43e093f41"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "music-rooms"
+database_id = "94cc95e9-4282-468f-926e-2d31dc5f42dc"

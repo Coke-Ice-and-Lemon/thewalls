@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { db } from '@/firebase';
 
-export default function YouTubePlayer({ videoId, roomId, isHost }) {
+export default function YouTubePlayer({ videoId, roomId, isHost, playbackState, onPlayerAction }) {
   const playerRef = useRef(null);
-  const playerContainerRef = useRef(null);
   const [isReady, setIsReady] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const syncIntervalRef = useRef(null);
-  const lastUpdateRef = useRef(0);
-  const isUpdatingRef = useRef(false);
   const currentVideoRef = useRef(videoId);
+  const lastActionRef = useRef({ state: null, time: 0 });
+  const lastSyncTimeRef = useRef(0);
+  const pausedTimeRef = useRef(0); // Store time when paused
 
   useEffect(() => {
-    // Load YouTube IFrame API
     const loadYouTubeAPI = () => {
       if (window.YT && window.YT.Player) {
         initializePlayer();
@@ -27,7 +25,7 @@ export default function YouTubePlayer({ videoId, roomId, isHost }) {
     };
 
     const initializePlayer = () => {
-      if (playerRef.current) return;
+      if (playerRef.current || !videoId) return;
 
       playerRef.current = new window.YT.Player('youtube-player', {
         videoId: videoId,
@@ -39,37 +37,51 @@ export default function YouTubePlayer({ videoId, roomId, isHost }) {
           enablejsapi: 1
         },
         events: {
-          onReady: (event) => {
+          onReady: () => {
             console.log('Player ready');
             setIsReady(true);
             currentVideoRef.current = videoId;
           },
           onStateChange: async (event) => {
-            if (!isHost || isUpdatingRef.current) return;
+            if (!isHost || !onPlayerAction) return;
 
             const state = event.data;
             const currentTime = playerRef.current?.getCurrentTime() || 0;
+            const now = Date.now();
 
-            let playerState = 'paused';
-            if (state === window.YT.PlayerState.PLAYING) {
-              playerState = 'playing';
-            } else if (state === window.YT.PlayerState.PAUSED) {
-              playerState = 'paused';
-            } else if (state === window.YT.PlayerState.ENDED) {
-              playerState = 'ended';
+            // Only handle PLAYING and PAUSED states
+            if (state !== window.YT.PlayerState.PLAYING && state !== window.YT.PlayerState.PAUSED) {
+              return;
             }
 
-            const now = Date.now();
-            if (now - lastUpdateRef.current < 500) return;
-            lastUpdateRef.current = now;
+            // Check if this is the same state we just sent (prevent duplicate sends)
+            if (lastActionRef.current.state === state && now - lastActionRef.current.time < 2000) {
+              console.log('[HOST] Skipping duplicate state:', state);
+              return;
+            }
+
+            // Debounce rapid state changes
+            if (now - lastSyncTimeRef.current < 500) {
+              console.log('[HOST] Debouncing rapid change');
+              return;
+            }
+
+            lastSyncTimeRef.current = now;
+            lastActionRef.current = { state, time: now };
 
             try {
-              await db.collection('musicRooms').doc(roomId).update({
-                playerState,
-                currentTime,
-                lastUpdate: Date.now()
-              });
-              console.log('Host updated:', playerState, currentTime);
+              if (state === window.YT.PlayerState.PLAYING) {
+                // Use paused time if we just unpaused, otherwise use current time
+                const timeToSend = pausedTimeRef.current > 0 ? pausedTimeRef.current : currentTime;
+                console.log('[HOST] Sending play action, time:', timeToSend, '(current:', currentTime, ', paused:', pausedTimeRef.current, ')');
+                await onPlayerAction('play', { currentTime: timeToSend });
+                pausedTimeRef.current = 0; // Reset after using
+              } else if (state === window.YT.PlayerState.PAUSED) {
+                // Store the current time when pausing
+                pausedTimeRef.current = currentTime;
+                console.log('[HOST] Sending pause action, storing time:', currentTime);
+                await onPlayerAction('pause');
+              }
             } catch (error) {
               console.error('Error updating player state:', error);
             }
@@ -78,14 +90,16 @@ export default function YouTubePlayer({ videoId, roomId, isHost }) {
       });
     };
 
-    loadYouTubeAPI();
+    if (videoId) {
+      loadYouTubeAPI();
+    }
 
     return () => {
       if (syncIntervalRef.current) {
         clearInterval(syncIntervalRef.current);
       }
     };
-  }, [isHost, roomId, videoId]);
+  }, [isHost, onPlayerAction, videoId]);
 
   // Handle video changes
   useEffect(() => {
@@ -96,82 +110,69 @@ export default function YouTubePlayer({ videoId, roomId, isHost }) {
     }
   }, [videoId, isReady]);
 
-  // Host: Periodic sync only when playing (like Discord)
+  // Sync playback state from room (VIEWERS ONLY)
   useEffect(() => {
-    if (isHost && isReady && playerRef.current) {
-      syncIntervalRef.current = setInterval(async () => {
-        if (playerRef.current && playerRef.current.getPlayerState && 
-            playerRef.current.getPlayerState() === window.YT.PlayerState.PLAYING) {
-          const currentTime = playerRef.current.getCurrentTime();
-          try {
-            // Only update if time has actually changed
-            await db.collection('musicRooms').doc(roomId).update({
-              currentTime,
-              lastUpdate: Date.now()
-            });
-          } catch (error) {
-            console.error('Error syncing time:', error);
-          }
+    // Host never syncs - they are the source of truth
+    if (isHost) return;
+    
+    if (!isReady || !playerRef.current || !playbackState) return;
+
+    const player = playerRef.current;
+
+    const syncPlayer = () => {
+      try {
+        const currentState = player.getPlayerState();
+        const currentTime = player.getCurrentTime() || 0;
+        const targetTime = playbackState.currentTime || 0;
+        
+        // Calculate the actual target time if video is playing
+        let adjustedTargetTime = targetTime;
+        if (playbackState.isPlaying && playbackState.timestamp) {
+          const elapsed = (Date.now() - playbackState.timestamp) / 1000;
+          adjustedTargetTime = targetTime + elapsed;
         }
-      }, 3000); // Update every 3 seconds only when playing
+        
+        console.log('[VIEWER] Sync - isPlaying:', playbackState.isPlaying, 'targetTime:', targetTime, 'adjusted:', adjustedTargetTime);
+        
+        const timeDiff = Math.abs(currentTime - adjustedTargetTime);
 
-      return () => {
-        if (syncIntervalRef.current) {
-          clearInterval(syncIntervalRef.current);
+        // Sync play/pause state FIRST
+        if (playbackState.isPlaying && currentState !== window.YT.PlayerState.PLAYING) {
+          console.log('[VIEWER] Playing video at time:', adjustedTargetTime);
+          setIsSyncing(true);
+          // Seek to correct time BEFORE playing
+          player.seekTo(adjustedTargetTime, true);
+          player.playVideo();
+          setTimeout(() => setIsSyncing(false), 500);
+        } else if (!playbackState.isPlaying && currentState === window.YT.PlayerState.PLAYING) {
+          console.log('[VIEWER] Pausing video at time:', adjustedTargetTime);
+          setIsSyncing(true);
+          player.pauseVideo();
+          setTimeout(() => setIsSyncing(false), 500);
+        } else if (playbackState.isPlaying && timeDiff > 2) {
+          // Only sync time if already playing and drift is significant
+          console.log('[VIEWER] Syncing time:', currentTime, '->', adjustedTargetTime);
+          player.seekTo(adjustedTargetTime, true);
         }
-      };
-    }
-  }, [isHost, isReady, roomId]);
+      } catch (error) {
+        console.error('Error syncing player:', error);
+      }
+    };
 
-  // Viewer: Listen to changes and sync (Discord-style)
-  useEffect(() => {
-    if (!isHost && isReady && playerRef.current) {
-      const unsubscribe = db.collection('musicRooms').doc(roomId)
-        .onSnapshot((doc) => {
-          if (doc.exists && playerRef.current && !isUpdatingRef.current) {
-            const data = doc.data();
-            const player = playerRef.current;
-
-            try {
-              const currentTime = player.getCurrentTime() || 0;
-              const targetTime = data.currentTime || 0;
-              const timeDiff = Math.abs(currentTime - targetTime);
-              const currentState = player.getPlayerState();
-
-              // Only sync if there's a significant difference (Discord-style)
-              if (timeDiff > 2) {
-                setIsSyncing(true);
-                player.seekTo(targetTime, true);
-                setTimeout(() => setIsSyncing(false), 1000);
-              }
-
-              // Sync play/pause state immediately
-              if (data.playerState === 'playing' && currentState !== window.YT.PlayerState.PLAYING) {
-                player.playVideo();
-              } else if (data.playerState === 'paused' && currentState === window.YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-              }
-            } catch (error) {
-              console.error('Error syncing player:', error);
-            }
-          }
-        });
-
-      return () => unsubscribe();
-    }
-  }, [isHost, isReady, roomId]);
+    syncPlayer();
+  }, [playbackState.isPlaying, playbackState.currentTime, playbackState.timestamp, isReady, isHost, playbackState]);
 
   return (
     <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
-      <div id="youtube-player" ref={playerContainerRef} className="w-full h-full"></div>
+      <div id="youtube-player" className="w-full h-full"></div>
       {!isHost && (
-        <div className="absolute top-2 right-2 bg-[#e94560] text-[#fffded] px-3 py-1 rounded-full text-xs font-bold">
-          {isSyncing ? 'Syncing...' : 'Viewer Mode'}
+        <div className="absolute top-2 right-2 bg-red-600 text-[#fffded] px-3 py-1 rounded-full text-xs font-bold">
+          {isSyncing ? '🔄 Syncing...' : '👁 Viewer'}
         </div>
       )}
       {isHost && (
-        <div className="absolute top-2 right-2 bg-[#1DB954] text-[#fffded] px-3 py-1 rounded-full text-xs font-bold">
-          Host Controls
+        <div className="absolute top-2 right-2 bg-green-600 text-[#fffded] px-3 py-1 rounded-full text-xs font-bold">
+          👑 Host
         </div>
       )}
     </div>
